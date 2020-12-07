@@ -1,4 +1,4 @@
-package com.power.bean;
+package com.power.bean.controller;
 
 public class LoginController_Bean {
 
