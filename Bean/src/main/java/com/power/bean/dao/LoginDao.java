@@ -1,5 +1,13 @@
 package com.power.bean.dao;
 
-public class LoginDao {
+import com.power.bean.dto.LoginDto;
 
+public interface LoginDao {
+	
+	String NAMESPACE = "login.";
+
+	public LoginDto login(LoginDto dto);
+	public int resister(LoginDto dto);
+	public boolean idChk(String id);
+	
 }
