@@ -24,3 +24,6 @@ CREATE TABLE MEMBER(
 	CONSTRAINT MEMBER_CK2 CHECK(MEMBER_WITHDRAWAL IN('Y','N'))
 );
 
+INSERT INTO MEMBER VALUES(MEMBER_SEQ.NEXTVAL, 'test123', '1111', '1111', 'zzarbbtoo', 'qodbwls70@naver.com', '111-1111-1111', '1111', 'test', 'test', '19971119','sa', 'ss', 'S', 'N','');
+SELECT * FROM MEMBER;
+
