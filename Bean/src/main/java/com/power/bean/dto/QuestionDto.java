@@ -2,6 +2,8 @@ package com.power.bean.dto;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class QuestionDto {
 	
 	private int questionboard_no;
@@ -17,6 +19,7 @@ public class QuestionDto {
 	private String questionboard_imgname;
 	private String questionboard_imgpath;
 	private String questionboard_ocr;
+	private MultipartFile question_mpfile;
 	
 	public QuestionDto() {
 	}
@@ -38,6 +41,28 @@ public class QuestionDto {
 		this.questionboard_imgname = questionboard_imgname;
 		this.questionboard_imgpath = questionboard_imgpath;
 		this.questionboard_ocr = questionboard_ocr;
+	}
+	
+
+	public QuestionDto(int questionboard_no, int member_no, String questionboard_name, String questionboard_title,
+			String questionboard_content, Date questionboard_date, int questionboard_readcount, int questionboard_step,
+			String questionboard_reply, int questionboard_groupno, String questionboard_imgname,
+			String questionboard_imgpath, String questionboard_ocr, MultipartFile question_mpfile) {
+		super();
+		this.questionboard_no = questionboard_no;
+		this.member_no = member_no;
+		this.questionboard_name = questionboard_name;
+		this.questionboard_title = questionboard_title;
+		this.questionboard_content = questionboard_content;
+		this.questionboard_date = questionboard_date;
+		this.questionboard_readcount = questionboard_readcount;
+		this.questionboard_step = questionboard_step;
+		this.questionboard_reply = questionboard_reply;
+		this.questionboard_groupno = questionboard_groupno;
+		this.questionboard_imgname = questionboard_imgname;
+		this.questionboard_imgpath = questionboard_imgpath;
+		this.questionboard_ocr = questionboard_ocr;
+		this.question_mpfile = question_mpfile;
 	}
 
 	public int getQuestionboard_no() {
@@ -142,6 +167,14 @@ public class QuestionDto {
 
 	public void setQuestionboard_ocr(String questionboard_ocr) {
 		this.questionboard_ocr = questionboard_ocr;
+	}
+
+	public MultipartFile getQuestion_mpfile() {
+		return question_mpfile;
+	}
+
+	public void setQuestion_mpfile(MultipartFile question_mpfile) {
+		this.question_mpfile = question_mpfile;
 	}
 	
 
