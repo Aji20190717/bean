@@ -33,7 +33,8 @@ public class QuestionDaoImpl implements QuestionDao{
 	//TODO : OCR python 연결
 	public int uploadQuestion(QuestionDto dto) {
 		
-		int res = sqlSession.update(QUESTIONNAMSESPACE + ".uploadQuestion", dto);
+		System.out.println(dto);
+		int res = sqlSession.update(QUESTIONNAMSESPACE + "uploadQuestion", dto);
 		
 		return res;
 	}
@@ -43,7 +44,7 @@ public class QuestionDaoImpl implements QuestionDao{
 	//날짜 처리는 어떻게 할 것인가
 	public int QuestionReply(QuestionDto dto) {
 		
-		int res = sqlSession.update(QUESTIONNAMSESPACE + ".questionReply", dto);
+		int res = sqlSession.update(QUESTIONNAMSESPACE + "questionReply", dto);
 		
 		return res;
 	}
@@ -51,7 +52,7 @@ public class QuestionDaoImpl implements QuestionDao{
 	//update 시 이미지 처리는 어떻게 할 것인가 
 	public int QuestionUpdate(QuestionDto dto) {
 		
-		int res = sqlSession.update(QUESTIONNAMSESPACE + ".questionUpdate", dto);
+		int res = sqlSession.update(QUESTIONNAMSESPACE + "questionUpdate", dto);
 		
 		return res;
 	}
@@ -59,7 +60,7 @@ public class QuestionDaoImpl implements QuestionDao{
 	//TODO : 유효성 처리
 	public int QuestionDelete(int questionboard_no) {
 		
-		int res = sqlSession.delete(QUESTIONNAMSESPACE + ".questionDelete", questionboard_no);
+		int res = sqlSession.delete(QUESTIONNAMSESPACE + "questionDelete", questionboard_no);
 	
 		return res;
 		

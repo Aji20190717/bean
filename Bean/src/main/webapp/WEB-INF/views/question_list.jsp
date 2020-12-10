@@ -37,7 +37,7 @@
 				<tr>
 					<td>${questiondto.questionboard_no }</td>
 					<td>${questiondto.questionboard_name }</td>
-					<td><a href="questionDetail.do?questionboard_no=${questiondto.questionboard_no }">${dto.questionboard_title }</a></td>
+					<td><a href="questionDetail.do?questionboard_no=${questiondto.questionboard_no }">${questiondto.questionboard_title }</a></td>
 					<td>${questiondto.questionboard_date }</td>
 				</tr>
 			</c:forEach>

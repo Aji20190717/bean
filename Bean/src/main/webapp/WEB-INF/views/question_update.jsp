@@ -8,5 +8,10 @@
 </head>
 <body>
 
+
+	<input type = "button" value = "삭제"/>
+	<input type = "button" value = "수정"/>
+	<input type = "button" value = "답변"/>
+
 </body>
 </html>

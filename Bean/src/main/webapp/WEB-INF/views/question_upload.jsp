@@ -12,8 +12,6 @@
 		//세션에 값 담아주기
 	int member_no = 2;
 	String questionboard_name = "zzarbttoo";
-	int questionboard_count = 0;
-	int questionboard_readcount = 0;
 	//이거도 선택하도록 제작(dropdown 형식)
 	int groupno = 0;
 	%>
@@ -27,10 +25,6 @@
 		<input type="hidden" name="member_no" value="<%=member_no%>" />
 		<input type="hidden" name="questionboard_name"
 			value="<%=questionboard_name%>" />
-		<input type="hidden" name="questionboard_count"
-			value="<%=questionboard_count%>" />
-		<input type="hidden" name="questionboard_readcount"
-			value="<%=questionboard_readcount%>" />
 		<input type="hidden" name="questoinbaord_groupno" value="<%=groupno%>" />
 		<input type="text" name="questionboard_title" />
 		<input type="text" name="questionboard_content" />
