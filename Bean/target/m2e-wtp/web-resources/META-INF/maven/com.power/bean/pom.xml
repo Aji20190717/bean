@@ -174,7 +174,6 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
-		
 		<!-- 로그인 email인증 -->
 		<!-- javax.mail/mail -->
 		<dependency>
@@ -195,7 +194,6 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.4</version>
 		</dependency>
-
 	</dependencies>
     <build>
         <plugins>
