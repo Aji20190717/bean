@@ -9,5 +9,6 @@ public interface LoginDao {
 	public LoginDto login(LoginDto dto);
 	public int resister(LoginDto dto);
 	public boolean idChk(String id);
+	public boolean emailChk(String email);
 	
 }

@@ -16,7 +16,7 @@
 	//id 중복체크
 	function idChk() {
 		var idChecked = /^[0-9a-zA-Z]{5,15}$/; // 아이디 유효성검사(5자리 이상 15자리 이하)
-		var doc = document.getElementsByName("id")[0];
+		var doc = document.getElementsByName("member_id")[0];
 		if (doc.value == null || doc.value.trim() == "") {
 			// id 입력 안 했을 때
 			alert("아이디를 먼저 입력해주세요");
@@ -26,38 +26,42 @@
 			return false;
 		} else {
 			open("idChk.do?id=" + doc.value, "",
-					"width=200, height=200");
+					"width=500, height=500");
 		}
 
 	}
 
 	// id 중복체크 완료 여부 및 유효성 검사
 	function idChkConfirm() {
-		var chk = document.getElementsByName("id")[0].title;
+		var chk = document.getElementsByName("member_id")[0].title;
 		if (chk == "n") {
 			alert("아이디 중복체크를 먼저 해주세요.");
-			document.getElementsByName("id")[0].focus();
+			document.getElementsByName("member_id")[0].focus();
 		}
+		
+		console.log(${session.type});
 		
 		// 비밀번호 확인
 		if($("#pw").val() != $("#pwchk").val()) {
-			alert("비밀번호가 일치 하지 않습니다.");
+			document.getElementById("passcheck").innerHTML = "비밀번호가 일치하지 않습니다.";
 			$("#pwchk").focus();
 			return false;
+		} else {
+			document.getElementById("passcheck").innerHTML = "";
 		}
 		
 	}
 	
 	// email 중복체크
 	function emailChk() {
-		var doc = document.getElementsByName("email")[0];
+		var doc = document.getElementsByName("member_email")[0];
 		if (doc.value == null || doc.value.trim() == "") {
 			// id 입력 안 했을 때
 			alert("email을 먼저 입력해주세요");
 			return false;
 		} else {
 			open("emailChk.do?email=" + doc.value, "",
-					"width=200, height=200");
+					"width=500, height=500");
 		}
 
 	}
@@ -118,69 +122,71 @@
 <body>
 
 	<form action="resister.do" method="POST" enctype="multipart/form-data" accept-charset="UTF-8" name="form">
-		<input type="hidden" name="type" value="${session.type }" />
+		<input type="hidden" name="member_type" value="${type }" />
 		<table border="1">
 			<tr>
 				<th>아이디</th>
 				<td>
-					<input type="text" name="id" title="n" required="required" />
+					<input type="text" name="member_id" title="n" required="required" />
 					<input type="button" value="중복체크" onclick="idChk();" />
 				</td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
 				<td>
-					<input type="password" name="pw" onclick="idChkConfirm();" required="required" />
+					<input type="password" name="member_pw" id="pw" onclick="idChkConfirm();" required="required" />
 				</td>
 			</tr>
 			<tr>
 				<th>비밀번호 확인</th>
 				<td>
-					<input type="password" name="pwchk" onclick="idChkConfirm();" required="required" />
+					<input type="password" name="member_pwchk" id="pwchk" onchange="idChkConfirm();" required="required" />
+					<p id="passcheck"></p>
 				</td>
 			</tr>
 			<tr>
 				<th>이름</th>
 				<td>
-					<input type="text" name="name" onclick="idChkConfirm();" required="required" />
+					<input type="text" name="member_name" onclick="idChkConfirm();" required="required" />
 				</td>
 			</tr>
 			<tr>
 				<th>이메일</th>
 				<td>
-					<input type="text" name="email" onclick="idChkConfirm();" required="required" />
+					<input type="text" title="n" name="member_email" onclick="idChkConfirm();" required="required" />
 					<input type="button" value="중복체크" onclick="emailChk();" />
 				</td>
 			</tr>
 			<tr>
 				<th>연락처</th>
 				<td>
-					<input type="text" name="phone" onclick="idChkConfirm();" required="required" />
+					<input type="text" name="member_phone" onclick="idChkConfirm();" required="required" />
 				</td>
 			</tr>
 			<tr>
 				<th>주소</th>
 				<td>
-					<input type="text" name="post" id="sample6_postcode" placeholder="우편번호">
+					<input type="text" name="member_post" id="sample6_postcode" placeholder="우편번호">
 					<input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
-					<input type="text" name="addr1" id="sample6_address" placeholder="주소">
-					<input type="text" name="addr2" id="sample6_detailAddress" placeholder="상세주소">
+					<input type="text" name="member_addr1" id="sample6_address" placeholder="주소">
+					<input type="text" name="member_addr2" id="sample6_detailAddress" placeholder="상세주소">
 				</td>
 			</tr>
 			<tr>
 				<th>생년월일</th>
 				<td>
-					<input type="date" name="birth" />
+					<input type="date" name="member_birth" />
 				</td>
 			</tr>
 			<tr>
 				<th>프로필</th>
 				<td>
-					<input multiple="multiple" type="file" name="files"/>
+					<input multiple="multiple" type="file" name="member_mpfile"/>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="left"><input type="submit" value="가입" />
+				<td colspan="2" align="right">
+					<input type="submit" value="가입" />
 				</td>
 			</tr>
 		</table>

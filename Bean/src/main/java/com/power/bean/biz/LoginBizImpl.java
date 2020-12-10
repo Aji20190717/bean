@@ -26,5 +26,10 @@ public class LoginBizImpl implements LoginBiz {
 	public boolean idChk(String id) {
 		return dao.idChk(id);
 	}
+	
+	@Override
+	public boolean emailChk(String email) {
+		return dao.emailChk(email);
+	}
 
 }

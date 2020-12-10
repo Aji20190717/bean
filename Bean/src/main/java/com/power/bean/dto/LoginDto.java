@@ -1,5 +1,7 @@
 package com.power.bean.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class LoginDto {
 	
 	private int member_no;
@@ -13,6 +15,7 @@ public class LoginDto {
 	private String member_addr1;
 	private String member_addr2;
 	private String member_birth;
+	private MultipartFile member_mpfile;
 	private String member_imgname;
 	private String member_imgpath;
 	private String member_type;
@@ -24,8 +27,9 @@ public class LoginDto {
 	
 	public LoginDto(int member_no, String member_id, String member_pw, String member_pwchk, String member_name,
 			String member_email, String member_phone, int member_post, String member_addr1, String member_addr2,
-			String member_birth, String member_imgname, String member_imgpath, String member_type,
-			String member_withdrawal, String member_sns) {
+			String member_birth, MultipartFile member_mpfile, String member_imgname, String member_imgpath,
+			String member_type, String member_withdrawal, String member_sns) {
+		super();
 		this.member_no = member_no;
 		this.member_id = member_id;
 		this.member_pw = member_pw;
@@ -37,11 +41,20 @@ public class LoginDto {
 		this.member_addr1 = member_addr1;
 		this.member_addr2 = member_addr2;
 		this.member_birth = member_birth;
+		this.member_mpfile = member_mpfile;
 		this.member_imgname = member_imgname;
 		this.member_imgpath = member_imgpath;
 		this.member_type = member_type;
 		this.member_withdrawal = member_withdrawal;
 		this.member_sns = member_sns;
+	}
+
+	public MultipartFile getMember_mpfile() {
+		return member_mpfile;
+	}
+
+	public void setMember_mpfile(MultipartFile member_mpfile) {
+		this.member_mpfile = member_mpfile;
 	}
 	
 	public int getMember_no() {
@@ -171,7 +184,5 @@ public class LoginDto {
 	public void setMember_sns(String member_sns) {
 		this.member_sns = member_sns;
 	}
-	
-	
 	
 }
