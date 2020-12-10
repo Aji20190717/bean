@@ -8,7 +8,7 @@ import com.power.bean.dto.QuestionDto;
 
 
 @Service
-public class FileValidator implements Validator {
+public class QuestionFileValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {

@@ -2,7 +2,7 @@ package com.power.bean.util;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class UploadFile {
+public class QuestionUploadFile {
 
 	private String name;
 	private String desc;

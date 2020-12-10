@@ -21,7 +21,7 @@ import org.springframework.web.util.WebUtils;
 
 import com.power.bean.biz.QuestionBiz;
 import com.power.bean.dto.QuestionDto;
-import com.power.bean.util.FileValidator;
+import com.power.bean.util.QuestionFileValidator;
 
 @Controller
 public class QuestionController {
@@ -30,7 +30,7 @@ public class QuestionController {
 	private QuestionBiz questionBiz;
 
 	@Autowired
-	private FileValidator fileValidator;
+	private QuestionFileValidator fileValidator;
 
 	@RequestMapping("/questionList.do")
 	public String questionList(Model model) {
