@@ -17,11 +17,20 @@
 		비밀번호 : <input type="text" name="member_pw" />
 	</form>
 
-	<div id="naver_id_login" style="text-align:center">
-		<a href="${url}">
-			<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/>
-		</a>
-	</div>
+	<div id="naver_id_login" style="display: none;"></div>
+		<div onclick="document.getElementById('naver_id_login_anchor').click();">
+			<button>네이버 로그인</button>
+		</div>
+		<script type="text/javascript">
+		  	var naver_id_login = new naver_id_login("zjjj7_AqHxAv9Xan5omR", "http://localhost:8787/bean/navercallback.jsp");
+		  	var state = naver_id_login.getUniqState();
+		 	
+		  	naver_id_login.setButton("green", 3, 45);
+		  	naver_id_login.setDomain("http://localhost:8787/bean/loginform.do");
+		  	naver_id_login.setState(state);
+		  	//naver_id_login.setPopup();
+		  	naver_id_login.init_naver_id_login();
+		</script>
 
 	<input type="button" value="회원가입"
 		onclick="location.href='registtype.do'" />

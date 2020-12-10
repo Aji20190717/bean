@@ -23,7 +23,4 @@
 	
 	<context:component-scan base-package="com.power.bean" />
 	
-	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
-	<beans:bean id="naverLoginBiz" class="com.power.bean.biz.NaverLoginBiz" />
-	
 </beans:beans>
