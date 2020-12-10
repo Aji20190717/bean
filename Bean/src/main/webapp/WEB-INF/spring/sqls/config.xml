@@ -4,16 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 <!-- 새로운 값을 넣을 때에는 위로 쌓기!! 꼭 지켜주세요!!!! -->
-
+	
 	<typeAliases>
-		<typeAlias type="com.me.upgrade.model.dto.MyTableDto" alias="dto"/>
-		<typeAlias type="com.me.upgrade.model.dto.MyMemberDto" alias="myMemberDto"/>
+		<typeAlias type="com.power.bean.dto.ReviewDto" alias="ReviewDto"/>
 	</typeAliases>
 
 	<!-- resource: src/main/resources -->
 	<mappers>
-		<mapper resource="/mybatis/board-mapper.xml" />
-		<mapper resource="/mybatis/member-mapper.xml"/>
+		<mapper resource="/mybatis/review-mapper.xml" />
 	</mappers>
 
 </configuration>
