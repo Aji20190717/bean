@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +22,6 @@ import org.springframework.web.util.WebUtils;
 import com.power.bean.biz.QuestionBiz;
 import com.power.bean.dto.QuestionDto;
 import com.power.bean.util.FileValidator;
-import com.power.bean.util.UploadFile;
 
 @Controller
 public class QuestionController {
@@ -46,7 +47,11 @@ public class QuestionController {
 	}
 
 	@RequestMapping("/questionDetail.do")
-	public String questionDetail(Model model, int questionNum) {
+	public String questionDetail(Model model, int questionboard_no) {
+		
+		QuestionDto questionDto = questionBiz.selectOneQuestion(questionboard_no);
+		
+		model.addAttribute("questinoDto", questionDto);
 
 		return "question_detail";
 
@@ -73,31 +78,47 @@ public class QuestionController {
 	@RequestMapping("/questionUploadres.do")
 	public String questionUploadRes(HttpServletRequest request, Model model, QuestionDto dto, BindingResult result) {
 
+		QuestionDto uploadDto = new QuestionDto();
+		
+		uploadDto.setMember_no(dto.getMember_no());
+		uploadDto.setQuestionboard_name(dto.getQuestionboard_name());
+		uploadDto.setQuestionboard_groupno(dto.getQuestionboard_groupno());
+		uploadDto.setQuestionboard_title(dto.getQuestionboard_title());
+		uploadDto.setQuestionboard_content(dto.getQuestionboard_content());
+		uploadDto.setQuestionboard_reply("");
+		
+		
+		String name;
+		String path;
+		String ocr;
+		
 		//file upload 
 		fileValidator.validate(dto, result);
 
 		if (result.hasErrors()) {
-			System.out.println("wow");
+			System.out.println("Error!");
 		}
-		
-		System.out.println(dto.getQuestion_mpfile().getSize());
 		
 		if (dto.getQuestion_mpfile().getSize() != 0) {
 			
-			System.out.println("형이 왜 여기에?");
+			String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+					
+			
 			MultipartFile file = dto.getQuestion_mpfile();
-			System.out.println(file);
-			String name = file.getOriginalFilename();
+			name = file.getOriginalFilename();
+			name = name + "Question" + dto.getMember_no() + timeStamp;
+			
 
-			QuestionDto fileObj = new QuestionDto();
-			fileObj.setQuestionboard_imgname(name);
+			//QuestionDto fileObj = new QuestionDto();
+			//fileObj.setQuestionboard_imgname(name);
 
 			InputStream inputStream = null;
 			OutputStream outputStream = null;
 
 			try {
+				
 				inputStream = file.getInputStream();
-				String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/resources/storage");
+				path = WebUtils.getRealPath(request.getSession().getServletContext(), "/resources/storage/questionImgFile/");
 
 				System.out.println("업로드 될 실제 경로(real path) : " + path);
 
@@ -106,10 +127,13 @@ public class QuestionController {
 					storage.mkdir();
 				}
 
-				File newFile = new File(path + "/" + name);
+				File newFile = new File(path + name);
 				if (!newFile.exists()) {
 					newFile.createNewFile();
 				}
+				
+				uploadDto.setQuestionboard_imgname(name);
+				uploadDto.setQuestionboard_imgpath(path);
 
 				outputStream = new FileOutputStream(newFile);
 
@@ -136,16 +160,39 @@ public class QuestionController {
 			
 			
 			//OCR(Connect flask)
+			
+			//flask 응답 값
+			ocr = "";
+			
+			uploadDto.setQuestionboard_ocr(ocr);
+			
+		}else {
+			
+			path = "";
+			name = "";
+			ocr = "";
+			
+			uploadDto.setQuestionboard_imgname(name);
+			uploadDto.setQuestionboard_imgpath(path);
+			uploadDto.setQuestionboard_ocr(ocr);
+			
 		}
 		
-	
+		System.out.println(uploadDto.toString());
+		int res = questionBiz.uploadQuestion(uploadDto);
 		
-		
-
+		if(res > 0) {
+			
 		return "redirect:questionList.do";
+		
+		}
+		
+		return "redirect:questionUpload.do";
+
 	}
 
 	
+
 	@RequestMapping("/questionDelete.do")
 	public String questionDelete(int questionboard_no) {
 		

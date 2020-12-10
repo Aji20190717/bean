@@ -14,7 +14,7 @@
 	
 	<insert id = "uploadQuestion" parameterType = "QuestionDto">
 		 INSERT INTO QUESTIONBOARD 
-		 VALUES(QUESTIONBOARD_SEQ.NEXTVAL, #{member_no}, #{questionboard_name}, #{questionboard_title}, #{questionboard_content}, SYSDATE, 0, 0, '', 0 , #{questionboard_imgname}, #{questionboard_imgpath}, '')
+		 VALUES(QUESTIONBOARD_SEQ.NEXTVAL, #{member_no}, #{questionboard_name}, #{questionboard_title}, #{questionboard_content}, SYSDATE, 0, 0, '' , 0 , #{questionboard_imgname}, #{questionboard_imgpath}, #{questionboard_ocr})
 	</insert>
 	
 	<update id = "questionReply" parameterType = "QuestionDto">
