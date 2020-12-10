@@ -4,16 +4,29 @@
 
 	<select id="idChk" parameterType="String" resultType="String">
 		SELECT MEMBER_ID
-		FROM MYMEMBER
+		FROM MEMBER
 		WHERE MEMBER_ID = #{member_id}
 	</select>
 	
 	<select id="emailChk" parameterType="String" resultType="String">
 		SELECT MEMBER_EMAIL
-		FROM MYMEMBER
+		FROM MEMBER
 		WHERE MEMBER_EMAIL = #{member_email}
 	</select>
 	
-	
+	<select id="login" parameterType="LoginDto" resultType="LoginDto">
+		SELECT MEMBER_ID, MEMBER_PW, MEMBER_PWCHK, MEMBER_NAME, MEMBER_EMAIL, MEMBER_PHONE,
+			MEMBER_POST, MEMBER_ADDR1, MEMBER_ADDR2, MEMBER_BIRTH, MEMEBER_IMGNAME, MEMBER_IMGPATH,
+			MEMBER_TYPE, MEMBER_WITHDRAWAL, MEMBER_SNS
+		FROM MEMBER
+		WHERE MEMBER_ID = #{member_id} AND MEMBER_PW = #{member_pw}
+	</select>
+
+	<insert id="regist" parameterType="LoginDto">
+		INSERT INTO MEMBER
+		VALUES(MEMBER_SEQ.NEXTVAL, #{member_id}, #{member_pw}, #{member_pwchk}, #{member_name}, #{member_email},
+				#{member_phone}, #{member_post}, #{member_addr1}, #{member_addr2}, #{member_birth},
+				#{member_imgname, jdbcType=VARCHAR}, #{member_imgpath, jdbcType=VARCHAR}, #{member_type}, 'N', #{member_sns, jdbcType=VARCHAR})
+	</insert>
 
 </mapper>
