@@ -8,5 +8,6 @@ public interface LoginBiz {
 	public int resister(LoginDto dto);
 	public boolean idChk(String id);
 	public boolean emailChk(String email);
+	public LoginDto snsChk(String member_sns);
 	
 }
