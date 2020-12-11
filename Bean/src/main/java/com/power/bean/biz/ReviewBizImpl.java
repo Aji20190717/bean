@@ -28,19 +28,19 @@ public class ReviewBizImpl implements ReviewBiz {
 
 	@Override
 	public int insert(ReviewDto dto) {
-		return insert(dto);
+		return dao.insert(dto);
 	}
 
 	@Override
 	public int update(ReviewDto dto) {
 		// TODO Auto-generated method stub
-		return update(dto);
+		return dao.update(dto);
 	}
 
 	@Override
 	public int delete(int reviewboard_no) {
 		// TODO Auto-generated method stub
-		return delete(reviewboard_no);
+		return dao.delete(reviewboard_no);
 	}
 
 	@Transactional
