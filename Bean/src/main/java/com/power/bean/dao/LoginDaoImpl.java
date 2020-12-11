@@ -62,5 +62,16 @@ public class LoginDaoImpl implements LoginDao {
 		return (emailchk != null) ? false : true;
 
 	}
+	
+	@Override
+	public LoginDto snsChk(String member_sns) {
+		
+		LoginDto dto = new LoginDto();
+		
+		dto = sqlSession.selectOne(NAMESPACE + "snsChk" , member_sns);
+		
+		// dto가 비어있지 않다면 false(이미 가입), true(가입 가능)
+		return dto;
+	}
 
 }
