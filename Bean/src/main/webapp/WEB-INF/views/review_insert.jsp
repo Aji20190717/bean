@@ -73,7 +73,7 @@
 
 				<div class="row justify-content-md-center">
 					<button type="submit" class="btn btn-outline-secondary">등 록</button>
-					<button type="submit" class="btn btn-outline-secondary">취소</button>
+					<button type="submit" class="btn btn-outline-secondary" onclick="location.href='review_list.do'">취소</button>
 				</div>
 
 

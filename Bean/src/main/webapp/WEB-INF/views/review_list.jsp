@@ -49,7 +49,8 @@
 						<td>${dto.reviewboard_name }</td>
 						<td>${dto.reviewboard_title }</td>
 						<td>${dto.reviewboard_content }</td>
-						<td><fmt:formatDate value="${dto.reviewboard_date }" pattern="yyyy-MM-dd-HH시"/></td>
+						<td><fmt:formatDate value="${dto.reviewboard_date }"
+								pattern="yyyy-MM-dd-HH시" /></td>
 						<td>${dto.class_name}</td>
 						<td>${dto.reviewboard_te }</td>
 						<td>${dto.reviewboard_star }</td>
@@ -57,15 +58,9 @@
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
+		<tr>
+			<td colspan="4" align="left"><input type="button" value="글작성"
+				onclick="location.href='review_insertform.do'" /></td>
+		</tr>
 	</table>
-
-
-
-
-
-
-
-
-
-
 </html>

@@ -28,9 +28,6 @@ import com.power.bean.util.FileValidator;
 @Controller
 public class LoginController_Bean {
 
-<<<<<<< HEAD
-}
-=======
 	@Autowired
 	private LoginBiz biz;
 
@@ -213,4 +210,3 @@ public class LoginController_Bean {
 	
 
 }
->>>>>>> 5798aec29de9b6bfd0d0faeb0cace7c617d11deb
