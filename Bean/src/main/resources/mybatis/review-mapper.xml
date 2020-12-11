@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.reviewboard" >
+
+	<select id="selectList" resultType="ReviewDto">
+		SELECT REVIEWBOARD_NO, REVIEWBOARD_NAME,REVIEWBOARD_TITLE, REVIEWBOARD_CONTENT, REVIEWBOARD_DATE,CLASS_NAME, REVIEWBOARD_TE, REVIEWBOARD_STAR
+		FROM REVIEWBOARD
+		ORDER BY REVIEWBOARD_NO DESC
+	</select>
+		
+	<insert id="insert" parameterType="ReviewDto">
+		INSERT INTO REVIEWBOARD
+		VALUES(REVIEWBOARD_SEQ,#{reveiwboard_name}, #{reveiwboard_title}, #{reveiwboard_content}, #{class_name}, #{reveiwboard_te},#{reveiwboard_star},SYSDATE)
+	</insert>
+
+
+
+
+</mapper>
