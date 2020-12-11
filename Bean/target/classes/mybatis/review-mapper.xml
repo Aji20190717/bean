@@ -10,7 +10,7 @@
 		
 	<insert id="insert" parameterType="ReviewDto">
 		INSERT INTO REVIEWBOARD
-		VALUES(REVIEWBOARD_SEQ,#{reveiwboard_name, reveiwboard_title, reveiwboard_content, class_name, reveiwboard_te,reveiwboard_star)
+		VALUES(REVIEWBOARD_SEQ,#{reveiwboard_name}, #{reveiwboard_title}, #{reveiwboard_content}, #{class_name}, #{reveiwboard_te},#{reveiwboard_star},SYSDATE)
 	</insert>
 
 

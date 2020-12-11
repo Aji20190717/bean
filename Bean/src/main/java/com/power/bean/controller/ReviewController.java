@@ -24,9 +24,9 @@ public class ReviewController {
 	
 	@RequestMapping("/review_insertform.do")
 	public String insertForm() {
-		System.out.println("insertform.do");
+		System.out.println("review_insertform.do");
 		
-		return "reviewinsert";
+		return "review_insert";
 	}
 	
 	@RequestMapping("/review_insertres.do")
@@ -36,7 +36,7 @@ public class ReviewController {
 		int res=biz.insert(dto);
 		
 		if(res>0) {
-			return "redirect:list.do";
+			return "redirect:review_list.do";
 		}
 		
 	return "redirect:review_insertform.do";	
