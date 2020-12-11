@@ -31,5 +31,10 @@ public class LoginBizImpl implements LoginBiz {
 	public boolean emailChk(String email) {
 		return dao.emailChk(email);
 	}
+	
+	@Override
+	public LoginDto snsChk(String member_sns) {
+		return dao.snsChk(member_sns);		
+	}
 
 }
