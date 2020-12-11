@@ -7,11 +7,15 @@
 	
 	<typeAliases>
 		<typeAlias type="com.power.bean.dto.ReviewDto" alias="ReviewDto"/>
+		<typeAlias type="com.power.bean.dto.LoginDto" alias="LoginDto"/>
+		<typeAlias type="com.power.bean.dto.QuestionDto" alias="QuestionDto"/>
 	</typeAliases>
 
 	<!-- resource: src/main/resources -->
 	<mappers>
 		<mapper resource="/mybatis/review-mapper.xml" />
+		<mapper resource="/mybatis/loginBean-mapper.xml" />
+		<mapper resource="mybatis/question-mapper.xml"/>
 	</mappers>
 
 </configuration>
