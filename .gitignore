@@ -4,3 +4,4 @@
 /Bean/.settings/
 /Bean/src/main/webapp/WEB-INF/views/bean_comeon.jsp
 /Bean/target/m2e-wtp/web-resources/META-INF/maven/com.power/bean/pom.properties
+/Bean/src/main/java/com/power/bean/util/TranslateService.java

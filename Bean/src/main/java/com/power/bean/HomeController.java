@@ -35,7 +35,7 @@ public class HomeController {
 
 		return "home";
 	}
-	
+
 	@RequestMapping("/map.do")
 	public String map() {
 
