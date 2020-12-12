@@ -92,22 +92,24 @@ public class LoginController_Naver {
 	public String naverResister(MultipartHttpServletRequest request, Model model,
 			LoginDto dto, @RequestParam("member_mpfile") MultipartFile file, BindingResult result, HttpSession session) {
 
-		dto.setMember_mpfile(file);
+		// dto.setMember_mpfile(file);
+		dto.setMember_type("SN");
 		// System.out.println("file : " + file);
 		
 		// FileValidator fileValidator = new FileValidator();
 		boolean filechk = true;
 		
 		// fileValidator.validate(file, result);	
-		if(dto.getMember_mpfile().getSize() == 0) {
-			filechk = false;		
+		if (file.getSize() == 0) {
+			filechk = false;
 		}
 		// System.out.println("filechk : " + filechk);
 		
 		Date today = new Date();
-		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat date1 = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat time1 = new SimpleDateFormat("HH:mm:ss");
-		
+
+		String date2 = date1.format(today).replace("-", "");
 		String time2 = time1.format(today).replace(":", "");
 		// System.out.println("time2 : " + time2);
 		
@@ -124,7 +126,7 @@ public class LoginController_Naver {
 			// System.out.println(oldname.substring(0, index));
 			
 			if(index != -1) {//파일 확장자 위치 
-				name = date.format(today) + " " + oldname.substring(0, index) + " " + time2 + oldname.substring(index, oldname.length()) ;// 현재 시간과 확장자
+				name = date2 + oldname.substring(0, index) + time2 + oldname.substring(index, oldname.length()) ;// 현재 시간과 확장자
 			}
 			//String name = date.format(today) + file.getOriginalFilename() + time.format(today);
 

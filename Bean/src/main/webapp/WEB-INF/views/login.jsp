@@ -12,9 +12,10 @@
 
 <body>
 
-	<form action="">
+	<form action="login.do">
 		아이디 : <input type="text" name="member_id" />
 		비밀번호 : <input type="text" name="member_pw" />
+		<input type="submit" value="로그인" />
 	</form>
 
 	<div id="naver_id_login" style="display: none;"></div>

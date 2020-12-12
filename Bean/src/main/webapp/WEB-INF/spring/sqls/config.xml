@@ -13,9 +13,10 @@
 
 	<!-- resource: src/main/resources -->
 	<mappers>
+		<mapper resource="/mybatis/member-mapper.xml"/>
 		<mapper resource="/mybatis/review-mapper.xml" />
 		<mapper resource="/mybatis/loginBean-mapper.xml" />
-		<mapper resource="mybatis/question-mapper.xml"/>
+		<mapper resource="/mybatis/question-mapper.xml"/>
 	</mappers>
 
 </configuration>
