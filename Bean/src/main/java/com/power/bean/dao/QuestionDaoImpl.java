@@ -30,7 +30,7 @@ public class QuestionDaoImpl implements QuestionDao{
 		return questionDto;
 	}
 	
-	//TODO : OCR python 연결
+	//upload Question
 	public int uploadQuestion(QuestionDto dto) {
 		
 		System.out.println(dto);

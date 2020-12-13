@@ -14,8 +14,10 @@ public class QuestionDto {
 	private Date questionboard_date;
 	private int questionboard_readcount;
 	private int questionboard_step;
-	private String questionboard_reply;
 	private int questionboard_groupno;
+	private String questionboard_reply;
+	private Date questionboard_replydate;
+	private String qestionboard_delflag;
 	private String questionboard_imgname;
 	private String questionboard_imgpath;
 	private String questionboard_ocr;
@@ -26,8 +28,9 @@ public class QuestionDto {
 
 	public QuestionDto(int questionboard_no, int member_no, String questionboard_name, String questionboard_title,
 			String questionboard_content, Date questionboard_date, int questionboard_readcount, int questionboard_step,
-			String questionboard_reply, int questionboard_groupno, String questionboard_imgname,
-			String questionboard_imgpath, String questionboard_ocr) {
+			int questionboard_groupno, String questionboard_reply, Date quesetionboard_replydate,
+			String qestionboard_delflag, String questionboard_imgname, String questionboard_imgpath,
+			String questionboard_ocr) {
 		this.questionboard_no = questionboard_no;
 		this.member_no = member_no;
 		this.questionboard_name = questionboard_name;
@@ -36,19 +39,20 @@ public class QuestionDto {
 		this.questionboard_date = questionboard_date;
 		this.questionboard_readcount = questionboard_readcount;
 		this.questionboard_step = questionboard_step;
-		this.questionboard_reply = questionboard_reply;
 		this.questionboard_groupno = questionboard_groupno;
+		this.questionboard_reply = questionboard_reply;
+		this.questionboard_replydate = quesetionboard_replydate;
+		this.qestionboard_delflag = qestionboard_delflag;
 		this.questionboard_imgname = questionboard_imgname;
 		this.questionboard_imgpath = questionboard_imgpath;
 		this.questionboard_ocr = questionboard_ocr;
 	}
-	
 
 	public QuestionDto(int questionboard_no, int member_no, String questionboard_name, String questionboard_title,
 			String questionboard_content, Date questionboard_date, int questionboard_readcount, int questionboard_step,
-			String questionboard_reply, int questionboard_groupno, String questionboard_imgname,
-			String questionboard_imgpath, String questionboard_ocr, MultipartFile question_mpfile) {
-		super();
+			int questionboard_groupno, String questionboard_reply, Date quesetionboard_replydate,
+			String qestionboard_delflag, String questionboard_imgname, String questionboard_imgpath,
+			String questionboard_ocr, MultipartFile question_mpfile) {
 		this.questionboard_no = questionboard_no;
 		this.member_no = member_no;
 		this.questionboard_name = questionboard_name;
@@ -57,13 +61,17 @@ public class QuestionDto {
 		this.questionboard_date = questionboard_date;
 		this.questionboard_readcount = questionboard_readcount;
 		this.questionboard_step = questionboard_step;
-		this.questionboard_reply = questionboard_reply;
 		this.questionboard_groupno = questionboard_groupno;
+		this.questionboard_reply = questionboard_reply;
+		this.questionboard_replydate = quesetionboard_replydate;
+		this.qestionboard_delflag = qestionboard_delflag;
 		this.questionboard_imgname = questionboard_imgname;
 		this.questionboard_imgpath = questionboard_imgpath;
 		this.questionboard_ocr = questionboard_ocr;
 		this.question_mpfile = question_mpfile;
 	}
+
+
 
 	public int getQuestionboard_no() {
 		return questionboard_no;
@@ -177,17 +185,23 @@ public class QuestionDto {
 		this.question_mpfile = question_mpfile;
 	}
 
-	@Override
-	public String toString() {
-		return "QuestionDto [questionboard_no=" + questionboard_no + ", member_no=" + member_no
-				+ ", questionboard_name=" + questionboard_name + ", questionboard_title=" + questionboard_title
-				+ ", questionboard_content=" + questionboard_content + ", questionboard_date=" + questionboard_date
-				+ ", questionboard_readcount=" + questionboard_readcount + ", questionboard_step=" + questionboard_step
-				+ ", questionboard_reply=" + questionboard_reply + ", questionboard_groupno=" + questionboard_groupno
-				+ ", questionboard_imgname=" + questionboard_imgname + ", questionboard_imgpath="
-				+ questionboard_imgpath + ", questionboard_ocr=" + questionboard_ocr + ", question_mpfile="
-				+ question_mpfile + "]";
+	public Date getQuesetionboard_replydate() {
+		return questionboard_replydate;
 	}
+
+	public void setQuesetionboard_replydate(Date quesetionboard_replydate) {
+		this.questionboard_replydate = quesetionboard_replydate;
+	}
+
+	public String getQestionboard_delflag() {
+		return qestionboard_delflag;
+	}
+
+	public void setQestionboard_delflag(String qestionboard_delflag) {
+		this.qestionboard_delflag = qestionboard_delflag;
+	}
+
+	
 	
 
 }

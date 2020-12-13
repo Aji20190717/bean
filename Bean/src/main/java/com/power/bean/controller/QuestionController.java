@@ -1,6 +1,7 @@
 package com.power.bean.controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,12 +62,11 @@ public class QuestionController {
 	}
 
 	@RequestMapping("/questionDetail.do")
-	public String questionDetail(Model model, int questionboard_no) {
+	public String questionDetail(Model model, int questionboard_no, HttpServletRequest request) throws FileNotFoundException {
 
 		QuestionDto questionDto = questionBiz.selectOneQuestion(questionboard_no);
-
-		model.addAttribute("questinoDto", questionDto);
-
+		model.addAttribute("questionDto", questionDto);
+		
 		return "question_detail";
 
 	}
@@ -89,6 +89,7 @@ public class QuestionController {
 		return "question_upload";
 	}
 
+	//TODO : sql 최대 열 넘는 값 처리 
 	@RequestMapping("/questionUploadres.do")
 	public String questionUploadRes(HttpServletRequest request, Model model, QuestionDto dto, BindingResult result) {
 
@@ -106,8 +107,8 @@ public class QuestionController {
 		String ocr;
 
 		String url = "http://127.0.0.1:5000/";
-
 		String body = null;
+		
 		// file upload
 		fileValidator.validate(dto, result);
 
@@ -213,13 +214,10 @@ public class QuestionController {
 
 		} else {
 
-			path = "";
-			name = "";
-			ocr = "";
-
-			uploadDto.setQuestionboard_imgname(name);
-			uploadDto.setQuestionboard_imgpath(path);
-			uploadDto.setQuestionboard_ocr(ocr);
+			uploadDto.setQuestionboard_imgname(null);
+			uploadDto.setQuestionboard_imgpath(null);
+			uploadDto.setQuestionboard_ocr(null);
+			uploadDto.setQuesetionboard_replydate(null);
 
 		}
 

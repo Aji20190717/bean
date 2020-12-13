@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,75 @@
 <title>Insert title here</title>
 </head>
 <body>
+<!-- TODO : img가 없을 경우 예외처리를 할 것 -->
+	<table border="1">
+		<tr>
+			<th>question_no</th>
+			<td>${questionDto.questionboard_no }</td>
+		</tr>
+		<tr>
+			<th>member_no</th>
+			<td>${questionDto.member_no}</td>
+		</tr>
+		<tr>
+			<th>questionboard_name</th>
+			<td>${questionDto.questionboard_name }</td>
+		</tr>
+		<tr>
+			<th>제목</th>
+			<td>${questionDto.questionboard_title }</td>
+		</tr>
+		<tr>
+			<th>글</th>
+			<td><textarea rows="10" cols="60" readonly="readonly">${questionDto.questionboard_content }</textarea></td>
+		</tr>
+		<tr>
+			<th>date</th>
+			<td>${questionDto.questionboard_date}</td>
+		</tr>
+		<tr>
+			<th>readcount</th>
+			<td>${questionDto.questionboard_readcount}</td>
+		</tr>
+		<tr>
+			<!-- step 이름으로 바꿀 것 -->
+			<!-- 0 일 경우 비어있게, 답변이 됐을 경우 이름으로 -->
+			<th>step</th>
+			<td>${questionDto.questionboard_step}</td>
+		</tr>
+		<tr>
+			<!-- 질문의 유형으로 if 1. 문제풀이 2.작문 -->
+			<th>groupno</th>
+			<td>${questionDto.questionboard_groupno }</td>
+		</tr>
+		<tr>
+			<th>question reply</th>
+			<td>${questionDto.questionboard_reply}</td>
+		</tr>
+		<tr>
+			<th>question reply date</th>
+			<td>${questionDto.questionboard_date}</td>
+			
+		</tr>
+		<tr>
+			<th>이미지 출력</th>
+			<td><img src = "${pageContext.request.contextPath}/resources/storage/${questionDto.questionboard_imgname}"/>
+		</tr>
+		<tr>
+			<th>OCR</th>
+			<td><textarea rows="10" cols="60" readonly="readonly">${questionDto.questionboard_ocr }</textarea></td>
+		</tr>
+
+
+		<tr>
+			<td colspan="2" align="right"><input type="button" value="수정"
+				onclick="location.href='updateform.do?myno=${dto.myno}'" /> <input
+				type="button" value="삭제"
+				onclick="location.href='delete.do?myno=${dto.myno}'" /> <input
+				type="button" value="목록" onclick="location.href='list.do'" /></td>
+		</tr>
+	</table>
+
 
 </body>
 </html>
