@@ -16,10 +16,6 @@
 	int groupno = 0;
 	%>
 
-	<!--  
-			
-			-->
-
 	<form:form method="post" enctype="multipart/form-data"
 		modelAttribute="QuestionDto" action="questionUploadres.do">
 		<input type="hidden" name="member_no" value="<%=member_no%>" />
