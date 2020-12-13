@@ -69,11 +69,13 @@
 
 
 		<tr>
-			<td colspan="2" align="right"><input type="button" value="수정"
-				onclick="location.href='updateform.do?myno=${dto.myno}'" /> <input
-				type="button" value="삭제"
-				onclick="location.href='delete.do?myno=${dto.myno}'" /> <input
-				type="button" value="목록" onclick="location.href='list.do'" /></td>
+			<td colspan="2" align="right">
+				<!-- TODO : 작성자의 경우 수정, 강사의 경우 답변 -->
+				<input type="button" value="수정" onclick="location.href='questionUpdate.do?questionboard_no=${questionDto.questionboard_no}'"/>
+				<input type ="button" value = "답변" onclick ="location.href='questionReply.do?questionboard_no=${questionDto.questionboard_no}'"/>
+				<!-- TODO : 삭제할 때 유효성 처리(session과 비교) -->
+				<input type="button" value="삭제" onclick="location.href='questionDelete.do?questionboard_no=${questionDto.questionboard_no}'" /> 
+				<input type="button" value="목록" onclick="location.href='questionList.do'" /></td>
 		</tr>
 	</table>
 

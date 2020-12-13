@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -14,7 +15,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import java.nio.charset.Charset;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -72,15 +72,49 @@ public class QuestionController {
 	}
 
 	@RequestMapping("/questionReply.do")
-	public String questionReply(Model model, int questionNum) {
+	public String questionReply(Model model, int questionboard_no) {
+		
+		QuestionDto questionDto = questionBiz.selectOneForReplyOrUpdate(questionboard_no);
+		
+		model.addAttribute("questionDto", questionDto);
 
 		return "question_reply";
 	}
+	
+	@RequestMapping("/questionReplyRes.do")
+	public String questionReplyRes(QuestionDto questionDto) {
+		
+		int res = questionBiz.QuestionReply(questionDto);
+		
+		if(res > 0) {
+			
+			return "redirect:questionDetail.do?questionboard_no=" + questionDto.getQuestionboard_no();
+		}
+		
+		return "redirect:qustionReply.do?questionboard_no=" + questionDto.getQuestionboard_no();
+	}
+	
+	@RequestMapping("/questionUpdate.do")
+	public String questionUpdate(int questionboard_no, Model model) {
+		
+		QuestionDto questionDto = questionBiz.selectOneForReplyOrUpdate(questionboard_no);
+		model.addAttribute("questionDto", questionDto);
+		
+		return "question_update";
+	}
 
 	@RequestMapping("/questionUpdateres.do")
-	public String questionUpdateRes() {
+	public String questionUpdateRes(QuestionDto questionDto) {
+		
+		int res = questionBiz.QuestionUpdate(questionDto);
+		
+		if(res > 0) {
+			
+			
+			return "redirect:questionDetail.do?questionboard_no=" + questionDto.getQuestionboard_no();
+		}
 
-		return "question_update";
+		return "redirect:questionUpdate.do?questionboard_no=" + questionDto.getQuestionboard_no();
 	}
 
 	@RequestMapping("/questionUpload.do")
@@ -88,7 +122,7 @@ public class QuestionController {
 
 		return "question_upload";
 	}
-
+	
 	//TODO : sql 최대 열 넘는 값 처리 
 	@RequestMapping("/questionUploadres.do")
 	public String questionUploadRes(HttpServletRequest request, Model model, QuestionDto dto, BindingResult result) {
@@ -226,7 +260,6 @@ public class QuestionController {
 		if (res > 0) {
 
 			return "redirect:questionList.do";
-
 		}
 
 		return "redirect:questionUpload.do";

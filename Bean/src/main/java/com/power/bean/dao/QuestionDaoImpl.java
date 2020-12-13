@@ -22,10 +22,20 @@ public class QuestionDaoImpl implements QuestionDao{
 		return dtolist;
 	}
 	
-	//TODO : 조회수 관련 처리
 	public QuestionDto selectOneQuestion(int questionboard_no) {
 		
+		//조회수 처리
+		sqlSession.update(QUESTIONNAMSESPACE + "questionReadCount", questionboard_no);
 		QuestionDto questionDto = sqlSession.selectOne(QUESTIONNAMSESPACE + "selectOneQuestion" , questionboard_no);
+		
+		
+		return questionDto;
+	}
+	
+	public QuestionDto selectOneForReplyOrUpdate(int questionboard_no) {
+		
+		QuestionDto questionDto = sqlSession.selectOne(QUESTIONNAMSESPACE + "selectOneQuestion" , questionboard_no);
+		
 		
 		return questionDto;
 	}
@@ -41,7 +51,6 @@ public class QuestionDaoImpl implements QuestionDao{
 	
 	
 	//update query
-	//날짜 처리는 어떻게 할 것인가
 	public int QuestionReply(QuestionDto dto) {
 		
 		int res = sqlSession.update(QUESTIONNAMSESPACE + "questionReply", dto);
@@ -57,8 +66,9 @@ public class QuestionDaoImpl implements QuestionDao{
 		return res;
 	}
 	
-	//TODO : 유효성 처리
 	public int QuestionDelete(int questionboard_no) {
+		
+		
 		
 		int res = sqlSession.delete(QUESTIONNAMSESPACE + "questionDelete", questionboard_no);
 	

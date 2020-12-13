@@ -21,18 +21,23 @@
 	</insert>
 	
 	<update id = "questionReply" parameterType = "QuestionDto">
-		UPDATE QUESTIONBOARD SET QUESTIONBOARD_STEP = #{questionboard_step}, QUESTIONBOARD_REPLY = #{questionboard_reply}, QUESTIONBOARD_REPLYDATE = SYSDATE 
+		UPDATE QUESTIONBOARD SET QUESTIONBOARD_REPLY = #{questionboard_reply}, QUESTIONBOARD_REPLYDATE = SYSDATE 
 		WHERE QUESTIONBOARD_NO = #{questionboard_no}
 	</update>
 	
 	<update id = "questionUpdate" parameterType = "QuestionDto">
-		UPDATE QUESTIONBOARD SET QUESTIONBOARD_CONTENT = #{questionboard_content}, QUESTIONBOARD_IMAGENAME = #{questionboard_imgname}, QUESTIONBAORD_IMGPATH = #{questionboard_imgpath}, QUESTIONBAORD_OCR = #{questionboard_ocr}
+		UPDATE QUESTIONBOARD SET QUESTIONBOARD_CONTENT = #{questionboard_content}
 		WHERE QUESTIONBOARD_NO = #{questionboard_no}
 	</update>
 	
 	<delete id="questionDelete">
-		UPDATE QUESTIONBOARD SET QUESTIONBOARD_DELFLG = 'Y' 
+		UPDATE QUESTIONBOARD SET QUESTIONBOARD_DELFLAG = 'Y' 
 		WHERE QUESTIONBOARD_NO = #{questionboard_no}
 	</delete>
+	
+		<update id = "questionReadCount" parameterType = "int">
+		UPDATE QUESTIONBOARD SET QUESTIONBOARD_READCOUNT = QUESTIONBOARD_READCOUNT + 1
+		WHERE QUESTIONBOARD_NO = #{questionboard_no}
+	</update>
 
 </mapper>
