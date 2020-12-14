@@ -12,9 +12,10 @@
 
 <body>
 
-	<form action="">
+	<form action="login.do">
 		아이디 : <input type="text" name="member_id" />
 		비밀번호 : <input type="text" name="member_pw" />
+		<input type="submit" value="로그인" />
 	</form>
 
 	<div id="naver_id_login" style="display: none;"></div>
@@ -22,7 +23,7 @@
 			<button>네이버 로그인</button>
 		</div>
 		<script type="text/javascript">
-		  	var naver_id_login = new naver_id_login("zjjj7_AqHxAv9Xan5omR", "http://localhost:8787/bean/navercallback.do");
+		  	var naver_id_login = new naver_id_login("", "http://localhost:8787/bean/navercallback.do");
 		  	var state = naver_id_login.getUniqState();
 		 	
 		  	naver_id_login.setButton("green", 3, 45);

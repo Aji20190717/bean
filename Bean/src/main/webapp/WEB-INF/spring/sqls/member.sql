@@ -29,5 +29,7 @@ INSERT INTO MEMBER
 VALUES (MEMBER_SEQ.NEXTVAL, 'ADMIN', '1234', '1234', '관리자', 'BEAN@KH.COM', '010-1234-5678','00000',
 '서울시 강남구 역삼동', '남도빌딩', '1900-04-04', '', '', 'A', 'N', '');
 
+
 SELECT * FROM MEMBER ORDER BY MEMBER_NO;
+
 
