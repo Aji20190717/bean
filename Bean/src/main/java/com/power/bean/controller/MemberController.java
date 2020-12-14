@@ -30,7 +30,7 @@ import com.power.bean.dto.LoginDto;
 
 @Controller
 public class MemberController {
-// 개인정보 수정. 탈퇴. 조회 기능
+// 개인정보 수정. 탈퇴. 조회. 프로필 사진 로딩 기능
 
 	@Autowired
 	private MemberBiz biz;
@@ -46,6 +46,7 @@ public class MemberController {
 
 	}
 	
+	// 프로필 화면의 사진을 로딩하는 컨트롤러
 	@RequestMapping("/profileimg.do")
 	public String displayPhoto (HttpServletResponse response, Model model, HttpSession session) throws Exception {
 
@@ -67,10 +68,7 @@ public class MemberController {
 		} else if(file.equals(".png")) {
 			response.setContentType("image/png");
 		}
-		// session.getAttribute("member_imgname").toString();
-		// model.addAttribute("path", imgpath);
-		// System.out.println(imgpath);
-	    
+
 	    //파일의 경로
 	    FileInputStream f = new FileInputStream(imgpath);
 	    int length;
@@ -85,12 +83,6 @@ public class MemberController {
 	@RequestMapping("/mypage.do")
 	public String mypage_te_profile(Model model, HttpSession session) {
 
-		// System.out.println(session.getAttribute("login"));
-
-		// String imgpath = session.getAttribute("member_imgpath").toString() + "/" +
-		// session.getAttribute("member_imgname").toString();
-		// model.addAttribute("path", imgpath);
-		// System.out.println(imgpath);
 		return "mypage_te_profile";
 
 	}
