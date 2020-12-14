@@ -3,6 +3,7 @@
 /Bean/.classpath
 /Bean/.settings/
 /Bean/src/main/webapp/WEB-INF/views/bean_comeon.jsp
+/Bean/src/main/webapp/WEB-INF/views/login.jsp
 /Bean/target/m2e-wtp/web-resources/META-INF/maven/com.power/bean/pom.properties
 /Bean/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 /Bean/src/main/java/com/power/bean/util/TranslateService.java
