@@ -5,5 +5,9 @@
 /Bean/src/main/webapp/WEB-INF/views/bean_comeon.jsp
 /Bean/target/m2e-wtp/web-resources/META-INF/maven/com.power/bean/pom.properties
 /Bean/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+<<<<<<< HEAD
 /Bean/src/main/java/com/power/bean/util/TranslateService.java
 /Bean/src/main/java/com/power/bean/util/IamportClient.java
+=======
+/Bean/src/main/java/com/power/bean/util/TranslateService.java
+>>>>>>> 462225d41158f8b53f9d4bea7690b5b5bdf594bc
