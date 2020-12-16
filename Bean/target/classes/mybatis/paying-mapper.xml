@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "paying">
+	
+	<select id = "selectPayingList" resultType ="PayingDto">
+		SELECT PAYMENT_NO, MEMBER_NO, CLASS_NO, PAYMENT_METHOD, PAYMENT_PRICE, PAYMENT_STATE, PAYMENT_IMPUID, PAYMENT_REFUND
+		FROM PAYMENT ORDER BY PAYMENT_DATE DESC;
+	</select>
+	
+	<insert id = "insertPaying" parameterType = "PayingDto">
+		INSERT INTO PAYMENT
+		VALUES(PAYMENT_SEQ.NEXTVAL, #{member_no}, #{class_no}, #{payment_method}, #{payment_price}, #{payment_state}, #{payment_date}, #{payment_impuid}, #{payment_refund})
+	</insert>
+	
+	<insert id = "refundPaying" parameterType = "int">
+		UPDATE PAYMENT SET PAYMENT_REFUND = 'N' WHERE PAYMENT_NO = #{payment_no}
+	</insert>
+	
+	
+</mapper>
