@@ -45,4 +45,12 @@ public class QuestionBizImpl implements QuestionBiz{
 		
 	}
 
+	public QuestionDto selectOneForReplyOrUpdate(int questionboard_no) {
+		
+		return questionDao.selectOneForReplyOrUpdate(questionboard_no);
+		
+	}
+	
+	
+
 }

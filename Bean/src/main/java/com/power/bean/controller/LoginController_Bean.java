@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +23,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.util.WebUtils;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.power.bean.biz.LoginBiz;
 import com.power.bean.dto.LoginDto;
 import com.power.bean.util.FileValidator;
 
 @Controller
 public class LoginController_Bean {
-
 
 	@Autowired
 	private LoginBiz biz;
@@ -76,45 +78,54 @@ public class LoginController_Bean {
 	}
 
 	// 회원가입
-	@RequestMapping(value = "/resister.do", method=RequestMethod.POST)
-	public String register(MultipartHttpServletRequest request, Model model,
-			LoginDto dto, @RequestParam("member_mpfile") MultipartFile file, BindingResult result) {
-		
-		dto.setMember_mpfile(file);
+	@RequestMapping(value = "/resister.do", method = RequestMethod.POST)
+	public String register(MultipartHttpServletRequest request, Model model, LoginDto dto,
+			@RequestParam("member_mpfile") MultipartFile file, BindingResult result) {
+
+		// dto.setMember_mpfile(file);
 		// System.out.println("file : " + file);
-		
+
 		// FileValidator fileValidator = new FileValidator();
 		boolean filechk = true;
-		
-		// fileValidator.validate(file, result);	
-		if(dto.getMember_mpfile().getSize() == 0) {
-			filechk = false;		
+
+		// fileValidator.validate(file, result);
+		/*
+		 * if(dto.getMember_mpfile().getSize() == 0) { filechk = false; }
+		 */
+
+		if (file.getSize() == 0) {
+			filechk = false;
 		}
+
 		// System.out.println("filechk : " + filechk);
-		
+
 		Date today = new Date();
-		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat date1 = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat time1 = new SimpleDateFormat("HH:mm:ss");
-		
+
+		String date2 = date1.format(today).replace("-", "");
 		String time2 = time1.format(today).replace(":", "");
 		// System.out.println("time2 : " + time2);
-		
+
 		// file이 있으면
 		if (filechk) {
-			
+
 			// int i = -1;
 			String name = "";
-			
+
 			String oldname = file.getOriginalFilename();
-			
+
 			int index = oldname.lastIndexOf(".");
 			// System.out.println(index);
 			// System.out.println(oldname.substring(0, index));
-			
-			if(index != -1) {//파일 확장자 위치 
-				name = date.format(today) + " " + oldname.substring(0, index) + " " + time2 + oldname.substring(index, oldname.length()) ;// 현재 시간과 확장자
+
+			if (index != -1) {// 파일 확장자 위치
+				name = date2 + oldname.substring(0, index) + time2 + oldname.substring(index, oldname.length());// 현재
+																												// 시간과
+																												// 확장자
 			}
-			//String name = date.format(today) + file.getOriginalFilename() + time.format(today);
+			// String name = date.format(today) + file.getOriginalFilename() +
+			// time.format(today);
 
 			dto.setMember_imgname(name);
 
@@ -149,8 +160,10 @@ public class LoginController_Bean {
 				if (!newFile.exists()) {
 					newFile.createNewFile();
 				}
-				
+
 				dto.setMember_imgpath(path);
+				System.out.println(dto.getMember_imgname());
+				System.out.println(dto.getMember_imgpath());
 
 				// newFile에 쓰기 위한 outputstream
 				outputStream = new FileOutputStream(newFile);
@@ -160,7 +173,8 @@ public class LoginController_Bean {
 				byte[] b = new byte[(int) file.getSize()];
 				// int로 변환한 file의 크기만큼씩 끊어서 읽기
 
-				// inputStream.read(bytes) : bytes의 배열크기 만큼씩 읽어서 bytes배열에 저장 (읽은 데이터는 inputSream에서 사라짐)
+				// inputStream.read(bytes) : bytes의 배열크기 만큼씩 읽어서 bytes배열에 저장 (읽은 데이터는
+				// inputSream에서 사라짐)
 				// read : inputStream이 읽은 데이터의 크기
 				while ((read = inputStream.read(b)) != -1) {
 					// bytes 배열에 저장된 데이터를 0에서 read크기 까지 outputStream에 쓰기
@@ -179,35 +193,50 @@ public class LoginController_Bean {
 				}
 
 			}
-			
-		} 
-		
+
+		}
+
 		int res = biz.resister(dto);
 
-		if(res>0) {
-			
+		if (res > 0) {
+
 			return "mainpage";
 		}
-		
+
 		return "registBean";
 
 	}
-	
+
 	// 로그인
 	@RequestMapping("/login.do")
-	public String login(LoginDto dto, HttpSession session) {
+	public String login(LoginDto dto, HttpSession session, Model model) {
 
 		LoginDto res = biz.login(dto);
-		
-		if(res != null) {
-			session.setAttribute("login", res);
-			return "mainpage";
+
+		if (res != null) {
+			if (res.getMember_withdrawal().equals("N")) {
+				session.setAttribute("login", res);
+				return "mainpage";
+			} else if (res.getMember_withdrawal().equals("Y")) {
+				String msg = "탈퇴한 회원입니다.";
+				model.addAttribute("msg", msg);
+				return "login_withdrawal";
+			}
 		}
 
 		return "login";
 
 	}
-	
+
+	// 로그아웃
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session) {
+
+		session.invalidate();
+		return "mainpage";
+
+	}
+
 	
 
 }
