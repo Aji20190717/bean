@@ -25,7 +25,9 @@ public class PayingDaoImpl implements PayingDao{
 	@Override
 	public int insertPaying(PayingDto payingDto) {
 		
+		System.out.println(payingDto);
 		int res = sqlSession.insert(PAYINGNAMESPACE + "insertPaying", payingDto);
+		System.out.println(res);
 		
 		return res;
 	}

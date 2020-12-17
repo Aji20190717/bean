@@ -9,7 +9,7 @@
 	
 	<insert id = "insertPaying" parameterType = "PayingDto">
 		INSERT INTO PAYMENT
-		VALUES(PAYMENT_SEQ.NEXTVAL, #{member_no}, #{class_no}, #{payment_method}, #{payment_price}, #{payment_state}, #{payment_date}, #{payment_impuid}, #{payment_refund})
+		VALUES(PAYMENT_SEQ.NEXTVAL, #{member_no}, #{class_no}, #{payment_method}, #{payment_price}, #{payment_state}, SYSDATE, #{payment_impuid}, #{payment_refund})
 	</insert>
 	
 	<insert id = "refundPaying" parameterType = "int">

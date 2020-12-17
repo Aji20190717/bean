@@ -1,12 +1,9 @@
 package com.power.bean.controller;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.power.bean.biz.ClassBiz;
 import com.power.bean.biz.PayingBiz;
+import com.power.bean.dto.ClassDto;
 import com.power.bean.dto.PayingDto;
 import com.power.bean.util.IamportClient;
 
@@ -26,8 +25,11 @@ public class PayingController {
 
 	@Autowired
 	private PayingBiz payingBiz;
+	
+	@Autowired 
+	private ClassBiz classBiz;
 
-	// TODO :admin page에 확인할 수 있는 부분을 만들 것
+	// TODO : admin page에 확인할 수 있는 부분을 만들 것
 	@RequestMapping("/payingList.do")
 
 	public List<PayingDto> payingList(Model model){
@@ -38,14 +40,15 @@ public class PayingController {
 	@RequestMapping("/insertPaying.do")
 	@ResponseBody
 	public Map<String, Boolean> insertPaying(String jsonData, PayingDto payingDto){
-	
-		System.out.println(payingDto.toString());
-		System.out.println(jsonData);
+		System.out.println(payingDto);
 		
 		Boolean check = true;
 
+		PayingDto insertDto = payingDto;
+		
+		System.out.println(insertDto);
+		
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
-		map.put("check", check);
 		
 		// Apache HttpClient기반의 java용 아임포트 REST API클라이언트
 		IamportClient iamportClient = new IamportClient();
@@ -59,36 +62,57 @@ public class PayingController {
 		Map<String, String> realResponse;
 		
 		String realAmount;
-		
-		try {
-			ajaxmap = mapper.readValue(jsonData, Map.class);
 			
 			try {
-				//System.out.println(iamportClient.paymentByImpUid(map.get("imp_uid")));
-				apiResponse = iamportClient.paymentByImpUid(payingDto.getPayment_impuid());
-				System.out.println(apiResponse);
-				System.out.println(apiResponse.getClass());
 				
+				//실제 결제 된 값이 결제 한 값과 같은 지 확인
+				apiResponse = iamportClient.paymentByImpUid(payingDto.getPayment_impuid());
 				Object obj = parser.parse(apiResponse);
 				JsonObject jsonObj = (JsonObject) obj;
 				JsonElement response = jsonObj.get("response");
 				realAmount = response.getAsJsonObject().get("amount").getAsString();
-				System.out.println(realAmount);
 			
+				
+				//값이 같을 경우 -> 영수증 데이터에 Dto 추가, class에 회원 추가
+				if(realAmount.equals(payingDto.getPayment_price())) {
+					
+					insertDto.setPayment_state("Y");
+					insertDto.setPayment_refund("N");
+					
+					int payingres = payingBiz.insertPaying(insertDto);
+					int classres = classBiz.updateClassStudent(insertDto.getClass_no(), insertDto.getMember_no(), insertDto.getPayment_impuid());
+					
+					if(payingres<= 0 || classres <= 0) {
+						
+						//TODO : 실패할 경우 rollback 처리 후 실패로 처리
+						
+						check = false;
+						System.out.println(payingres);
+						System.out.println(classres);
+						
+						// TODO : 환불 코드
+						
+					}
+							
+					
+				}else {
+					
+					insertDto.setPayment_state("N");
+					
+				}
+				
+				
+				
+				//값이 다를 경우 영수증 데이터에 Dto 추가할 때 N으로 추가
+				
 				
 							
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 					
-		} catch (JsonParseException e) {
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+		map.put("check", check);
+	
 	
 		return map;
 		

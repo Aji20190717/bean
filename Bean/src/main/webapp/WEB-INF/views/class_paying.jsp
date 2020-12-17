@@ -16,13 +16,19 @@
 
 		IMP.init("imp43617146");
 
+
+		
+
 	});
 
 	function payfunc() {
 
 		var remainData = new Object();
 		var obj = ${map};
+		var classObj = ${classDto};
+		//alert(classObj["class_no"]);
 		
+				
 		var jsonData;
 		IMP.request_pay({
 			pg : 'inicis', // version 1.1.0부터 지원.
@@ -41,7 +47,9 @@
 			if (rsp.success) {
 				
 				//필요한 값을 object 객체에 추가해 줄 것
-				remainData.class_id = obj["usernum"]; //buyer 회원 번호
+				remainData.usernum = obj["usernum"]; //buyer 회원 번호
+				
+				
 
 				jsonData = JSON.stringify(remainData);
 
@@ -52,7 +60,10 @@
 					data : {
 
 						// TODO : classDTO의 payment_price로 추가할 것
+						
 						"jsonData" : jsonData,
+						"member_no" : obj["usernum"],
+						"class_no" : classObj["class_no"],
 						"payment_price" : 34000,
 						"payment_method" : 'KaKaoPay',
 						"payment_impuid" : rsp.imp_uid
@@ -89,6 +100,7 @@
 
 	<button onclick="payfunc()">결제하기</button>
 	<h1>${map}</h1>
+	<h1>${classDto }</h1>
 
 
 </body>

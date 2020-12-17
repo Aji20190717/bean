@@ -18,5 +18,6 @@ public interface ClassDao {
 	public int classFin(int class_no);
 	public int classDelete(int class_no);
 	public int StudentRun(int class_no, int member_no, String imp_uid);
+	
 
 }

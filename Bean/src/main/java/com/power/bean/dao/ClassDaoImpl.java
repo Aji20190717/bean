@@ -61,6 +61,7 @@ public class ClassDaoImpl implements ClassDao{
 		
 		//nowNumber에 따라 다르게 해야한다
 		String addMemberString = "\"" + member_no + "\" : \"" + impuid + "\"";
+		System.out.println(addMemberString);
 		
 		String updateStudent;
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -69,16 +70,18 @@ public class ClassDaoImpl implements ClassDao{
 		
 		if(existingClass.getClass_now() == 0) {
 			
-			updateStudent = existingClass.getClass_memberName() + addMemberString;
+			updateStudent = addMemberString;
 			
 		}else {
 			
-			updateStudent = existingClass.getClass_memberName() + "," + addMemberString;
+			updateStudent = existingClass.getClass_memberName() + " , " + addMemberString;
+			System.out.println(updateStudent);
+			
 			
 		}
 		
 		map.put("class_no", class_no);
-		map.put("updateStudent", updateStudent);
+		map.put("updateStudent", updateStudent);	
 
 		int res = sqlSession.update(CLASSNAMESPACE + "updateClassStudent", map);
 		
