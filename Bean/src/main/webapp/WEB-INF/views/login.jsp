@@ -45,10 +45,12 @@
 
 
 
+
 	<a href="https://kauth.kakao.com/oauth/authorize?client_id=3350426d432820aada3df120c58988d4&redirect_uri=http://localhost:8787/bean/kakaologin.do&response_type=code">
 	카카오
 		<img class=kakaoLogin alt="kakao" src="resources/img/kakao_login.png">
 	</a>
+	<input type="button" value="회원가입"onclick="location.href='registtype.do'" />
 </body>
 
 
