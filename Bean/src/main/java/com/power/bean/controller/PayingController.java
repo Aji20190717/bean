@@ -31,21 +31,21 @@ public class PayingController {
 	@RequestMapping("/payingList.do")
 
 	public List<PayingDto> payingList(Model model){
-
+		
 		return null;
 	}
 
 	@RequestMapping("/insertPaying.do")
 	@ResponseBody
-	public Map<String, Boolean> insertPaying(String jsonData){
+	public Map<String, Boolean> insertPaying(String jsonData, PayingDto payingDto){
+	
+		System.out.println(payingDto.toString());
+		System.out.println(jsonData);
 		
 		Boolean check = true;
 
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
 		map.put("check", check);
-
-		
-		//꼭 object로 주지 않아도 상관 없는 듯 하다 
 		
 		// Apache HttpClient기반의 java용 아임포트 REST API클라이언트
 		IamportClient iamportClient = new IamportClient();
@@ -65,7 +65,7 @@ public class PayingController {
 			
 			try {
 				//System.out.println(iamportClient.paymentByImpUid(map.get("imp_uid")));
-				apiResponse = iamportClient.paymentByImpUid(ajaxmap.get("imp_uid"));
+				apiResponse = iamportClient.paymentByImpUid(payingDto.getPayment_impuid());
 				System.out.println(apiResponse);
 				System.out.println(apiResponse.getClass());
 				

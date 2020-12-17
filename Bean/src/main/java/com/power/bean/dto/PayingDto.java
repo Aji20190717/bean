@@ -102,10 +102,12 @@ public class PayingDto {
 	public void setPayment_refund(String payment_refund) {
 		this.payment_refund = payment_refund;
 	}
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "PayingDto [payment_no=" + payment_no + ", member_no=" + member_no + ", class_no=" + class_no
+				+ ", payment_method=" + payment_method + ", payment_price=" + payment_price + ", payment_state="
+				+ payment_state + ", payment_date=" + payment_date + ", payment_impuid=" + payment_impuid
+				+ ", payment_refund=" + payment_refund + "]";
+	}
 }

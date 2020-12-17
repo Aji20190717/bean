@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class ClassDto {
 	
+	//TODO : class 마다 가격 어떻게 할 것인지 고민
 	private int class_no;
 	private int member_no;
 	private int class_max;
