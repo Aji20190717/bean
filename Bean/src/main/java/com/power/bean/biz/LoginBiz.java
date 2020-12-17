@@ -10,4 +10,6 @@ public interface LoginBiz {
 	public boolean emailChk(String email);
 	public LoginDto snsChk(String member_sns);
 	
+	public int kakaoInsert(LoginDto dto);
+	
 }

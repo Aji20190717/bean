@@ -109,11 +109,15 @@ public class kakaoLogin {
 	public static LoginDto changeData(JsonNode userInfo) {
 		LoginDto dto = new LoginDto();
 		
-		dto.setMember_id(userInfo.path("id").asText()); // id -> vo 넣기
+		dto.setMember_id(userInfo.path("id").asText()); // id -> dto 넣기
 		System.out.println("id.. "+dto.getMember_id());
 		String pro=userInfo.get("properties").get("nickname").textValue();
 		String mail=userInfo.get("kakao_account").get("email").textValue();
-//		
+		System.out.println();
+		String member_sns="kakao"+dto.getMember_sns();
+		dto.setMember_sns(member_sns);
+		
+		
 //		System.out.println("mail..."+mail);
 //		System.out.println("userinfo..."+pro);
 //		System.out.println("userinfo..."+userInfo);
@@ -127,4 +131,6 @@ public class kakaoLogin {
 		
 		return dto;
 	}
+	
+
 }
