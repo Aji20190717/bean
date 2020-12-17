@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.util.WebUtils;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.power.bean.biz.LoginBiz;
 import com.power.bean.dto.LoginDto;
 import com.power.bean.util.FileValidator;
@@ -117,8 +120,9 @@ public class LoginController_Bean {
 			// System.out.println(oldname.substring(0, index));
 
 			if (index != -1) {// 파일 확장자 위치
-				name = date2 + oldname.substring(0, index) + time2
-						+ oldname.substring(index, oldname.length());// 현재 시간과 확장자
+				name = date2 + oldname.substring(0, index) + time2 + oldname.substring(index, oldname.length());// 현재
+																												// 시간과
+																												// 확장자
 			}
 			// String name = date.format(today) + file.getOriginalFilename() +
 			// time.format(today);
@@ -210,10 +214,10 @@ public class LoginController_Bean {
 		LoginDto res = biz.login(dto);
 
 		if (res != null) {
-			if(res.getMember_withdrawal().equals("N")) {
+			if (res.getMember_withdrawal().equals("N")) {
 				session.setAttribute("login", res);
 				return "mainpage";
-			} else if(res.getMember_withdrawal().equals("Y")) {
+			} else if (res.getMember_withdrawal().equals("Y")) {
 				String msg = "탈퇴한 회원입니다.";
 				model.addAttribute("msg", msg);
 				return "login_withdrawal";
@@ -232,5 +236,7 @@ public class LoginController_Bean {
 		return "mainpage";
 
 	}
+
+	
 
 }

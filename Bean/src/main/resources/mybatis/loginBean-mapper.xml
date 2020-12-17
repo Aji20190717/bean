@@ -36,5 +36,15 @@
 				#{member_phone}, #{member_post}, #{member_addr1}, #{member_addr2}, #{member_birth},
 				#{member_imgname, jdbcType=VARCHAR}, #{member_imgpath, jdbcType=VARCHAR}, #{member_type}, 'N', #{member_sns, jdbcType=VARCHAR})
 	</insert>
+	
+	<insert id="kakaoInsert" parameterType="LoginDto">
+		INSERT INTO MEMBER
+		VALUES(MEMBER_SEQ.NEXTVAL,#{member_id}, '1234', '1234', #{member_name},#{member_email},
+				'01012345678', 1234, '주소', '주소','생일',
+				'이미지','이미지', 'A','N', 'Y')
+	
+	</insert>
+	
+	
 
 </mapper>

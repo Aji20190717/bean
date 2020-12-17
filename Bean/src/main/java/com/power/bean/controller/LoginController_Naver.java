@@ -42,6 +42,8 @@ public class LoginController_Naver {
 
 	}
 	
+	
+	
 	// 네이버 로그인 완료 후 정보 받아서 처리할 페이지
 	@RequestMapping(value = "/naverlogin.do", method = RequestMethod.POST)
 	@ResponseBody

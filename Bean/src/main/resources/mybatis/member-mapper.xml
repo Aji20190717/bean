@@ -17,4 +17,5 @@
 		WHERE MEMBER_NO = #{member_no}
 	</update>
 	
+	
 </mapper>

@@ -37,4 +37,9 @@ public class LoginBizImpl implements LoginBiz {
 		return dao.snsChk(member_sns);		
 	}
 
+	@Override
+	public int kakaoInsert(LoginDto dto) {
+		return dao.kakaoInsert(dto);
+	}
+
 }
