@@ -30,6 +30,7 @@
 						<span>${login.member_addr1 }</span>
 						<span>${login.member_addr2 }</span><br/>
 		</span>
+		
 	</div>
 
 </body>

@@ -29,7 +29,7 @@ public class ClassController {
 		return "class_list";
 	}
 	
-	@RequestMapping("/selectTrainerClass.do")
+	@RequestMapping("/selectOneClass.do")
 	public String selectOneClass(Model model, int class_no) {
 		
 		ClassDto classDto = classBiz.selectOneClass(class_no);
@@ -75,12 +75,36 @@ public class ClassController {
 	@RequestMapping("/studentRun.do")
 	public String studentRun(int class_no, int member_no, String imp_uid) {
 		
-		
 		//TODO : PayingBiz의 환불 코드
-		
-		
 		return null;
 		
+	}
+	
+	@RequestMapping("/insertRes.do")
+	public String insertRes(int member_no, Model model){
+		
+		model.addAttribute("member_no", member_no);
+		
+		return "class_add";
+	}
+		
+	
+	@RequestMapping("/insertClass")
+	public String insertClass(ClassDto insertClassDto) {
+		
+		System.out.println(insertClassDto);
+		
+		
+		//int res = classBiz.insertClass(insertClassDto);
+		/*
+		if(res>0) {
+			
+			return "redirect:mypagedetail.do?member_no=" + insertClassDto.getMember_no();
+		}
+		return null;
+		*/
+		
+		return null;
 	}
 	
 

@@ -16,10 +16,10 @@
 		<c:otherwise>
 			<c:choose>
 				<c:when test="${login.member_type eq 'S' || login.member_type eq 'SN' || login.member_type eq 'SG' }">
-					<span>수강생 <a href="myinfo.do">${login.member_name }님</a></span>
+					<span>수강생 <a href="myinfo.do?member_no${member_no}">${login.member_name }님</a></span>
 				</c:when>
 				<c:when test="${login.member_type eq 'T' }">
-					<span>강사 <a href="mypage.do">${login.member_name }님</a></span>
+					<span>강사 <a href="mypage.do?member_no=${member_no}">${login.member_name }님</a></span>
 				</c:when>
 			</c:choose>			
 		</c:otherwise>

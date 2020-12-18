@@ -148,8 +148,25 @@ public class ClassDaoImpl implements ClassDao{
 		return res;
 		
 	}
+	 
+	
+	@Override
+	public int insertClass(ClassDto classDto) {
+		
+		int res =  sqlSession.insert(CLASSNAMESPACE + "insertClass", classDto);
+		
+		return res;
+	}
 
-	//TODO : CLASS를 트레이너가 등록하는 것도 만들 것
+	@Override
+	public List<ClassDto> selectTrainerClass(int member_no) {
+		
+		List<ClassDto> trainerClassList = sqlSession.selectList(CLASSNAMESPACE + "selectTrainerClass", member_no);
+		
+		return trainerClassList;
+	}
+
+
 	
 	
 }

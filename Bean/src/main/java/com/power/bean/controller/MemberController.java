@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -24,14 +25,19 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.util.WebUtils;
 
+import com.power.bean.biz.ClassBiz;
 import com.power.bean.biz.LoginBiz;
 import com.power.bean.biz.MemberBiz;
+import com.power.bean.dto.ClassDto;
 import com.power.bean.dto.LoginDto;
 
 @Controller
 public class MemberController {
 // 개인정보 수정. 탈퇴. 조회. 프로필 사진 로딩 기능
 
+	@Autowired
+	private ClassBiz classbiz;
+	
 	@Autowired
 	private MemberBiz biz;
 
@@ -90,14 +96,17 @@ public class MemberController {
 	// 개인정보 조회 : 수강생
 	@RequestMapping("/myinfodetail.do")
 	public String mypage_su_detail() {
-
+		
 		return "mypage_su_detail";
 
 	}
 
 	// 개인정보 조회 : 강사
 	@RequestMapping("/mypagedetail.do")
-	public String mypage_te_detail() {
+	public String mypage_te_detail(Model model, int member_no) {
+	
+		List<ClassDto> ClassList = classbiz.selectTrainerClass(member_no);
+		model.addAttribute("classList", ClassList);
 
 		return "mypage_te_detail";
 

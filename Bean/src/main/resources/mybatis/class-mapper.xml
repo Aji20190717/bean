@@ -7,14 +7,17 @@
 		MEMBER_NO, CLASS_MAX, CLASS_NOW, CLASS_STARTDATE, CLASS_ENDDATE,
 		CLASS_NAME, CLASS_MEMBERNAME, CLASS_DELFLAG
 		FROM CLASS
-		WHERE CLASS_DELFLAG = 'N'
+		WHERE
+		CLASS_DELFLAG = 'N'
 		ORDER BY CLASS_NO DESC
 	</select>
 
 	<select id="selectOneClass" parameterType="int"
 		resultType="ClassDto">
-		SELECT CLASS_NO, MEMBER_NO, CLASS_MAX, CLASS_NOW, CLASS_STARTDATE,
-		CLASS_ENDDATE, CLASS_NAME, CLASS_MEMBERNAME, CLASS_DELFLAG
+		SELECT CLASS_NO, MEMBER_NO, CLASS_MAX, CLASS_NOW,
+		CLASS_STARTDATE,
+		CLASS_ENDDATE, CLASS_NAME, CLASS_MEMBERNAME,
+		CLASS_DELFLAG
 		FROM CLASS
 		WHERE CLASS_NO = #{class_no}
 	</select>
@@ -30,8 +33,6 @@
 			</if>
 		</where>
 	</select>
-
-
 
 	<update id="updateClassStudent" parameterType="map">
 		UPDATE CLASS SET
@@ -49,14 +50,27 @@
 		UPDATE CLASS SET
 		CLASS_DELFLAG = 'D'
 	</update>
-	
-	<update id = "studentRun" parameterType = "String">
-		UPDATE CLASS SET 
+
+	<update id="studentRun" parameterType="String">
+		UPDATE CLASS SET
 		CLASS_MEMBERNAME = #{newClassMember}
 	</update>
 
+	<select id="selectTrainerClass" parameterType="int"
+		resultType="ClassDto">
+		SELECT CLASS_NO, MEMBER_NO, CLASS_MAX, CLASS_NOW,
+		CLASS_STARTDATE,
+		CLASS_ENDDATE, CLASS_NAME, CLASS_MEMBERNAME,
+		CLASS_DELFLAG
+		FROM CLASS
+		WHERE MEMBER_NO = #{member_no}
+	</select>
 
-
+	<insert id="insertClass" parameterType = "ClassDto">
+		INSERT INTO CLASS VALUES(SYSDATE, 0, #{class_max}, 0, #{class_startDate}, #{class_endDate}, #{class_name}, "", 'N')
+	</insert>
+	
+	
 
 
 </mapper>

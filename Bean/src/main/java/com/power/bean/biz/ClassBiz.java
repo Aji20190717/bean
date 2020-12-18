@@ -16,5 +16,9 @@ public interface ClassBiz {
 	public int classFin(int class_no);
 	public int classDelete(int class_no);
 	public int StudentRun(int class_no, int member_no, String imp_uid);
+	public int insertClass(ClassDto classDto);
+	//트레이너 번호를 넣으면 트레이너가 담당한 class를 보여준다
+	public List<ClassDto> selectTrainerClass(int member_no);
+	
 
 }

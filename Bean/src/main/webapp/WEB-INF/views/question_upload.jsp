@@ -16,9 +16,6 @@
 	int groupno = 0;
 	%>
 
-	<!--  
-			
-			-->
 
 	<form:form method="post" enctype="multipart/form-data"
 		modelAttribute="QuestionDto" action="questionUploadres.do">
