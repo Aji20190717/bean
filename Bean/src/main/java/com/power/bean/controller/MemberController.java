@@ -1,6 +1,7 @@
 package com.power.bean.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,7 +9,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -23,80 +24,116 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.util.WebUtils;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.power.bean.biz.LoginBiz;
+import com.power.bean.biz.MemberBiz;
 import com.power.bean.dto.LoginDto;
-import com.power.bean.util.FileValidator;
 
 @Controller
-public class LoginController_Bean {
+public class MemberController {
+// 개인정보 수정. 탈퇴. 조회. 프로필 사진 로딩 기능
 
 	@Autowired
-	private LoginBiz biz;
+	private MemberBiz biz;
 
-	// 메인 페이지에서 로그인/회원가입 버튼 누르면 오는 곳
-	@RequestMapping("/loginform.do")
-	public String loginform() {
+	@Autowired
+	private LoginBiz loginbiz;
 
-		return "login";
+	// 마이페이지 첫 화면 : 로그인 후 이름 누르면 나오는 곳 (수강생)
+	@RequestMapping("/myinfo.do")
+	public String mypage_su_profile() {
+		
+		return "mypage_su_profile";
+
+	}
+	
+	// 프로필 화면의 사진을 로딩하는 컨트롤러
+	@RequestMapping("/profileimg.do")
+	public String displayPhoto (HttpServletResponse response, Model model, HttpSession session) throws Exception {
+
+	    ServletOutputStream bout = response.getOutputStream();
+	    
+	    LoginDto dto = (LoginDto) session.getAttribute("login");
+		System.out.println(dto.getMember_no());
+
+		// System.out.println(session.getAttribute("login"));
+
+		String imgpath = dto.getMember_imgpath() + "\\" + dto.getMember_imgname();
+		
+		int index = dto.getMember_imgname().lastIndexOf(".");
+		String file = dto.getMember_imgname().substring(index, dto.getMember_imgname().length());
+		System.out.println(file);
+		
+		if(file.equals(".jpg")) {
+			response.setContentType("image/jpg");
+		} else if(file.equals(".png")) {
+			response.setContentType("image/png");
+		}
+
+	    //파일의 경로
+	    FileInputStream f = new FileInputStream(imgpath);
+	    int length;
+	    byte[] buffer = new byte[10];
+	    while((length=f.read(buffer)) != -1){
+	    	bout.write(buffer,0,length);
+	    }
+	    return null;
+	}
+
+	// 마이페이지 첫 화면 : 로그인 후 이름 누르면 나오는 곳 (강사)
+	@RequestMapping("/mypage.do")
+	public String mypage_te_profile(Model model, HttpSession session) {
+
+		return "mypage_te_profile";
 
 	}
 
-	// 로그인/회원가입 페이지에서 회원가입 누르면 강사/수강생 선택 페이지로 감
-	@RequestMapping("/registtype.do")
-	public String registtype() {
+	// 개인정보 조회 : 수강생
+	@RequestMapping("/myinfodetail.do")
+	public String mypage_su_detail() {
 
-		return "registType";
-
-	}
-
-	// 강사/수강생이 결정되면 값을 가지고 회원가입 폼으로 넘어감.
-	@RequestMapping("/registform.do")
-	public String registform(String type, Model model) {
-
-		model.addAttribute("type", type);
-		return "registBean";
+		return "mypage_su_detail";
 
 	}
 
-	// id체크하는 페이지
-	@RequestMapping("/idChk.do")
-	public String idChkpage(String id, Model model) {
+	// 개인정보 조회 : 강사
+	@RequestMapping("/mypagedetail.do")
+	public String mypage_te_detail() {
 
-		model.addAttribute("idChk", biz.idChk(id));
-		return "idChk";
-
-	}
-
-	// email체크하는 페이지
-	@RequestMapping("/emailChk.do")
-	public String emailChkpage(String email, Model model) {
-
-		model.addAttribute("emailChk", biz.idChk(email));
-		return "emailChk";
+		return "mypage_te_detail";
 
 	}
 
-	// 회원가입
-	@RequestMapping(value = "/resister.do", method = RequestMethod.POST)
-	public String register(MultipartHttpServletRequest request, Model model, LoginDto dto,
-			@RequestParam("member_mpfile") MultipartFile file, BindingResult result) {
+	// 개인정보 수정폼 : 수강생
+	@RequestMapping("/myinfoupdateform.do")
+	public String mypageupdateform() {
+
+		return "mypage_su_update";
+
+	}
+
+	// 개인정보 수정폼 : 수강생
+	@RequestMapping("/mypageupdateform.do")
+	public String mypage_te_update() {
+
+		return "mypage_te_update";
+
+	}
+
+	// 개인정보 수정 : 수강생 (비밀번호, 연락처, 주소, 생일, 프로필)
+	@RequestMapping(value = "/myinfoupdate.do", method = RequestMethod.POST)
+	public String mypageupdate(MultipartHttpServletRequest request, Model model, LoginDto dto,
+			@RequestParam("member_mpfile") MultipartFile file, BindingResult result, HttpSession session) {
 
 		// dto.setMember_mpfile(file);
-		// System.out.println("file : " + file);
+		System.out.println("id : " + dto.getMember_id());
 
 		// FileValidator fileValidator = new FileValidator();
 		boolean filechk = true;
 
 		// fileValidator.validate(file, result);
-		/*
-		 * if(dto.getMember_mpfile().getSize() == 0) { filechk = false; }
-		 */
-
 		if (file.getSize() == 0) {
 			filechk = false;
 		}
-
 		// System.out.println("filechk : " + filechk);
 
 		Date today = new Date();
@@ -120,9 +157,8 @@ public class LoginController_Bean {
 			// System.out.println(oldname.substring(0, index));
 
 			if (index != -1) {// 파일 확장자 위치
-				name = date2 + oldname.substring(0, index) + time2 + oldname.substring(index, oldname.length());// 현재
-																												// 시간과
-																												// 확장자
+				name = date2 + oldname.substring(0, index) + time2
+						+ oldname.substring(index, oldname.length());// 현재 시간과 확장자
 			}
 			// String name = date.format(today) + file.getOriginalFilename() +
 			// time.format(today);
@@ -162,8 +198,6 @@ public class LoginController_Bean {
 				}
 
 				dto.setMember_imgpath(path);
-				System.out.println(dto.getMember_imgname());
-				System.out.println(dto.getMember_imgpath());
 
 				// newFile에 쓰기 위한 outputstream
 				outputStream = new FileOutputStream(newFile);
@@ -196,47 +230,41 @@ public class LoginController_Bean {
 
 		}
 
-		int res = biz.resister(dto);
+		int res = biz.myinfoupdate(dto);
+		System.out.println(res);
 
 		if (res > 0) {
 
+			session.removeAttribute("login");
+
+			LoginDto login = new LoginDto();
+			LoginDto info = new LoginDto();
+			info.setMember_id(dto.getMember_id());
+			info.setMember_pw(dto.getMember_pw());
+			login = loginbiz.login(info);
+
+			session.setAttribute("login", login);
+			return "redirect:myinfodetail.do";
+
+		}
+
+		return "redirect:myinfoupdateform.do";
+
+	}
+
+	// 개인정보 수정 : 탈퇴
+	@RequestMapping("/myinfodelete.do")
+	public String mypagedelete(HttpSession session, String member_no) {
+
+		int res = biz.withdrawal(Integer.parseInt(member_no));
+
+		if (res > 0) {
+			session.invalidate();
 			return "mainpage";
 		}
 
-		return "registBean";
+		return "redirect:myinfodetail.do";
 
 	}
-
-	// 로그인
-	@RequestMapping("/login.do")
-	public String login(LoginDto dto, HttpSession session, Model model) {
-
-		LoginDto res = biz.login(dto);
-
-		if (res != null) {
-			if (res.getMember_withdrawal().equals("N")) {
-				session.setAttribute("login", res);
-				return "mainpage";
-			} else if (res.getMember_withdrawal().equals("Y")) {
-				String msg = "탈퇴한 회원입니다.";
-				model.addAttribute("msg", msg);
-				return "login_withdrawal";
-			}
-		}
-
-		return "login";
-
-	}
-
-	// 로그아웃
-	@RequestMapping("/logout.do")
-	public String logout(HttpSession session) {
-
-		session.invalidate();
-		return "mainpage";
-
-	}
-
-	
 
 }

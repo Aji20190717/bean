@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="member">
+
+	<update id="update" parameterType="LoginDto">
+		UPDATE MEMBER
+		SET MEMBER_PW = #{member_pw}, MEMBER_PWCHK = #{member_pwchk}, MEMBER_PHONE = #{member_phone},
+			MEMBER_POST = #{member_post}, MEMBER_ADDR1 = #{member_addr1}, MEMBER_ADDR2 = #{member_addr2},
+			MEMBER_BIRTH = #{member_birth}, MEMBER_IMGNAME = #{member_imgname, jdbcType=VARCHAR},
+			MEMBER_IMGPATH =  #{member_imgpath, jdbcType=VARCHAR}
+		WHERE MEMBER_NO = #{member_no}
+	</update>
+	
+	<update id="delete" parameterType="int">
+		UPDATE MEMBER
+		SET MEMBER_WITHDRAWAL = 'Y'
+		WHERE MEMBER_NO = #{member_no}
+	</update>
+	
+	
+</mapper>

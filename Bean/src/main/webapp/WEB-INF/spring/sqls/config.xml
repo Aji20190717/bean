@@ -3,13 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<!-- 새로운 값을 넣을 때에는 위로 쌓기!! 꼭 지켜주세요!!!! -->
 
 	
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
 
+	<!-- typeAlias는 위로 쌓기 -->
 	<typeAliases>
 		<typeAlias type="com.power.bean.dto.PayingDto" alias = "PayingDto"/>
 		<typeAlias type="com.power.bean.dto.ClassDto" alias = "ClassDto"/>
@@ -22,12 +22,15 @@
 	</typeAliases>
 
 	<!-- resource: src/main/resources -->
+	<!-- mapper은 밑으로 쌓기 -->
 	<mappers>
 		<mapper resource="/mybatis/paying-mapper.xml"/>
 		<mapper resource="/mybatis/class-mapper.xml"/>
 		<mapper resource="/mybatis/review-mapper.xml" />
 		<mapper resource="/mybatis/loginBean-mapper.xml" />
 		<mapper resource="/mybatis/question-mapper.xml" />
+		<mapper resource="/mybatis/member-mapper.xml"/>
+		<mapper resource="/mybatis/review-mapper.xml" />
 	</mappers>
 
 </configuration>

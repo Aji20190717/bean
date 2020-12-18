@@ -40,6 +40,17 @@ public class LoginDaoImpl implements LoginDao {
 
 		return res;
 	}
+	
+	public int kakaoInsert(LoginDto dto) {
+		int res=0;
+		
+		try {
+			res=sqlSession.insert(NAMESPACE+"kakaoInsert",dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
 
 	@Override
 	public boolean idChk(String id) {
