@@ -10,8 +10,9 @@
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
 
-
 	<typeAliases>
+		<typeAlias type="com.power.bean.dto.PayingDto" alias = "PayingDto"/>
+		<typeAlias type="com.power.bean.dto.ClassDto" alias = "ClassDto"/>
 		<typeAlias type="com.power.bean.dto.ReviewDto"
 			alias="ReviewDto" />
 		<typeAlias type="com.power.bean.dto.LoginDto"
@@ -22,9 +23,11 @@
 
 	<!-- resource: src/main/resources -->
 	<mappers>
+		<mapper resource="/mybatis/paying-mapper.xml"/>
+		<mapper resource="/mybatis/class-mapper.xml"/>
 		<mapper resource="/mybatis/review-mapper.xml" />
 		<mapper resource="/mybatis/loginBean-mapper.xml" />
-		<mapper resource="mybatis/question-mapper.xml" />
+		<mapper resource="/mybatis/question-mapper.xml" />
 	</mappers>
 
 </configuration>

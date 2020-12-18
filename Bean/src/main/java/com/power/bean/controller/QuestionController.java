@@ -123,7 +123,7 @@ public class QuestionController {
 		return "question_upload";
 	}
 	
-	//TODO : sql 최대 열 넘는 값 처리 
+	//TODO : sql 최대 열 넘는 값 처리 (
 	@RequestMapping("/questionUploadres.do")
 	public String questionUploadRes(HttpServletRequest request, Model model, QuestionDto dto, BindingResult result) {
 

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="class">
+
+	<select id="selectClassList" resultType="ClassDto">
+		SELECT CLASS_NO,
+		MEMBER_NO, CLASS_MAX, CLASS_NOW, CLASS_STARTDATE, CLASS_ENDDATE,
+		CLASS_NAME, CLASS_MEMBERNAME, CLASS_DELFLAG
+		FROM CLASS
+		WHERE CLASS_DELFLAG = 'N'
+		ORDER BY CLASS_NO DESC
+	</select>
+
+	<select id="selectOneClass" parameterType="int"
+		resultType="ClassDto">
+		SELECT CLASS_NO, MEMBER_NO, CLASS_MAX, CLASS_NOW, CLASS_STARTDATE,
+		CLASS_ENDDATE, CLASS_NAME, CLASS_MEMBERNAME, CLASS_DELFLAG
+		FROM CLASS
+		WHERE CLASS_NO = #{class_no}
+	</select>
+
+	<select id="selectPayingClassList" resultType="ClassDto"
+		parameterType="String">
+		SELECT CLASS_NO, MEMBER_NO, CLASS_MAX, CLASS_NOW, CLASS_STARTDATE,
+		CLASS_ENDDATE, CLASS_NAME, CLASS_MEMBERNAME, CLASS_DELFLAG
+		FROM CLASS
+		<where>
+			<if test="searchString != null">
+				CLASS_MEMBERNAME LIKE '%' || #{searchString} || '%'
+			</if>
+		</where>
+	</select>
+
+
+
+	<update id="updateClassStudent" parameterType="map">
+		UPDATE CLASS SET
+		CLASS_NOW = CLASS_NOW - 1 , CLASS_MEMBERNAME = #{updateStudent}
+		WHERE
+		CLASS_NO = #{class_no}
+	</update>
+
+	<update id="classFin" parameterType="int">
+		UPDATE CLASS SET
+		CLASS_DELFLAG = 'F'
+	</update>
+
+	<update id="classDelete" parameterType="int">
+		UPDATE CLASS SET
+		CLASS_DELFLAG = 'D'
+	</update>
+	
+	<update id = "studentRun" parameterType = "String">
+		UPDATE CLASS SET 
+		CLASS_MEMBERNAME = #{newClassMember}
+	</update>
+
+
+
+
+
+</mapper>
