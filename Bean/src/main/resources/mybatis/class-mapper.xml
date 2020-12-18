@@ -49,6 +49,11 @@
 		UPDATE CLASS SET
 		CLASS_DELFLAG = 'D'
 	</update>
+	
+	<update id = "studentRun" parameterType = "String">
+		UPDATE CLASS SET 
+		CLASS_MEMBERNAME = #{newClassMember}
+	</update>
 
 
 

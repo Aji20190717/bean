@@ -8,7 +8,7 @@ public interface ClassBiz {
 	
 	public List<ClassDto> selectClassList();
 	// member_no : imp_uid 와 맞는 class 검색
-	public List<ClassDto> selectPayingClassList(int member_no, String imp_uid);
+	public List<ClassDto> selectPayingClassList(int member_no);
 	public ClassDto selectOneClass(int class_no);
 	public int updateClassinform(ClassDto classDto);
 	//class를 클릭해 결제를 진행할 때 member_no, imp_uid를 json 형태로 저장

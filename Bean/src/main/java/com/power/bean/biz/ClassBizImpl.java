@@ -19,10 +19,12 @@ public class ClassBizImpl implements ClassBiz{
 		return classDao.selectClassList();
 	}
 
+	
 	@Override
-	public List<ClassDto> selectPayingClassList(int member_no, String imp_uid) {
-		return classDao.selectPayingClassList(member_no, imp_uid);
+	public List<ClassDto> selectPayingClassList(int member_no){
+		return classDao.selectPayingClassList(member_no);
 	}
+
 
 	@Override
 	public ClassDto selectOneClass(int class_no) {

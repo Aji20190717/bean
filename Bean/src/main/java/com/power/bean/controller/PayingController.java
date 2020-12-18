@@ -90,23 +90,22 @@ public class PayingController {
 						System.out.println(payingres);
 						System.out.println(classres);
 						
-						// TODO : 환불 코드
-						
+						// TODO : classBiz의 studentRun
 					}
 							
 					
 				}else {
 					
 					insertDto.setPayment_state("N");
+					insertDto.setPayment_refund("Y");
+					
+					int pyaingres = payingBiz.insertPaying(payingDto);
+					
+					// TODO : 환불 코드(payingBiz refundPaying)
+					
 					
 				}
-				
-				
-				
-				//값이 다를 경우 영수증 데이터에 Dto 추가할 때 N으로 추가
-				
-				
-							
+										
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

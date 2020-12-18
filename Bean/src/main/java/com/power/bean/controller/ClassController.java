@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,10 +56,32 @@ public class ClassController {
 		model.addAttribute("map", json);
 		
 		
-		
-		
 		return "class_paying";
 		
 	}
+	
+	// id를 넣으면 결제한 class list를 보내주는 함수
+	@RequestMapping("/selectPayingClassList.do")
+	public String selectPayingClassList(Model model, int member_no){
+		List<ClassDto> payingClassList = classBiz.selectPayingClassList(member_no);
+		System.out.println(payingClassList);
+		model.addAttribute(payingClassList);
+		
+		return null;
+		
+	}
+	
+	// 학생이 도중에 수강을 포기할 경우 class json String에서 이름을 제거, 환불 처리 진행
+	@RequestMapping("/studentRun.do")
+	public String studentRun(int class_no, int member_no, String imp_uid) {
+		
+		
+		//TODO : PayingBiz의 환불 코드
+		
+		
+		return null;
+		
+	}
+	
 
 }
