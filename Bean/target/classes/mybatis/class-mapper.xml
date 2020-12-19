@@ -36,7 +36,7 @@
 
 	<update id="updateClassStudent" parameterType="map">
 		UPDATE CLASS SET
-		CLASS_NOW = CLASS_NOW - 1 , CLASS_MEMBERNAME = #{updateStudent}
+		CLASS_NOW = CLASS_NOW + 1 , CLASS_MEMBERNAME = #{updateStudent}
 		WHERE
 		CLASS_NO = #{class_no}
 	</update>

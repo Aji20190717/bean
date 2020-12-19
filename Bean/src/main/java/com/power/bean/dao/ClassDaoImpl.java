@@ -60,7 +60,6 @@ public class ClassDaoImpl implements ClassDao{
 		
 		//nowNumber에 따라 다르게 해야한다
 		String addMemberString = "\"" + member_no + "\" : \"" + impuid + "\"";
-		System.out.println(addMemberString);
 		
 		String updateStudent;
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -87,7 +86,7 @@ public class ClassDaoImpl implements ClassDao{
 	}
 	
 	
-
+	//TODO : batch를 이용해 날짜가 지난 수업들은 전부 Fin 으로 바꿔준다
 	@Override
 	public int classFin(int class_no) {
 		
@@ -96,6 +95,7 @@ public class ClassDaoImpl implements ClassDao{
 		return res;
 	}
 
+	//TODO : class를 삭제할 경우 학생들에게 모두 환불 처리가 되도록 한다 
 	@Override
 	public int classDelete(int class_no) {
 		

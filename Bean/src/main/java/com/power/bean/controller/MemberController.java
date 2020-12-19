@@ -95,7 +95,10 @@ public class MemberController {
 
 	// 개인정보 조회 : 수강생
 	@RequestMapping("/myinfodetail.do")
-	public String mypage_su_detail() {
+	public String mypage_su_detail(Model model, int member_no) {
+		
+		List<ClassDto> classList = classbiz.selectPayingClassList(member_no);
+		model.addAttribute("classList", classList);
 		
 		return "mypage_su_detail";
 

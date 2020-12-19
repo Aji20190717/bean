@@ -36,7 +36,7 @@
 								<td>${classDto.class_startDate }</td>
 								<td>${classDto.class_memberName}</td>
 								<td>${classDto.class_delflag}</td>
-								<td><button value = "class 삭제"onclick = "href.location=''"></button></td>
+								<td><button value = "class 삭제" onclick = "location.href='classDelete.do?class_no=${classDto.class_no}'"></button></td>
 							</tr>
 						</c:forEach>
 					</c:otherwise>

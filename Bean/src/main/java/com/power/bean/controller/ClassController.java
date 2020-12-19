@@ -73,7 +73,7 @@ public class ClassController {
 	
 	// 학생이 도중에 수강을 포기할 경우 class json String에서 이름을 제거, 환불 처리 진행
 	@RequestMapping("/studentRun.do")
-	public String studentRun(int class_no, int member_no, String imp_uid) {
+	public String studentRun(int class_no, int member_no) {
 		
 		//TODO : PayingBiz의 환불 코드
 		return null;
