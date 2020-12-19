@@ -3,6 +3,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel='stylesheet' href='webjars/fullcalendar/3.5.1/dist/fullcalendar.css' />
+<script src="webjars/jquery/2.0.3/jquery.min.js"></script>
+<script src='webjars/moment/2.19.1/min/moment.min.js'></script>
+<script src='webjars/fullcalendar/3.5.1/dist/fullcalendar.js'></script>
+<script type="text/javascript">
+
+//TODO : class 시작일, class 마감일을 달력에 표기할 것
+  $(document).ready(function() {
+    $('#calendar').fullCalendar({
+      events: {
+    	  
+      }
+    });
+  });
+</script>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -10,6 +26,8 @@
 <body>
 
 	<div>
+		
+	 <div id='calendar'></div>
 		<div>
 			<span>${login.member_name }님 환영합니다</span>
 		</div>
