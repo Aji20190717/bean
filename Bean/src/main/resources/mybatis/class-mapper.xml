@@ -67,10 +67,6 @@
 	</select>
 
 	<insert id="insertClass" parameterType = "ClassDto">
-		INSERT INTO CLASS VALUES(SYSDATE, 0, #{class_max}, 0, #{class_startDate}, #{class_endDate}, #{class_name}, "", 'N')
+		INSERT INTO CLASS VALUES(CLASS_SEQ.NEXTVAL, #{member_no}, #{class_max}, 0, #{class_startDate}, #{class_endDate}, #{class_name}, '', 'N')
 	</insert>
-	
-	
-
-
 </mapper>

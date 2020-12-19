@@ -72,12 +72,12 @@ public class ClassDto {
 		this.class_startDate = class_startDate;
 	}
 
-	public Date getClasS_endDate() {
+	public Date getClass_endDate() {
 		return class_endDate;
 	}
 
-	public void setClasS_endDate(Date clasS_endDate) {
-		this.class_endDate = clasS_endDate;
+	public void setClass_endDate(Date class_endDate) {
+		this.class_endDate = class_endDate;
 	}
 
 	public String getClass_name() {

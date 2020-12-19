@@ -32,7 +32,7 @@
 					<td>${classDto.class_max}</td>
 					<td>${classDto.class_now}</td>
 					<td>${classDto.class_startDate}</td>
-					<td><a href="selectTrainerClass.do?class_no=${classDto.class_no }">${classDto.class_name}</a></td>
+					<td><a href="selectOneClass.do?class_no=${classDto.class_no }">${classDto.class_name}</a></td>
 					<td>${classDto.class_memberName}</td>
 					<td>${classDto.class_delflag}</td>
 					

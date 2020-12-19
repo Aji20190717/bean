@@ -90,21 +90,39 @@ public class ClassController {
 		
 	
 	@RequestMapping("/insertClass")
-	public String insertClass(ClassDto insertClassDto) {
+	public String insertClass(ClassDto insertDto) {
 		
-		System.out.println(insertClassDto);
+		System.out.println(insertDto);
 		
-		
-		//int res = classBiz.insertClass(insertClassDto);
 		/*
+		try {
+			
+			//string date를 java.util.Date 값으로 변환
+			java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("mm/dd/yyyy");
+			java.util.Date class_startDate = dateFormat.parse(from);
+			java.util.Date class_endDate = dateFormat.parse(to);
+			
+			
+			insertDto.setClass_startDate(class_startDate);
+			insertDto.setClass_endDate(class_endDate);
+			
+			System.out.println(insertDto);
+			
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		*/
+
+		
+		
+		int res = classBiz.insertClass(insertDto);
 		if(res>0) {
 			
-			return "redirect:mypagedetail.do?member_no=" + insertClassDto.getMember_no();
+			return "redirect:mypagedetail.do?member_no=" + insertDto.getMember_no();
 		}
 		return null;
-		*/
 		
-		return null;
 	}
 	
 
