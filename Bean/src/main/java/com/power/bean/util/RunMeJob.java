@@ -6,15 +6,14 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 public class RunMeJob extends QuartzJobBean{
 
-
 	private LogProcessor logProcessor;
 	
 	//실행을 원하는 메소드 호출
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-	
-		logProcessor.process();
 		
+		logProcessor.process();
+		logProcessor.sqlProcess();
 		
 	}
 	
@@ -23,8 +22,5 @@ public class RunMeJob extends QuartzJobBean{
 		this.logProcessor = logProcessor;
 	}
 	
-	
 
-	
-	
 }

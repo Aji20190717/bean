@@ -19,6 +19,8 @@ public class ClassDaoImpl implements ClassDao{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
+	
+
 	@Override
 	public List<ClassDto> selectClassList() {
 		
@@ -86,7 +88,7 @@ public class ClassDaoImpl implements ClassDao{
 	}
 	
 	
-	//TODO : batch를 이용해 날짜가 지난 수업들은 전부 Fin 으로 바꿔준다
+	// batch를 이용해 날짜가 지난 수업들은 전부 Fin 으로 바꿔준다
 	@Override
 	public int classFin(int class_no) {
 		
