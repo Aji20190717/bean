@@ -48,5 +48,52 @@
       <!-- maxInMemorysize : int, 디스크에 임시 파일을 생성하기 전에 메모리에 보관할 수 있는 최대 바이트 크기 
          기본 값은 10240 바이트이다. -->
    </bean>
+   
+   
+   	<!-- 실제 작업을 하는 class -->
+	<bean id = "logProcessor" class = "com.power.bean.util.LogProcessor"/>
+	
+	<!-- Spring Quartz -->
+	<!-- 실제 스케쥴링될 테스크(세터주입 될)과 JOB을 정의한 class 등록 -->
+	<bean name = "runMeJob" class = "org.springframework.scheduling.quartz.JobDetailBean">
+		<!-- Job 정의 -->
+		<property name = "jobClass" value ="com.power.bean.util.RunMeJob"/>
+		<property name = "jobDataAsMap">
+			<map>
+				<entry key = "logProcessor" value-ref = "logProcessor"/>
+			</map>
+		</property>
+		
+	</bean>
+	
+	   <!-- Simple Trigger, run every 5 seconds -->
+    <bean id="simpleTrigger" 
+                class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+ 
+        <property name="jobDetail" ref="runMeJob" /> <!-- 실행할 작업 -->
+        <property name="repeatInterval" value="5000" /> <!-- 반복 주기 : 5초-->
+        <property name="startDelay" value="1000" /> <!-- 최초 시작시 지정한 시간 후에 시작 -->
+ 
+    </bean>
+
+    
+	<!-- Scheduler Factory -->
+	<!-- 스케쥴러 관리를 위한 Scheduler Factory 를 정의 ,job 과 trigger 함께 기술 -->
+	<bean class = "org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name = "jobDetails">
+			<list>
+				<ref bean = "runMeJob"/>
+			</list>
+		</property>
+		
+		<property name="triggers">
+			<list>
+				<ref bean = "simpleTrigger"/>
+			</list>
+		</property>
+	</bean>
+   
+   
+   
 
 </beans>
