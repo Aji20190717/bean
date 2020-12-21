@@ -76,6 +76,13 @@ public class ClassController {
 	public String studentRun(int class_no, int member_no) {
 		
 		//TODO : PayingBiz의 환불 코드
+		int res = classBiz.StudentRun(class_no, member_no);
+		System.out.println(res);
+		
+		if(res > 0) {
+		return "redirect:myinfodetail.do?member_no=" + member_no; 
+		}
+		
 		return null;
 		
 	}

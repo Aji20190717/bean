@@ -17,5 +17,10 @@
 		WHERE MEMBER_NO = #{member_no}
 	</update>
 	
+	<!-- selectOne Member -->
+	<select id="selectOneMember" parameterType = "int" resultType = "LoginDto">
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_PW, MEMBER_PWCHK, MEMBER_NAME, MEMBER_EMAIL, MEMBER_PHONE, MEMBER_POST, MEMBER_ADDR1, MEMBER_ADDR2, MEMBER_BIRTH, MEMBER_IMGNAME, MEMBER_IMGPATH, MEMBER_TYPE, MEMBER_WITHDRAWAL, MEMBER_SNS
+		FROM MEMBER WHERE MEMBER_NO = #{member_no}
+	</select>
 	
 </mapper>

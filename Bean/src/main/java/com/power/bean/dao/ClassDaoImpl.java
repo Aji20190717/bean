@@ -3,6 +3,7 @@ package com.power.bean.dao;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -108,13 +109,15 @@ public class ClassDaoImpl implements ClassDao{
 
 	//학생이 도중에 수강을 포기할 경우 class json String에서 이름을 제거
 	@Override
-	public int StudentRun(int class_no, int member_no, String imp_uid) {
+	public int StudentRun(int class_no, int member_no) {
 		
 		ClassDto existDto = selectOneClass(class_no);
 		String existClass = "{" + existDto.getClass_memberName() + "}";
 		String newClassMember = "";
 		int countNum = 0;
 		int res = 0;
+		Map<String, Object> map = new HashMap<String, Object>();
+		
 		
 		JSONParser parser = new JSONParser();
 		try {
@@ -126,9 +129,9 @@ public class ClassDaoImpl implements ClassDao{
 			while(keyIterator.hasNext()) {
 				
 				String key = (String) keyIterator.next();
-				String outKey = "\"" + member_no + "\"";
+				String outKey = "" + member_no;
 				
-				if(key != outKey) {
+				if(!key.equals(outKey)) {
 					
 					if(countNum == 0) {
 						
@@ -137,6 +140,8 @@ public class ClassDaoImpl implements ClassDao{
 					}else {
 						newClassMember += ", \"" + key + "\" : \"" + jsonObj.get(key) + "\"";
 					}
+					
+					countNum +=1;
 				}
 			}
 			
@@ -145,7 +150,9 @@ public class ClassDaoImpl implements ClassDao{
 			e.printStackTrace();
 		}
 		
-		res = sqlSession.update(CLASSNAMESPACE + "studentRun", newClassMember);
+		map.put("newClassMember", newClassMember);
+		map.put("class_no", class_no);
+		res = sqlSession.update(CLASSNAMESPACE + "studentRun", map);
 		
 		return res;
 		

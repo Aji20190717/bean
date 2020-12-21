@@ -13,7 +13,9 @@ public class RunMeJob extends QuartzJobBean{
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		
 		logProcessor.process();
-		logProcessor.sqlProcess();
+		logProcessor.classFinProcess();
+		logProcessor.mailProcess();
+		
 		
 	}
 	
