@@ -57,9 +57,9 @@ public class ClassBizImpl implements ClassBiz{
 
 	//학생이 수강을 포기할 시
 	@Override
-	public int StudentRun(int class_no, int member_no, String imp_uid) {
+	public int StudentRun(int class_no, int member_no) {
 		
-		return 0;
+		return classDao.StudentRun(class_no, member_no);
 	}
 
 

@@ -44,6 +44,7 @@
 	<update id="classFin" parameterType="int">
 		UPDATE CLASS SET
 		CLASS_DELFLAG = 'F'
+		WHERE CLASS_NO = #{class_no}
 	</update>
 
 	<update id="classDelete" parameterType="int">
@@ -51,9 +52,11 @@
 		CLASS_DELFLAG = 'D'
 	</update>
 
-	<update id="studentRun" parameterType="String">
+	<update id="studentRun" parameterType="map">
 		UPDATE CLASS SET
 		CLASS_MEMBERNAME = #{newClassMember}
+		WHERE CLASS_NO=#{class_no}
+
 	</update>
 
 	<select id="selectTrainerClass" parameterType="int"
@@ -66,7 +69,25 @@
 		WHERE MEMBER_NO = #{member_no}
 	</select>
 
-	<insert id="insertClass" parameterType = "ClassDto">
-		INSERT INTO CLASS VALUES(CLASS_SEQ.NEXTVAL, #{member_no}, #{class_max}, 0, #{class_startDate}, #{class_endDate}, #{class_name}, '', 'N')
+	<insert id="insertClass" parameterType="ClassDto">
+		INSERT INTO CLASS
+		VALUES(CLASS_SEQ.NEXTVAL, #{member_no}, #{class_max}, 0,
+		#{class_startDate}, #{class_endDate}, #{class_name}, '', 'N')
 	</insert>
+
+	<update id="classListFin" parameterType="int">
+		<![CDATA[ UPDATE CLASS SET
+		CLASS_DELFLAG = 'F' WHERE TO_CHAR(CLASS_ENDDATE, 'YYYYMMDD') = TO_CHAR(SYSDATE-1 , 'YYYYMMDD') ]]>
+	</update>
+
+	<!--AND CLASS_NOW != 0을 추가할 것 -->
+	<select id="FinYesterDayClassList" resultType="ClassDto">
+		<![CDATA[ SELECT CLASS_NO, MEMBER_NO, CLASS_MAX, CLASS_NOW,
+		CLASS_STARTDATE,
+		CLASS_ENDDATE, CLASS_NAME, CLASS_MEMBERNAME,
+		CLASS_DELFLAG
+		FROM CLASS WHERE TO_CHAR(CLASS_ENDDATE, 'YYYYMMDD') = TO_CHAR(SYSDATE-1 , 'YYYYMMDD')
+		AND CLASS_DELFLAG = 'F'
+		 ]]>
+	</select>
 </mapper>
