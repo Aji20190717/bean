@@ -116,9 +116,6 @@ public class KakaoLogin {
 		
 		/*
 		 * 
- * 
- * \
-		
 
 		if (userInfo.path("kaccount_email_verified").asText().equals("true")) { // 이메일 받기 허용 한 경우
 			dto.setUser_email(userInfo.path("kaccount_email").asText()); // email -> vo 넣기
