@@ -72,6 +72,7 @@ public class LogProcessor {
 					String className = "qclass";
 					
 					//TODO : 메일 전송 코드를 추가할 것
+					//TODO : Log 빈도 바꿀 것
 					
 					
 				}
