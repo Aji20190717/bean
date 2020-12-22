@@ -45,15 +45,16 @@
 			<c:otherwise>
 				<c:forEach items="${list }" var="dto">
 					<tr>
-						<td>${dto.reviewboard_no }</td>
-						<td>${dto.reviewboard_name }</td>
-						<td>${dto.reviewboard_title }</td>
-						<td>${dto.reviewboard_content }</td>
-						<td><fmt:formatDate value="${dto.reviewboard_date }"
-								pattern="yyyy-MM-dd-HH시" /></td>
-						<td>${dto.class_name}</td>
-						<td>${dto.reviewboard_te }</td>
-						<td>${dto.reviewboard_star }</td>
+						<td><a href="detail.do?reviewboard_no=${dto.reviewboard_no }">${dto.reviewboard_no }</a></td>
+						<td><a href="detail.do?reviewboard_no=${dto.reviewboard_no }">${dto.reviewboard_name }</a></td>
+						<td><a href="detail.do?reviewboard_no=${dto.reviewboard_no }">${dto.reviewboard_title }</a></td>
+						<td><a href="detail.do?reviewboard_no=${dto.reviewboard_no }">${dto.reviewboard_content }</a></td>
+						<td><a href="detail.do?reviewboard_no=${dto.reviewboard_no }"><fmt:formatDate value="${dto.reviewboard_date }"
+								pattern="yyyy-MM-dd-HH시" /></a></td>
+						<td><a href="detail.do?reviewboard_no=${dto.reviewboard_no }">${dto.class_name}</a></td>
+						<td><a href="detail.do?reviewboard_no=${dto.reviewboard_no }">${dto.reviewboard_te }</a></td>
+						<td><a href="detail.do?reviewboard_no=${dto.reviewboard_no }">${dto.reviewboard_star }</a></td>
+					
 					</tr>
 				</c:forEach>
 			</c:otherwise>
