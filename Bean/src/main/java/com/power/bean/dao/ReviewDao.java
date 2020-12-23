@@ -9,10 +9,10 @@ public interface ReviewDao {
 	String NAMESPACE="com.reviewboard.";
 	
 	public List<ReviewDto> selectList();
-	public ReviewDto selectOne(int reviewboard_no);
-	public int insert(ReviewDto dto);
-	public int update(ReviewDto dto);
-	public int delete(int reviewboard_no);
+	public ReviewDto review_selectOne(int reviewboard_no);
+	public int review_insert(ReviewDto dto);
+	public int review_update(ReviewDto dto);
+	public int review_delete(int reviewboard_no);
 	
 	public String reviewboard();
 

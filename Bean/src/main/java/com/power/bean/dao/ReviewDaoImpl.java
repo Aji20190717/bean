@@ -29,12 +29,12 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 	@Override
-	public ReviewDto selectOne(int reviewboard_no) {
+	public ReviewDto review_selectOne(int reviewboard_no) {
 
 		ReviewDto dto=null;
 		
 		try {
-			dto=sqlSession.selectOne(NAMESPACE+"selectOne",reviewboard_no);			
+			dto=sqlSession.selectOne(NAMESPACE+"review_selectOne",reviewboard_no);			
 		}catch(Exception e) {
 			System.out.println("[ERROR]selectOne");
 			e.printStackTrace();
@@ -43,10 +43,10 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 	@Override
-	public int insert(ReviewDto dto) {
+	public int review_insert(ReviewDto dto) {
 		int res=0;
 		try {
-			res=sqlSession.insert(NAMESPACE+"insert",dto);
+			res=sqlSession.insert(NAMESPACE+"review_insert",dto);
 		} catch (Exception e) {
 			System.out.println("[ERROR]insert");
 			e.printStackTrace();
@@ -56,24 +56,24 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 	@Override
-	public int update(ReviewDto dto) {
+	public int review_update(ReviewDto dto) {
 		int res=0;
 		
 		try {
-			res=sqlSession.update(NAMESPACE+"update",dto);
+			res=sqlSession.update(NAMESPACE+"review_update",dto);
 		}catch (Exception e) {
-			System.out.println("[ERROR]uodate");
+			System.out.println("[ERROR]update");
 			e.printStackTrace();
 		}
 		return res;
 	}
 
 	@Override
-	public int delete(int reviewboard_no) {
+	public int review_delete(int reviewboard_no) {
 		int res=0;
 		
 		try {
-			res=sqlSession.insert(NAMESPACE+"delete",reviewboard_no);
+			res=sqlSession.insert(NAMESPACE+"review_delete",reviewboard_no);
 		} catch (Exception e) {
 			System.out.println("[ERROR]delete");
 			e.printStackTrace();

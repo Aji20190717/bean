@@ -63,6 +63,7 @@ public class LoginController_Kakao {
 		res = biz.snsChk("kakao"+dto.getMember_sns());
 		
 		System.out.println("res   ::   "+res);
+		System.out.println(res.getMember_no());
 
 		if (res != null) {
 			// res가 널이 아니라는건 값이 있다는거고 그럼 로그인이 됐다는 뜻이죠!

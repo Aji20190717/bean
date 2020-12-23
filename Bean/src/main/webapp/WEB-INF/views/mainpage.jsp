@@ -28,6 +28,7 @@
 	<button onclick = "location.href=''">챗봇</button>
 	<button onclick = "location.href=''">관리자 채팅</button>
 	<button onclick = "location.href=''">일반 채팅</button>
+	<button onclick = "location.href='review_list.do'">리뷰 게시판</button>
 	
 	
 </body>

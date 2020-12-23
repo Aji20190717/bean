@@ -8,12 +8,28 @@
 		ORDER BY REVIEWBOARD_NO DESC
 	</select>
 		
-	<insert id="insert" parameterType="ReviewDto">
+	<insert id="review_insert" parameterType="ReviewDto">
 		INSERT INTO REVIEWBOARD
-		VALUES(REVIEWBOARD_SEQ,#{reveiwboard_name}, #{reveiwboard_title}, #{reveiwboard_content}, #{class_name}, #{reveiwboard_te},#{reveiwboard_star},SYSDATE)
-	</insert>
-
-
-
+		VALUES(REVIEWBOARD_SEQ.NEXTVAL,#{member_no}, #{reviewboard_name},#{reviewboard_title}, #{reviewboard_content}, SYSDATE, 0,'N', #{class_name}, #{reviewboard_te},
+		#{reviewboard_star})
+		</insert>
+	
+	
+	<select id="review_selectOne" parameterType="int" resultType="ReviewDto">
+		SELECT REVIEWBOARD_NO,MEMBER_NO, REVIEWBOARD_NAME, REVIEWBOARD_TITLE, REVIEWBOARD_CONTENT, REVIEWBOARD_DATE, REVIEWBOARD_READCOUNT, REVIEWBOARD_DELFLAG, CLASS_NAME, REVIEWBOARD_TE, REVIEWBOARD_STAR
+		FROM REVIEWBOARD
+		WHERE REVIEWBOARD_NO= #{reviewboard_no}
+	</select>
+	
+	<update id="review_update" parameterType="ReviewDto">
+		UPDATE REVIEWBOARD
+		SET MEMBER_NO=#{member_no}, REVIEWBOARD_TITLE=#{reviewboard_title},REVIEWBOARD_CONTENT=#{reviewboard_content},CLASS_NAME=#{class_name},REVIEWBOARD_TE=#{reviewboard_te},REVIEWBOARD_STAR=#{reviewboard_star}
+		WHERE REVIEWBOARD_NO=#{reviewboard_no}
+	</update>
+	
+	<delete id="review_delete" parameterType="int">
+		DELETE FROM REVIEWBOARD
+		WHERE REVIEWBOARD_NO=#{reviewboard_no}
+	</delete>
 
 </mapper>

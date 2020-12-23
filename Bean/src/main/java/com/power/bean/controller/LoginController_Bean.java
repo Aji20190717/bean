@@ -215,7 +215,8 @@ public class LoginController_Bean {
 
 		if (res != null) {
 			if (res.getMember_withdrawal().equals("N")) {
-				session.setAttribute("login", res);
+
+				session.setAttribute("login", null);
 				return "mainpage";
 			} else if (res.getMember_withdrawal().equals("Y")) {
 				String msg = "탈퇴한 회원입니다.";
