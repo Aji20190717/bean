@@ -5,7 +5,7 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel='stylesheet' href='webjars/fullcalendar/3.5.1/dist/fullcalendar.css' />
-<script src="webjars/jquery/2.0.3/jquery.min.js"></script>
+<script src="webjars/jquery/3.4.1/jquery.min.js"></script>
 <script src='webjars/moment/2.19.1/min/moment.min.js'></script>
 <script src='webjars/fullcalendar/3.5.1/dist/fullcalendar.js'></script>
 <script type="text/javascript">
