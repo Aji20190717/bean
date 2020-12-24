@@ -44,10 +44,10 @@
 			<td>
 				<c:choose>
 					<c:when test="${emailChk eq true}">
-						<input type="text" value="아이디 생성 가능" />
+						<input type="text" value="이메일 사용 가능" />
 					</c:when>
 					<c:otherwise>
-						<input type="text" value="중복된 아이디 존재" />
+						<input type="text" value="중복된 이메일 존재" />
 					</c:otherwise>
 				</c:choose>
 			</td>

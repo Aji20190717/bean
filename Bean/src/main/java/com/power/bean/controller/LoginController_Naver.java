@@ -198,7 +198,7 @@ public class LoginController_Naver {
 			
 		} 
 		
-		dto.setMember_sns("naver" + dto.getMember_sns());
+		// dto.setMember_sns("naver" + dto.getMember_sns());
 		
 		int res = biz.resister(dto);
 

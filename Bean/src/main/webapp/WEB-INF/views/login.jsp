@@ -27,6 +27,7 @@
 	</form>
 
 	<div id="naver_id_login" style="display: none;"></div>
+<<<<<<< HEAD
 	<div
 		onclick="document.getElementById('naver_id_login_anchor').click();">
 		<button>네이버 로그인</button>
@@ -48,6 +49,21 @@
 		<img class=kakaoLogin alt="kakao" src="resources/img/kakao_login.png">
 	</a>
 
+=======
+		<div onclick="document.getElementById('naver_id_login_anchor').click();">
+			<button>네이버 로그인</button>
+		</div>
+		<script type="text/javascript">
+		  	var naver_id_login = new naver_id_login("zjjj7_AqHxAv9Xan5omR", "http://localhost:8787/bean/navercallback.do");
+		  	var state = naver_id_login.getUniqState();
+		 	
+		  	naver_id_login.setButton("green", 3, 45);
+		  	naver_id_login.setDomain("http://localhost:8787/bean");
+		  	naver_id_login.setState(state);
+		  	//naver_id_login.setPopup();
+		  	naver_id_login.init_naver_id_login();
+		</script>
+>>>>>>> webRTC1
 
 	<input type="button" value="회원가입"
 		onclick="location.href='registtype.do'" />
