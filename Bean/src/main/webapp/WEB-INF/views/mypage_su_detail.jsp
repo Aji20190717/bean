@@ -25,6 +25,7 @@
 </head>
 <body>
 
+	<%@ include file="./header.jsp"%>
 	<div>
 		
 	 <div id='calendar'></div>

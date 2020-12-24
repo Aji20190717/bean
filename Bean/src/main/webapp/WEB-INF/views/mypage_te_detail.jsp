@@ -9,6 +9,7 @@
 </head>
 <body>
 
+	<%@ include file="./header.jsp"%>
 		<div>
 			<span>${login.member_name } 강사님 환영합니다</span>
 		</div>

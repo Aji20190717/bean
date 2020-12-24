@@ -121,6 +121,7 @@
 </head>
 <body>
 
+	<%@ include file="./header.jsp"%>
 	<form action="resister.do" method="POST" enctype="multipart/form-data" accept-charset="UTF-8" name="form">
 		<input type="hidden" name="member_type" value="${type }" />
 		<table border="1">

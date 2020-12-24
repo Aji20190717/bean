@@ -16,15 +16,12 @@
 
 		IMP.init("imp43617146");
 
-
-		
-
 	});
 
 	function payfunc() {
 
 		var remainData = new Object();
-		var obj = ${map};
+		var obj = ${login};
 		var classObj = ${classDto};
 		//alert(classObj["class_no"]);
 		
@@ -96,11 +93,11 @@
 		});
 	}
 </script>
+
 <body>
 
+	<%@ include file="./header.jsp"%>
 	<button onclick="payfunc()">결제하기</button>
-	<h1>${map}</h1>
-	<h1>${classDto }</h1>
 
 
 </body>

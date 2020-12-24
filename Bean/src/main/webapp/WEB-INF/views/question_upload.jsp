@@ -10,16 +10,16 @@
 <body>
 	<%
 		//세션에 값 담아주기
-	int member_no = 2;
 	String questionboard_name = "zzarbttoo";
 	//이거도 선택하도록 제작(dropdown 형식)
 	int groupno = 0;
 	%>
 
+	<%@ include file="./header.jsp"%>
 
 	<form:form method="post" enctype="multipart/form-data"
 		modelAttribute="QuestionDto" action="questionUploadres.do">
-		<input type="hidden" name="member_no" value="<%=member_no%>" />
+		<input type="hidden" name="member_no" value="${login.member_no}" />
 		<input type="hidden" name="questionboard_name"
 			value="<%=questionboard_name%>" />
 		<input type="hidden" name="questoinbaord_groupno" value="<%=groupno%>" />

@@ -9,6 +9,7 @@
 </head>
 <body>
 
+	<%@ include file="./header.jsp"%>
 	<h1>UPDATE</h1>
 
 	<form action="questionReplyRes.do" method="post">

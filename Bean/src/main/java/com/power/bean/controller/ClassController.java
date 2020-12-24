@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,14 +32,12 @@ public class ClassController {
 	}
 	
 	@RequestMapping("/selectOneClass.do")
-	public String selectOneClass(Model model, int class_no) {
-		
+	public String selectOneClass(Model model, int class_no, int member_no,String member_name) {
+		System.out.println(member_no);
 		ClassDto classDto = classBiz.selectOneClass(class_no);
 
-		//temp data : 사용자 데이터를 보내 줄 것이다
-		//아니면 Session 값을 javascript에 바로 넣는 것이 가능하다면 session으로 처리
-		String usernum = "" + 3;
-		String userName = "user1";
+		String usernum = "" + member_no;
+		String userName = member_name;
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("usernum", usernum);
@@ -46,15 +46,10 @@ public class ClassController {
 		
 		Gson gson = new GsonBuilder().create();
 		String json = gson.toJson(map);
-		System.out.println(json);
-		System.out.println(json.getClass());
-		
 		String classJson = gson.toJson(classDto);
-		System.out.println(classJson);
 		
 		model.addAttribute("classDto", classJson);
 		model.addAttribute("map", json);
-		
 		
 		return "class_paying";
 		
@@ -128,7 +123,7 @@ public class ClassController {
 			
 			return "redirect:mypagedetail.do?member_no=" + insertDto.getMember_no();
 		}
-		return null;
+		return "redirect:insertRes.do";
 		
 	}
 	

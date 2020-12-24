@@ -52,7 +52,6 @@
 <link rel="stylesheet" href="resources/css/MainPageCss.css" />
 <link rel="script" href="resources/js/MainPageJQ.js" />
 <link rel="script" href="resources/js/MainPageJs.js" />
-<link rel='stylesheet' href='webjars/fullcalendar/3.5.1/dist/fullcalendar.css' />
 
 <script src='webjars/moment/2.19.1/min/moment.min.js'></script>
 <script src='webjars/fullcalendar/3.5.1/dist/fullcalendar.js'></script>
@@ -69,61 +68,8 @@
 </script>
 </head>
 
-
-<body>
-	<!-- Navigation -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
-		<div class="container">
-			<a class="navbar-brand" href="#">Bean</a>
-			<div class="loginbar"
-				style="margin-left: auto; margin-right: 20px; display: inline-block;">
-				<a class="login navbar-write" href="">About Bean</a>
-				<c:choose>
-					<c:when test="${empty login }">
-							<a class="login navbar-write" href="">Sign Up</a>
-							<a class="login navbar-write" href="loginform.do">Sign In</a>
-					</c:when>
-					<c:otherwise>
-						<c:choose>
-							<c:when
-								test="${login.member_type eq 'S' || login.member_type eq 'SN' || login.member_type eq 'SG' }">
-								<span>수강생 <a href="myinfo.do?member_no=${member_no}">${login.member_name }님</a></span>
-								
-							</c:when>
-							<c:when test="${login.member_type eq 'T' }">
-								<span>강사 <a href="mypage.do?member_no=${member_no}">${login.member_name }님</a></span>
-							</c:when>
-						</c:choose>
-					</c:otherwise>
-				</c:choose>
-
-
-				<!-- TODO : 로그인 후 mypage 변환으로 바꿀 것-->
-			 <a
-					class="signup navbar-write" href="">CS Center</a>
-			</div>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarResponsive" aria-controls="navbarResponsive"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a class="nav-link" href="#">
-					Select Class <span class="sr-only">(current)</span>
-					</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">English
-							Lounge</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Question
-							Lounge</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Review
-							Lounge</a></li>
-				</ul>
-			</div>
-		</div>
-		</div>
-	</nav>
-
+	<%@ include file="./header.jsp"%>
+	
 	<header>
 		<div id="carouselExampleIndicators" class="carousel slide"
 			data-ride="carousel">
@@ -256,6 +202,7 @@
 		<h4 class="font-weight-light text-center text-lg-left mt-4 mb-0">
 			진행될 수업 일정을 확인해보세요</h4>
 		<hr class="mt-2 mb-5">
+		
 	<div id='calendar'></div>
 </div>
 </body>
