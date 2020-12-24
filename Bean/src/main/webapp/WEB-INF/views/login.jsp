@@ -216,6 +216,29 @@ supports (-ms-ime-align: auto) { .form-label-group >label { display:none;
 	//naver_id_login.setPopup();
 	naver_id_login.init_naver_id_login();
 </script>
+	<div id="naver_id_login" style="display: none;"></div>
+	<div
+		onclick="document.getElementById('naver_id_login_anchor').click();">
+		<button>네이버 로그인</button>
+	</div>
+	<script type="text/javascript">
+		var naver_id_login = new naver_id_login("zjjj7_AqHxAv9Xan5omR",
+				"http://localhost:8787/bean/navercallback.do");
+		var state = naver_id_login.getUniqState();
+
+		naver_id_login.setButton("green", 3, 45);
+		naver_id_login.setDomain("http://localhost:8787/bean");
+		naver_id_login.setState(state);
+		//naver_id_login.setPopup();
+		naver_id_login.init_naver_id_login();
+	</script>
+
+	<a
+		href="https://kauth.kakao.com/oauth/authorize?client_id=3350426d432820aada3df120c58988d4&redirect_uri=http://localhost:8787/bean/kakaologin.do&response_type=code">
+		<img class=kakaoLogin alt="kakao" src="resources/img/kakao_login.png">
+	</a>
+
+
 
 
 </body>

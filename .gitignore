@@ -7,4 +7,11 @@
 /Bean/target/m2e-wtp/web-resources/META-INF/maven/com.power/bean/pom.properties
 /Bean/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 /Bean/src/main/java/com/power/bean/util/TranslateService.java
-
+/Bean/src/main/webapp/WEB-INF/views/navercallback.jsp
+/webrtc-3/node_modules/
+/webrtc-3/src/ca_bundle.crt
+/webrtc-3/src/certificate.crt
+/webrtc-3/src/private.key
+/webrtc-2/
+/webrtc-1/
+/node_modules/
