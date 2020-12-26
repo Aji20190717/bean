@@ -36,14 +36,11 @@
 	text-decoration: none;
 }
 
-#containerCal{
-	
-	width :810px;
-	margin : 100px;
-	margin-right:10px;
-
+#containerCal {
+	width: 810px;
+	margin: 100px;
+	margin-right: 10px;
 }
-
 </style>
 
 
@@ -52,20 +49,20 @@
 <link rel="stylesheet" href="resources/css/MainPageCss.css" />
 <link rel="script" href="resources/js/MainPageJQ.js" />
 <link rel="script" href="resources/js/MainPageJs.js" />
-<link rel='stylesheet' href='webjars/fullcalendar/3.5.1/dist/fullcalendar.css' />
+<link rel='stylesheet'
+	href='webjars/fullcalendar/3.5.1/dist/fullcalendar.css' />
 
 <script src='webjars/moment/2.19.1/min/moment.min.js'></script>
 <script src='webjars/fullcalendar/3.5.1/dist/fullcalendar.js'></script>
 <script type="text/javascript">
+	//TODO : class 시작일, class 마감일을 달력에 표기할 것
+	$(document).ready(function() {
+		$('#calendar').fullCalendar({
+			events : {
 
-//TODO : class 시작일, class 마감일을 달력에 표기할 것
-  $(document).ready(function() {
-    $('#calendar').fullCalendar({
-      events: {
-    	  
-      }
-    });
-  });
+			}
+		});
+	});
 </script>
 </head>
 
@@ -80,15 +77,15 @@
 				<a class="login navbar-write" href="">About Bean</a>
 				<c:choose>
 					<c:when test="${empty login }">
-							<a class="login navbar-write" href="">Sign Up</a>
-							<a class="login navbar-write" href="loginform.do">Sign In</a>
+						<a class="login navbar-write" href="">Sign Up</a>
+						<a class="login navbar-write" href="loginform.do">Sign In</a>
 					</c:when>
 					<c:otherwise>
 						<c:choose>
 							<c:when
 								test="${login.member_type eq 'S' || login.member_type eq 'SN' || login.member_type eq 'SG' }">
 								<span>수강생 <a href="myinfo.do?member_no=${member_no}">${login.member_name }님</a></span>
-								
+
 							</c:when>
 							<c:when test="${login.member_type eq 'T' }">
 								<span>강사 <a href="mypage.do?member_no=${member_no}">${login.member_name }님</a></span>
@@ -99,8 +96,7 @@
 
 
 				<!-- TODO : 로그인 후 mypage 변환으로 바꿀 것-->
-			 <a
-					class="signup navbar-write" href="">CS Center</a>
+				<a class="signup navbar-write" href="">CS Center</a>
 			</div>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarResponsive" aria-controls="navbarResponsive"
@@ -110,7 +106,7 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link" href="#">
-					Select Class <span class="sr-only">(current)</span>
+							Select Class <span class="sr-only">(current)</span>
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">English
 							Lounge</a></li>
@@ -120,7 +116,6 @@
 							Lounge</a></li>
 				</ul>
 			</div>
-		</div>
 		</div>
 	</nav>
 
@@ -249,14 +244,38 @@
 			</div>
 		</div>
 	</div>
-	
-	<div id = "containerCal">
+	<c:choose>
+		<c:when test="${empty login }">
+			<input type="button" value="회원가입/로그인"
+				onclick="location.href='loginform.do'" />
+		</c:when>
+		<c:otherwise>
+			<c:choose>
+				<c:when
+					test="${login.member_type eq 'S' || login.member_type eq 'SN' || login.member_type eq 'SG' }">
+					<span>수강생 <a href="myinfo.do?member_no=${member_no}">${login.member_name }님</a></span>
+				</c:when>
+				<c:when test="${login.member_type eq 'T' }">
+					<span>강사 <a href="mypage.do?member_no=${member_no}">${login.member_name }님</a></span>
+				</c:when>
+			</c:choose>
+		</c:otherwise>
+	</c:choose>
+
+	<button onclick="location.href=''">챗봇</button>
+	<button onclick="location.href=''">관리자 채팅</button>
+	<button onclick="location.href=''">일반 채팅</button>
+	<button onclick="location.href='review_list.do'">리뷰 게시판</button>
+
+
+
+	<div id="containerCal">
 		<h1 class="font-weight-light text-center text-lg-left mt-4 mb-0"
 			style="font-style: bold;">수업 일정</h1>
 		<h4 class="font-weight-light text-center text-lg-left mt-4 mb-0">
 			진행될 수업 일정을 확인해보세요</h4>
 		<hr class="mt-2 mb-5">
-	<div id='calendar'></div>
-</div>
+		<div id='calendar'></div>
+	</div>
 </body>
 </html>
