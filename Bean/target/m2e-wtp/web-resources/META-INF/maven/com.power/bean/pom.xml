@@ -277,7 +277,7 @@
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
-			<version>2.0.3</version>
+			<version>3.4.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
@@ -293,22 +293,44 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
-			<version>3.1.2.RELEASE</version>
+			<version>${org.springframework-version}</version>
 		</dependency>
 
 		<!-- Spring + Quartz need transaction -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
-			<version>3.1.2.RELEASE</version>
+			<version>${org.springframework-version}</version>
 		</dependency>
 
 		<!-- Quartz framework -->
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
 			<artifactId>quartz</artifactId>
-			<version>1.8.6</version>
+			<version>2.1.1</version>
 		</dependency>
+
+		<!-- BootStrap -->
+		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>4.3.1</version>
+		</dependency>
+		<!-- webjar locator : version 표기 문제 해결 -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>webjars-locator</artifactId>
+			<version>0.30</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.webjars/font-awesome -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>font-awesome</artifactId>
+			<version>5.8.2</version>
+		</dependency>
+
+
 	</dependencies>
 	<repositories>
 		<repository>

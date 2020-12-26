@@ -8,6 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<%@ include file="./header.jsp"%>
 <!-- TODO : img가 없을 경우 예외처리를 할 것 -->
 	<table border="1">
 		<tr>

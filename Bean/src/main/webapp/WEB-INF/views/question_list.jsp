@@ -11,6 +11,7 @@
 </head>
 <body>
 	
+	<%@ include file="./header.jsp"%>
 <h1>LIST</h1>
 <table border = "1">
 	

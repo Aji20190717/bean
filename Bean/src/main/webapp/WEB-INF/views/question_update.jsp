@@ -8,6 +8,7 @@
 </head>
 <body>
 
+	<%@ include file="./header.jsp"%>
 	<h1>UPDATE</h1>
 	
 	<form action = "questionUpdateres.do" method = "post">

@@ -1,107 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-   <!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- Root Context: defines shared resources visible to all other web components -->
 
-   <!-- db.property가져오기 -->
-   <bean
-      class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-      <property name="location"
-         value="classpath:mybatis/db.properties" />
-   </bean>
+	<!-- db.property가져오기 -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location"
+			value="classpath:mybatis/db.properties" />
+	</bean>
 
-   <!-- dataSource -->
-   <bean id="dataSource"
-      class="org.apache.commons.dbcp.BasicDataSource">
-      <property name="driverClassName" value="${driver}" />
-      <property name="url" value="${url}" />
-      <property name="username" value="${username}" />
-      <property name="password" value="${password}" />
-   </bean>
+	<!-- dataSource -->
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${driver}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+	</bean>
 
-   <!-- mybatis -->
-   <bean id="sqlSession"
-      class="org.mybatis.spring.SqlSessionFactoryBean">
-      <property name="dataSource" ref="dataSource" />
-      <property name="configLocation"
-         value="WEB-INF/spring/sqls/config.xml" />
-   </bean>
+	<!-- mybatis -->
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation"
+			value="WEB-INF/spring/sqls/config.xml" />
+	</bean>
 
-   <!-- mybatis template -->
-   <bean id="sqlSessionTemplate"
-      class="org.mybatis.spring.SqlSessionTemplate">
-      <constructor-arg ref="sqlSession" />
-   </bean>
+	<!-- mybatis template -->
+	<bean id="sqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSession" />
+	</bean>
 
-   <!-- MultipartFile을 사용하기 위해서 등록되어있어야 하는 Bean -->
-   <!-- SpringBoot에서는 MultipartAutoConfiguration이라는 클래스에서, MultipartResolver 
-      Bean이 등록되어있지 않으면 자동으로 등록해준다. -->
-   <bean id="multipartResolver"
-      class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-      <!-- maxUploadSize : long, 최대 업로드 가능한 바이트 크기, -1은 제한이 없음을 의미한다. 기본 값은 -1이다. -->
-      <property name="maxUploadSize" value="10000000" />
-      <!-- defaultEncording : String. 요청을 파싱할 때 사용할 캐릭터 인코딩, 지정하지 않은 경우 HttpServletRequest.setEncording() 
-         메서드로 지정한 캐릭터 셋이 사용된다. 아무 값도 없을 경우 ISO-8859-1을 사용한다. -->
-      <property name="defaultEncoding" value="UTF-8" />
-      <!-- maxInMemorysize : int, 디스크에 임시 파일을 생성하기 전에 메모리에 보관할 수 있는 최대 바이트 크기 
-         기본 값은 10240 바이트이다. -->
-   </bean>
+	<!-- MultipartFile을 사용하기 위해서 등록되어있어야 하는 Bean -->
+	<!-- SpringBoot에서는 MultipartAutoConfiguration이라는 클래스에서, MultipartResolver 
+		Bean이 등록되어있지 않으면 자동으로 등록해준다. -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- maxUploadSize : long, 최대 업로드 가능한 바이트 크기, -1은 제한이 없음을 의미한다. 기본 값은 -1이다. -->
+		<property name="maxUploadSize" value="10000000" />
+		<!-- defaultEncording : String. 요청을 파싱할 때 사용할 캐릭터 인코딩, 지정하지 않은 경우 HttpServletRequest.setEncording() 
+			메서드로 지정한 캐릭터 셋이 사용된다. 아무 값도 없을 경우 ISO-8859-1을 사용한다. -->
+		<property name="defaultEncoding" value="UTF-8" />
+		<!-- maxInMemorysize : int, 디스크에 임시 파일을 생성하기 전에 메모리에 보관할 수 있는 최대 바이트 크기 
+			기본 값은 10240 바이트이다. -->
+	</bean>
 
-   <!-- Spring Quartz -->
-   <!-- 실제 작업을 하는 class -->
-   <bean id = "insertClassDao" class = "com.power.bean.dao.QuartzClassDao">
-      <property name = "sqlSession" ref = "sqlSessionTemplate"></property>
-   </bean>
-   
-   <bean id = "logProcessor" class = "com.power.bean.util.LogProcessor">
-      <property name = "quartzClassdao" ref = "insertClassDao"></property>
-   </bean>
-   
-   <!-- Spring Quartz -->
-   <!-- 실제 스케쥴링될 테스크(세터주입 될)과 JOB을 정의한 class 등록 -->
-   <bean name = "runMeJob" class = "org.springframework.scheduling.quartz.JobDetailBean">
-      <!-- Job 정의 -->
-      <property name = "jobClass" value ="com.power.bean.util.RunMeJob"/>
-      <property name = "jobDataAsMap">
-         <map>
-            <entry key = "logProcessor" value-ref = "logProcessor"/>
-         </map>
-      </property>
-      
-   </bean>
-   
-      <!-- Simple Trigger, run every 5 seconds -->
-    <bean id="simpleTrigger" 
-                class="org.springframework.scheduling.quartz.SimpleTriggerBean">
- 
-        <property name="jobDetail" ref="runMeJob" /> <!-- 실행할 작업 -->
-        <property name="repeatInterval" value="5000" /> <!-- 반복 주기 : 5초-->
-        <property name="startDelay" value="1000" /> <!-- 최초 시작시 지정한 시간 후에 시작 -->
- 
-    </bean>
+	<!-- Spring Quartz -->
+	<!-- 실제 작업을 하는 class -->
+	<bean id="insertClassDao"
+		class="com.power.bean.dao.QuartzClassDao">
+		<property name="sqlSession" ref="sqlSessionTemplate"></property>
+	</bean>
 
-   <!-- Scheduler Factory -->
-   <!-- 스케쥴러 관리를 위한 Scheduler Factory 를 정의 ,job 과 trigger 함께 기술 -->
-   <bean class = "org.springframework.scheduling.quartz.SchedulerFactoryBean">
-      <property name = "jobDetails">
-         <list>
-            <ref bean = "runMeJob"/>
-         </list>
-      </property>
-      
-      <property name="triggers">
-         <list>
-            <ref bean = "simpleTrigger"/>
-         </list>
-      </property>
-   </bean>
+	<bean id="logProcessor" class="com.power.bean.util.LogProcessor">
+		<property name="quartzClassdao" ref="insertClassDao"></property>
+	</bean>
 
+	<!-- Spring Quartz -->
+	<!-- 실제 스케쥴링될 테스크(세터주입 될)과 JOB을 정의한 class 등록 -->
+	<bean name="runMeJob"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean"
+		p:durability="true"
+		>
+		<!-- Job 정의 -->
+		<property name="jobClass"
+			value="com.power.bean.util.RunMeJob" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="logProcessor" value-ref="logProcessor" />
+			</map>
+		</property>
 
+	</bean>
+	<!-- Scheduler Factory -->
+	<!-- 스케쥴러 관리를 위한 Scheduler Factory 를 정의 ,job 과 trigger 함께 기술 -->
+	<bean id = "cronTrigger" class = "org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name = "jobDetail" ref = "runMeJob"/>
+		<!-- 매일 오전 0시 실행 -->
+		<property name = "cronExpression" value = "0 0 23 * * ?"/>
+	</bean>
 
-
-
+	<bean id = "cronTriggerScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name ="triggers">
+			<list><ref bean = "cronTrigger"/></list>
+		</property>
+	</bean>
 
 
 

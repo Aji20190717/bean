@@ -122,7 +122,7 @@
 <body>
 
 	<form action="naverResister.do" method="POST" enctype="multipart/form-data" accept-charset="UTF-8" name="form">
-		<input type="hidden" name="member_type" value="${type }" />
+		<input type="hidden" name="member_sns" value="${info.member_sns }" />
 		<table border="1">
 			<tr>
 				<th>아이디</th>
