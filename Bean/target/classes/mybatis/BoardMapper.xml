@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.countboard">
+
+	<select id="countBoard" resultType="int">
+		SELECT COUNT(*) FROM REVIEWBOARD
+	</select>
+
+	<select id="selectBoard" resultType="ReviewDto">
+		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM REVIEWBOARD 
+							ORDER BY REVIEWBOARD_SEQ DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+	
+
+</mapper>

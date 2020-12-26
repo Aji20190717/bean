@@ -11,7 +11,7 @@ public class RunMeJob extends QuartzJobBean{
 	//실행을 원하는 메소드 호출
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-//		
+//	
 //		logProcessor.process();
 //		logProcessor.classFinProcess();
 //		logProcessor.mailProcess();
