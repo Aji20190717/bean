@@ -1,3 +1,4 @@
+  
 package com.power.bean.controller;
 
 import java.io.File;
@@ -215,8 +216,7 @@ public class LoginController_Bean {
 
 		if (res != null) {
 			if (res.getMember_withdrawal().equals("N")) {
-
-				session.setAttribute("login", null);
+				session.setAttribute("login", res);
 				return "mainpage";
 			} else if (res.getMember_withdrawal().equals("Y")) {
 				String msg = "탈퇴한 회원입니다.";
@@ -240,4 +240,4 @@ public class LoginController_Bean {
 
 	
 
-}
+}	

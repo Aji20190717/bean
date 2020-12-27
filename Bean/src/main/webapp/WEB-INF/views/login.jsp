@@ -26,32 +26,26 @@
 	-input-padding-x: 1.5rem; -
 	-input-padding-y: .75rem;
 }
-
 body {
 	background: #007bff;
 	background: linear-gradient(to right, #0062E6, #33AEFF);
 }
-
 .card-signin {
 	border: 0;
 	border-radius: 1rem;
 	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
-
 .card-signin .card-title {
 	margin-bottom: 2rem;
 	font-weight: 300;
 	font-size: 1.5rem;
 }
-
 .card-signin .card-body {
 	padding: 2rem;
 }
-
 .form-signin {
 	width: 100%;
 }
-
 .form-signin .btn {
 	font-size: 80%;
 	border-radius: 5rem;
@@ -60,21 +54,17 @@ body {
 	padding: 1rem;
 	transition: all 0.2s;
 }
-
 .form-label-group {
 	position: relative;
 	margin-bottom: 1rem;
 }
-
 .form-label-group input {
 	height: auto;
 	border-radius: 2rem;
 }
-
 .form-label-group>input, .form-label-group>label {
 	padding: var(- -input-padding-y) var(- -input-padding-x);
 }
-
 .form-label-group>label {
 	position: absolute;
 	top: 0;
@@ -89,62 +79,49 @@ body {
 	border-radius: .25rem;
 	transition: all .1s ease-in-out;
 }
-
 .form-label-group input::-webkit-input-placeholder {
 	color: transparent;
 }
-
 .form-label-group input:-ms-input-placeholder {
 	color: transparent;
 }
-
 .form-label-group input::-ms-input-placeholder {
 	color: transparent;
 }
-
 .form-label-group input::-moz-placeholder {
 	color: transparent;
 }
-
 .form-label-group input::placeholder {
 	color: transparent;
 }
-
 .form-label-group input:not(:placeholder-shown) {
 	padding-top: calc(var(- -input-padding-y)+ var(- -input-padding-y)* (2/3));
 	padding-bottom: calc(var(- -input-padding-y)/3);
 }
-
 .form-label-group input:not(:placeholder-shown) ~label {
 	padding-top: calc(var(- -input-padding-y)/3);
 	padding-bottom: calc(var(- -input-padding-y)/3);
 	font-size: 12px;
 	color: #777;
 }
-
 .btn-google {
 	color: white;
 	background-color: #ea4335;
 }
-
 .btn-facebook {
 	color: white;
 	background-color: #3b5998;
 }
-
 /* Fallback for Edge
 -------------------------------------------------- */
 @
 supports (-ms-ime-align: auto) { .form-label-group >label { display:none;
 	
 }
-
 .form-label-group input::-ms-input-placeholder {
 	color: #777;
 }
-
 }
-
 /* Fallback for IE
 -------------------------------------------------- */
 @media all and (-ms-high-contrast: none) , ( -ms-high-contrast : active)
@@ -209,36 +186,12 @@ supports (-ms-ime-align: auto) { .form-label-group >label { display:none;
 	var naver_id_login = new naver_id_login("zjjj7_AqHxAv9Xan5omR",
 			"http://localhost:8787/bean/navercallback.do");
 	var state = naver_id_login.getUniqState();
-
 	naver_id_login.setButton("green", 3, 45);
 	naver_id_login.setDomain("http://localhost:8787/bean");
 	naver_id_login.setState(state);
 	//naver_id_login.setPopup();
 	naver_id_login.init_naver_id_login();
 </script>
-	<div id="naver_id_login" style="display: none;"></div>
-	<div
-		onclick="document.getElementById('naver_id_login_anchor').click();">
-		<button>네이버 로그인</button>
-	</div>
-	<script type="text/javascript">
-		var naver_id_login = new naver_id_login("zjjj7_AqHxAv9Xan5omR",
-				"http://localhost:8787/bean/navercallback.do");
-		var state = naver_id_login.getUniqState();
-
-		naver_id_login.setButton("green", 3, 45);
-		naver_id_login.setDomain("http://localhost:8787/bean");
-		naver_id_login.setState(state);
-		//naver_id_login.setPopup();
-		naver_id_login.init_naver_id_login();
-	</script>
-
-	<a
-		href="https://kauth.kakao.com/oauth/authorize?client_id=3350426d432820aada3df120c58988d4&redirect_uri=http://localhost:8787/bean/kakaologin.do&response_type=code">
-		<img class=kakaoLogin alt="kakao" src="resources/img/kakao_login.png">
-	</a>
-
-
 
 
 </body>

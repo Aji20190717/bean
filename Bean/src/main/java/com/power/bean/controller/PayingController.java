@@ -46,8 +46,6 @@ public class PayingController {
 
 		PayingDto insertDto = payingDto;
 		
-		System.out.println(insertDto);
-		
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
 		
 		// Apache HttpClient기반의 java용 아임포트 REST API클라이언트

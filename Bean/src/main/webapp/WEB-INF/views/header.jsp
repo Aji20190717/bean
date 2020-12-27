@@ -1,3 +1,4 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -5,7 +6,7 @@
 
 
 <%
-	response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
 response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 response.setDateHeader("Expires", 0L); // Do not cache in proxy server
@@ -56,7 +57,12 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 <body>
 
 	<%
+		if(session.getAttribute("login") != null){
 		LoginDto login = (LoginDto) session.getAttribute("login");
+		System.out.println(login);
+		}else{
+			LoginDto login = null;
+		}
 	%>
 	
 	<!-- TODO : review, english lounge 연결 -->
@@ -69,7 +75,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 				<a class="login navbar-write" href="">About Bean</a>
 				<c:choose>
 					<c:when test="${empty login }">
-						<a class="login navbar-write" href="">Sign Up</a>
+						<a class="login navbar-write" href="registtype.do">Sign Up</a>
 						<a class="login navbar-write" href="loginform.do">Sign In</a>
 					</c:when>
 					<c:otherwise>
@@ -78,13 +84,13 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 								test="${login.member_type eq 'S' || login.member_type eq 'SN' || login.member_type eq 'SG' }">
 								<a class="navbar-write" href="myinfo.do?member_no">${login.member_name }님
 									마이페이지</a>
-
 							</c:when>
 							<c:when test="${login.member_type eq 'T' }">
 								<span>강사 <a class="navbar-write" href="mypage.do">${login.member_name }님
 										마이페이지</a></span>
 							</c:when>
 						</c:choose>
+						<a class="login navbar-write" href="logout.do">Sign out</a>
 					</c:otherwise>
 				</c:choose>
 
@@ -105,7 +111,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 							Lounge</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="questionList.do">Question Lounge</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Review
+					<li class="nav-item"><a class="nav-link" href="review_list.do">Review
 							Lounge</a></li>
 				</ul>
 			</div>

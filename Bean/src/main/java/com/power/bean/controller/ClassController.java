@@ -10,122 +10,113 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.power.bean.biz.ClassBiz;
 import com.power.bean.dto.ClassDto;
+import com.power.bean.dto.LoginDto;
 
 @Controller
 public class ClassController {
-	
+
 	@Autowired
 	private ClassBiz classBiz;
-	
+
 	@RequestMapping("/classList.do")
-	public String selectClassList(Model model){
-		
+	public String selectClassList(Model model) {
+
 		List<ClassDto> classList = classBiz.selectClassList();
 		model.addAttribute("classList", classList);
-		
+
 		return "class_list";
 	}
-	
-	@RequestMapping("/selectOneClass.do")
-	public String selectOneClass(Model model, int class_no, int member_no,String member_name) {
-		System.out.println(member_no);
-		ClassDto classDto = classBiz.selectOneClass(class_no);
 
-		String usernum = "" + member_no;
-		String userName = member_name;
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("usernum", usernum);
-		map.put("userName", userName);
-		
-		
+	@RequestMapping("/selectOneClass.do")
+	public String selectOneClass(Model model, int class_no, HttpSession session) {
+
+		ClassDto classDto = classBiz.selectOneClass(class_no);
 		Gson gson = new GsonBuilder().create();
-		String json = gson.toJson(map);
+		Map<String, Object> map = new HashMap<String, Object>();
+		LoginDto loginDto = (LoginDto) session.getAttribute("login");
+		String json = "";
+
+		if (loginDto != null) {
+
+			System.out.println(loginDto.getMember_no());
+			String usernum = "" + loginDto.getMember_no();
+			String userName = loginDto.getMember_name();
+
+			map.put("usernum", usernum);
+			map.put("userName", userName);
+			map.put("value", "true");
+
+			 json = gson.toJson(map);
+
+			model.addAttribute("json", json);
+			
+		}else {
+			
+			map.put("value", "false");
+			json = gson.toJson(map);
+			
+		}
+
 		String classJson = gson.toJson(classDto);
-		
-		model.addAttribute("classDto", classJson);
-		model.addAttribute("map", json);
+         
+		model.addAttribute("json", json);
+		model.addAttribute("classJson", classJson);
 		
 		return "class_paying";
-		
+
 	}
-	
+
 	// id를 넣으면 결제한 class list를 보내주는 함수
 	@RequestMapping("/selectPayingClassList.do")
-	public String selectPayingClassList(Model model, int member_no){
+	public String selectPayingClassList(Model model, int member_no) {
 		List<ClassDto> payingClassList = classBiz.selectPayingClassList(member_no);
 		System.out.println(payingClassList);
 		model.addAttribute(payingClassList);
-		
+
 		return null;
-		
+
 	}
-	
+
 	// 학생이 도중에 수강을 포기할 경우 class json String에서 이름을 제거, 환불 처리 진행
 	@RequestMapping("/studentRun.do")
 	public String studentRun(int class_no, int member_no) {
-		
-		//TODO : PayingBiz의 환불 코드
+
+		// TODO : PayingBiz의 환불 코드
 		int res = classBiz.StudentRun(class_no, member_no);
 		System.out.println(res);
-		
-		if(res > 0) {
-		return "redirect:myinfodetail.do?member_no=" + member_no; 
+
+		if (res > 0) {
+			return "redirect:myinfodetail.do?member_no=" + member_no;
 		}
-		
+
 		return null;
-		
+
 	}
-	
+
 	@RequestMapping("/insertRes.do")
-	public String insertRes(int member_no, Model model){
-		
+	public String insertRes(int member_no, Model model) {
+
 		model.addAttribute("member_no", member_no);
-		
+
 		return "class_add";
 	}
-		
-	
+
 	@RequestMapping("/insertClass")
 	public String insertClass(ClassDto insertDto) {
-		
-		System.out.println(insertDto);
-		
-		/*
-		try {
-			
-			//string date를 java.util.Date 값으로 변환
-			java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("mm/dd/yyyy");
-			java.util.Date class_startDate = dateFormat.parse(from);
-			java.util.Date class_endDate = dateFormat.parse(to);
-			
-			
-			insertDto.setClass_startDate(class_startDate);
-			insertDto.setClass_endDate(class_endDate);
-			
-			System.out.println(insertDto);
-			
-			
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		*/
 
-		
-		
 		int res = classBiz.insertClass(insertDto);
-		if(res>0) {
-			
+		if (res > 0) {
+
 			return "redirect:mypagedetail.do?member_no=" + insertDto.getMember_no();
 		}
 		return "redirect:insertRes.do";
-		
+
 	}
-	
 
 }
