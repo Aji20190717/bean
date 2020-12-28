@@ -15,17 +15,17 @@
 
 	$(function(){
 		
-		var id = opener.document.getElementsByName("member_id")[0].value;
-        document.getElementsByName("member_id")[0].value = id;
+		var id = opener.document.getElementById("member_id").value;
+        document.getElementById("member_id").value = id;
 		
 	});
 	
 	 function idConfirm(bool){
 	        if(bool == "true") {
-	            opener.document.getElementsByName("member_id")[0].title = 'y'
-	            opener.document.getElementsByName("member_pw")[0].focus();
+	            opener.document.getElementById("member_id").title = 'y'
+	            opener.document.getElementById("member_pw").focus();
 	        } else {
-	            opener.document.getElementsByName("member_id")[0].focus();
+	            opener.document.getElementById("member_id").focus();
 	        }
 	        self.close();
 	    }
@@ -38,7 +38,7 @@
 
 	<table border="1">
 		<tr>
-			<td><input type="text" name="member_id" readonly="readonly" /></td>
+			<td><input type="text" id="member_id" readonly="readonly" /></td>
 		</tr>
 		<tr>
 			<td>

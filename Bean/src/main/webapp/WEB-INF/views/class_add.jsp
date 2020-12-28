@@ -41,6 +41,7 @@
 </script>
 
 </head>
+	<%@ include file="./header.jsp"%>
 <body>
 	<form action="insertClass.do" method="post">
 		<table border="1">
