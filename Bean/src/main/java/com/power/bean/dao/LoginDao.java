@@ -12,5 +12,6 @@ public interface LoginDao {
 	public boolean emailChk(String email);
 	public LoginDto snsChk(String member_sns);
 	public int kakaoInsert(LoginDto dto);
+	public String getUsersByID(String memeber_id);
 	
 }

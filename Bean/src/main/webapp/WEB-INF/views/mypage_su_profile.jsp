@@ -21,14 +21,17 @@
 		</span>
 		<span>
 			<span>${login.member_name }</span>
-						<input type="button" value="개인정보확인" onclick="location.href='myinfodetail.do'">
-						<input type="button" value="로그아웃" onclick="location.href='logout.do'"><br/>
+						<input type="button" value="개인정보확인" onclick="location.href='myinfodetail.do'"><br/>
 			<span>- 이메일</span><span>${login.member_email }</span><br/>
 			<span>- 휴대폰</span><span>${login.member_phone }</span><br/>
 			<span>- 주소</span><span>${login.member_post }</span>
 						<span>${login.member_addr1 }</span>
 						<span>${login.member_addr2 }</span><br/>
 		</span>
+		<form action="logoutSecurity.do">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<input type="submit" value="로그아웃" />
+		</form>
 	</div>
 
 </body>

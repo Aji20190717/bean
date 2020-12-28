@@ -23,4 +23,10 @@
 		FROM MEMBER WHERE MEMBER_NO = #{member_no}
 	</select>
 	
+	<select id="security" parameterType="String" resultType="String">
+		SELECT MEMBER_PW
+		FROM MEMBER
+		WEHER MEMBER_ID = #{member_id}
+	</select>
+	
 </mapper>

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,6 +34,11 @@ public class LoginController_Bean {
 
 	@Autowired
 	private LoginBiz biz;
+	
+	@RequestMapping("/main.do")
+	public String mainpage() {
+		return "mainpage";
+	}
 
 	// 메인 페이지에서 로그인/회원가입 버튼 누르면 오는 곳
 	@RequestMapping("/loginform.do")
@@ -209,22 +215,44 @@ public class LoginController_Bean {
 
 	// 로그인
 	@RequestMapping("/login.do")
-	public String login(LoginDto dto, HttpSession session, Model model) {
+	public String login(LoginDto dto, HttpSession session, Model model,
+			@RequestParam(value = "error", required = false) String error, UserDetails user) {
+		// required=false 는 파라미터 없어도 된다는 말
 
+		System.out.println("login.do");
+		
+		LoginDto info = new LoginDto();
+		info.setMember_id(user.getUsername());
+		info.setMember_pw(user.getPassword());
+		LoginDto res1 = biz.login(info);
+		LoginDto res2 = biz.login(dto);
 
-		LoginDto res = biz.login(dto);
-
-		if (res != null) {
-			if (res.getMember_withdrawal().equals("N")) {
-				session.setAttribute("login", res);
+		if (res1 != null || res2 != null) {
+			if (res1.getMember_withdrawal().equals("N")) {
+				session.setAttribute("login", res1);
 				return "mainpage";
-			} else if (res.getMember_withdrawal().equals("Y")) {
+			} else if (res1.getMember_withdrawal().equals("Y")) {
+				String msg = "탈퇴한 회원입니다.";
+				model.addAttribute("msg", msg);
+				return "login_withdrawal";
+			} else if (res2.getMember_withdrawal().equals("N")) {
+				session.setAttribute("login", res2);
+				return "mainpage";
+			} else if (res2.getMember_withdrawal().equals("Y")) {
 				String msg = "탈퇴한 회원입니다.";
 				model.addAttribute("msg", msg);
 				return "login_withdrawal";
 			}
+		} else if(error != null) {
+			System.out.println(error);
+			String msg = "로그인에 실패하였습니다. 다시 시도해주세요.";
+			model.addAttribute("msg", msg);
+			return "login_withdrawal";
+		} else {
+			String msg = "가입하지 않은 회원입니다. 아이디와 비밀번호를 다시 확인해주세요.";
+			model.addAttribute("msg", msg);
+			return "login_withdrawal";
 		}
-
 		return "login";
 
 	}

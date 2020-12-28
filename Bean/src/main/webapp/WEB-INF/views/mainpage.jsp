@@ -80,7 +80,7 @@
 				<a class="login navbar-write" href="">About Bean</a>
 				<c:choose>
 					<c:when test="${empty login }">
-							<a class="login navbar-write" href="">Sign Up</a>
+							<a class="login navbar-write" href="registtype.do">Sign Up</a>
 							<a class="login navbar-write" href="loginform.do">Sign In</a>
 					</c:when>
 					<c:otherwise>
