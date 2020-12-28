@@ -244,30 +244,36 @@ body {
             <h5 class="card-title text-center">Register</h5>
             
 	<form action="resister.do" method="POST" enctype="multipart/form-data" accept-charset="UTF-8" name="form">
-              <input type = "hidden" name = "member_type" value = "${type }"/>
+            <input type="hidden" name="member_type" value="${type }" />
               <div class="form-label-group">
-                <input type="text" id="member_id" class="form-control" placeholder="member_id" required>
+                <input type="text" id="member_id" name = "member_id" class="form-control" placeholder="member_id" required>
                 <label for="member_id">id</label>
-              </div>
 			<input type = "button" value = "중복체크" onclick ="idChk()"/>
+              </div>
               <div class="form-label-group">
-                <input type="password" id="member_pw" class="form-control" onclick = "idChkConfirm();" placeholder="member_pw" required>
+                <input type="password" id="member_pw" name = "member_pw" class="form-control" onclick = "idChkConfirm();" placeholder="member_pw" required>
                 <label for="member_pw">password</label>
               </div>
               <div class="form-label-group">
-                <input type="password" id="member_pwchk" onchange="idChkConfirm();" class="form-control" placeholder="member_pwchk" required>
+                <input type="password" id="member_pwchk" name = "member_pwchk" onchange="idChkConfirm();" class="form-control" placeholder="member_pwchk" required>
                 <label for="member_pwchk">Confirm password</label>
               </div>
               
 				<p id="passcheck"></p>
               <hr>
               <div class="form-label-group">
-                <input type="text" id="member_name"  onclick="idChkConfirm();"  class="form-control" required>
+                <input type="text" id="member_name" name="member_name"  onclick="idChkConfirm();"  class="form-control" placeholder = "member_name" required>
                 <label for="member_name">name</label>
+              </div>
+              
+              
+			<div class="form-label-group">
+                <input type="text" id="member_phone" name="member_phone"  onclick="idChkConfirm();"  class="form-control" placeholder = "member_phone" required>
+                <label for="member_phone">Phone Number</label>
               </div>
                     
               <div class="form-label-group">
-                <input type="email" id="member_email"  onclick="idChkConfirm();" class="form-control" placeholder="member_email" required>
+                <input type="text" id="member_email" name="member_email"  onclick="idChkConfirm();" class="form-control" placeholder="member_email" required>
                 <label for="member_email">email</label>
               <input type="button" value="중복체크" onclick="emailChk();" />
               </div>
@@ -275,13 +281,13 @@ body {
               <hr>
               
               <div class="form-label-group">
-                <input type="text" id="member_post"  class="form-control"  placeholder="member_post" >
+                <input type="text" id="member_post" name="member_post"  class="form-control"  placeholder="member_post" >
                 <label for="member_post">우편번호</label>
                
               </div>
                
               <div class="form-label-group">
-                <input type="text" id="member_addr1" class="form-control" placeholder="member_addr1" >
+                <input type="text" id="member_addr1" name="member_addr1" class="form-control" placeholder="member_addr1" >
                 <label for="member_addr1">주소</label>
               </div>
               
@@ -291,7 +297,7 @@ body {
               
               
 				<div class="form-label-group">
-                <input type="text" id="member_addr2" class="form-control" placeholder="member_addr2" >
+                <input type="text" id="member_addr2" name="member_addr2" class="form-control" placeholder="member_addr2" >
                 <label for="member_addr2">상세주소</label>
               </div>
               
@@ -299,24 +305,22 @@ body {
               
 
 			<div class="form-label-group">
-              <input id = "member_birth" type="date" class="form-control" />
+              <input id = "member_birth" name="member_birth" type="date" class="form-control" />
               <label for="member_birth">생년월일</label>
               </div>
                                           
 			<div class="form-label-group">
-              <input id = "member_mpfile" type="file"/>
+              <input id = "member_mpfile" name="member_mpfile" multiple="multiple" type="file"/>
               <label for="member_mpfile">프로필</label>
               </div>
-              
-
-              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
-            </form>
+              <input class="btn btn-lg btn-primary btn-block text-uppercase" value = "Regist" type="submit"> 
+              </form>
               <a class="d-block text-center mt-2 small" href="loginform.do">Sign In</a>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+
 </body>
 </html>
