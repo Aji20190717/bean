@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+	xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+
+           http://www.springframework.org/schema/security
+
+           http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+	<http auto-config="true">
+	<!--
+		auto-config='true' 를 설정한것만으로 기본 로그인페이지/ HTTP 기본인증 / 로그아웃기능등을 제공한다.
+		use-expressions="true" 는 SpEL 을 사용한다는 의미이다.
+		permitAll : 모든 권한 허용
+		hasRole('ROLE_USER') : 특정 권한 허용
+	-->
+
+		<intercept-url pattern="/loginform.do" access="permitAll" />
+		<intercept-url pattern="/resources/**" access="permitAll" />
+		<intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+		<!-- 
+			해당 URL 에 접근하기위한 권한을 설정하여준다. ( 접근가능한 IP 등을 설정할수도있다) . 그리고 권한은 위쪽이 우선시된다.
+		 -->
+
+		<form-login login-page="/loginform.do"						
+					default-target-url="/login.do"
+					username-parameter="member_id"
+					password-parameter="password"
+					authentication-failure-url="/login?error"
+					always-use-default-target='true' />
+		<!-- 
+			login-page : 사용자가 만든 로그인페이지를 스프링에게 알려준다.
+			default-target-url : 로그인성공하면 이동할 페이지설정
+			username-parameter / password-parameter : 로그인 폼이 있는 페이지에서 FORM 안에 들어간 name과 동일한 name으로 설정
+			authentication-failure-url : 실패시 호출해줄 URL (login 페이지에 error 파라미터를 보내준다) 
+			always-use-default-target : 이거 안하면 로그인성공해도 default-target-url 로 제대로 안간다고 함
+		 -->
+
+		<logout invalidate-session="true"
+				logout-url="/logout.do"
+				logout-success-url="index.jsp" />
+		<!-- 
+			로그아웃되면 세션 초기화
+			logout-success-url : 로그아웃되면 이동할 페이지
+			logout-url : 로그아웃을 위한 URL설정. 이거 안해주면 디폴트로 j_spring_security_logout 해주면됨.
+		 -->
+
+		<!-- enable csrf protection -->
+		<!-- 4.x부터 디폴트로 작용한다. -->
+
+	</http>
+
+	<authentication-manager>
+	<!-- 
+		인증처리를 위한 최상위 태그
+	 -->
+		<authentication-provider user-service-ref="memberService" />
+		<!-- 
+		user-service-ref="memberService" 사용자이름/비밀번호를 제공해줄 서비스 등록
+		 -->
+	</authentication-manager>
+
+	<beans:bean id="memberService" class="com.company.wmos.auth.MemberService" />
+	<!-- MemberService 빈등록 -->
+</beans:beans>

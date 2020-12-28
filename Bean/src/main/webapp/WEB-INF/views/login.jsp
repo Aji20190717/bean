@@ -14,20 +14,15 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
-
-
-
-
-
 <body>
 
 	<form action="login.do">
-		아이디 : <input type="text" name="member_id" /> 비밀번호 : <input
-			type="text" name="member_pw" /> <input type="submit" value="로그인" />
+		아이디 : <input type="text" name="member_id" /><br/>
+		비밀번호 : <input type="text" name="member_pw" /><br/>
+		<input type="submit" value="로그인" />
 	</form>
 
 	<div id="naver_id_login" style="display: none;"></div>
-<<<<<<< HEAD
 	<div
 		onclick="document.getElementById('naver_id_login_anchor').click();">
 		<button>네이버 로그인</button>
@@ -48,8 +43,7 @@
 		href="https://kauth.kakao.com/oauth/authorize?client_id=3350426d432820aada3df120c58988d4&redirect_uri=http://localhost:8787/bean/kakaologin.do&response_type=code">
 		<img class=kakaoLogin alt="kakao" src="resources/img/kakao_login.png">
 	</a>
-
-=======
+	
 		<div onclick="document.getElementById('naver_id_login_anchor').click();">
 			<button>네이버 로그인</button>
 		</div>
@@ -63,7 +57,6 @@
 		  	//naver_id_login.setPopup();
 		  	naver_id_login.init_naver_id_login();
 		</script>
->>>>>>> webRTC1
 
 	<input type="button" value="회원가입"
 		onclick="location.href='registtype.do'" />

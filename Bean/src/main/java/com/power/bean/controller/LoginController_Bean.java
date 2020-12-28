@@ -211,6 +211,7 @@ public class LoginController_Bean {
 	@RequestMapping("/login.do")
 	public String login(LoginDto dto, HttpSession session, Model model) {
 
+
 		LoginDto res = biz.login(dto);
 
 		if (res != null) {
@@ -232,7 +233,7 @@ public class LoginController_Bean {
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
 
-		session.invalidate();
+		// session.invalidate();
 		return "mainpage";
 
 	}

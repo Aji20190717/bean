@@ -16,7 +16,7 @@
 					name="pwd"><br> <input type="submit" value="로그인">
 				<a
 					href="https://kauth.kakao.com/oauth/authorize?client_id=3350426d432820aada3df120c58988d4&redirect_uri=http://localhost:8787/bean/">
-					<img width="180px" src="resources/images/kakao_btn.png">//src에 이미지에 대한 경로
+					<img width="180px" src="resources/images/kakao_btn.png">
 				</a>
 			</form>
 		</c:when>
