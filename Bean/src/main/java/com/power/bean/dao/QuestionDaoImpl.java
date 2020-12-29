@@ -61,13 +61,13 @@ public class QuestionDaoImpl implements QuestionDao{
 	//update 시 이미지 처리는 어떻게 할 것인가 
 	public int QuestionUpdate(QuestionDto dto) {
 		
+		
 		int res = sqlSession.update(QUESTIONNAMSESPACE + "questionUpdate", dto);
 		
 		return res;
 	}
 	
 	public int QuestionDelete(int questionboard_no) {
-		
 		
 		
 		int res = sqlSession.delete(QUESTIONNAMSESPACE + "questionDelete", questionboard_no);

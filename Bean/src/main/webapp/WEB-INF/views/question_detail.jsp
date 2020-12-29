@@ -51,7 +51,7 @@
 			<th>groupno</th>
 			<td>${questionDto.questionboard_groupno }</td>
 		</tr>
-		<tr>
+		<tr> 	
 			<th>question reply</th>
 			<td>${questionDto.questionboard_reply}</td>
 		</tr>
@@ -73,13 +73,22 @@
 		<tr>
 			<td colspan="2" align="right">
 				<!-- TODO : 작성자의 경우 수정, 강사의 경우 답변 -->
+				<c:choose>
+				<c:when test= "${login.member_no  eq questionDto.member_no }">
 				<input type="button" value="수정" onclick="location.href='questionUpdate.do?questionboard_no=${questionDto.questionboard_no}'"/>
+				</c:when>
+				<c:when test= "${login.member_type  eq 'T'}">
 				<input type ="button" value = "답변" onclick ="location.href='questionReply.do?questionboard_no=${questionDto.questionboard_no}'"/>
+				</c:when>
+				</c:choose>
 				<!-- TODO : 삭제할 때 유효성 처리(session과 비교) -->
 				<input type="button" value="삭제" onclick="location.href='questionDelete.do?questionboard_no=${questionDto.questionboard_no}'" /> 
 				<input type="button" value="목록" onclick="location.href='questionList.do'" /></td>
 		</tr>
 	</table>
+		<script>
+			CKEDITOR.replace('contents');
+		</script>
 
 
 </body>

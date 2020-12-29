@@ -57,11 +57,12 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 <body>
 
 	<%
+		LoginDto login = null;
 		if(session.getAttribute("login") != null){
-		LoginDto login = (LoginDto) session.getAttribute("login");
+		login = (LoginDto) session.getAttribute("login");
 		System.out.println(login);
 		}else{
-			LoginDto login = null;
+			login = null;
 		}
 	%>
 	
@@ -86,7 +87,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 									마이페이지</a>
 							</c:when>
 							<c:when test="${login.member_type eq 'T' }">
-								<span>강사 <a class="navbar-write" href="mypage.do">${login.member_name }님
+								<span> <a class="navbar-write" href="mypage.do">${login.member_name }강사님
 										마이페이지</a></span>
 							</c:when>
 						</c:choose>

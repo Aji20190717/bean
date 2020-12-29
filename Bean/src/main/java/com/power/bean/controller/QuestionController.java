@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -32,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
 import com.power.bean.biz.QuestionBiz;
+import com.power.bean.dto.LoginDto;
 import com.power.bean.dto.QuestionDto;
 import com.power.bean.util.QuestionFileValidator;
 
@@ -82,8 +84,11 @@ public class QuestionController {
 	}
 	
 	@RequestMapping("/questionReplyRes.do")
-	public String questionReplyRes(QuestionDto questionDto) {
+	public String questionReplyRes(QuestionDto questionDto, HttpSession session) {
 		
+		LoginDto replyUserDto = (LoginDto) session.getAttribute("login");
+		System.out.println(replyUserDto);
+		questionDto.setQuestionboard_step(replyUserDto.getMember_no());
 		int res = questionBiz.QuestionReply(questionDto);
 		
 		if(res > 0) {
@@ -97,6 +102,7 @@ public class QuestionController {
 	@RequestMapping("/questionUpdate.do")
 	public String questionUpdate(int questionboard_no, Model model) {
 		
+		
 		QuestionDto questionDto = questionBiz.selectOneForReplyOrUpdate(questionboard_no);
 		model.addAttribute("questionDto", questionDto);
 		
@@ -106,10 +112,10 @@ public class QuestionController {
 	@RequestMapping("/questionUpdateres.do")
 	public String questionUpdateRes(QuestionDto questionDto) {
 		
+		
 		int res = questionBiz.QuestionUpdate(questionDto);
 		
 		if(res > 0) {
-			
 			
 			return "redirect:questionDetail.do?questionboard_no=" + questionDto.getQuestionboard_no();
 		}
@@ -123,7 +129,6 @@ public class QuestionController {
 		return "question_upload";
 	}
 	
-	//TODO : sql 최대 열 넘는 값 처리 (
 	@RequestMapping("/questionUploadres.do")
 	public String questionUploadRes(HttpServletRequest request, Model model, QuestionDto dto, BindingResult result) {
 
@@ -243,7 +248,6 @@ public class QuestionController {
 				}
 
 			}
-
 
 
 		} else {
