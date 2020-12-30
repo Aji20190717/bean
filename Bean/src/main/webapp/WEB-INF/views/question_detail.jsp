@@ -21,7 +21,7 @@
 
 	<%@ include file="./header.jsp"%>
 	<body>
-    <div class="page-wrapper back-blue p-t-100 p-b-50">
+    <div class="page-wrapper bg-gra-03 p-t-100 p-b-50">
         <div class="wrapper wrapper--w900">
             <div class="cardboard cardboard-6">
                 <div class="cardboard-heading">
@@ -29,13 +29,13 @@
                 </div>
                 <div class="cardboard-body">
                     <form method="POST">
-                        <div class="form-row">
+                        <div class="formboard-row">
                             <div class="name">Full name</div>
                             <div class="value">
                                 <input class="input--style-6" type="text" name="full_name">
                             </div>
                         </div>
-                        <div class="form-row">
+                        <div class="formboard-row">
                             <div class="name">Email address</div>
                             <div class="value">
                                 <div class="input-group">
@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row">
+                        <div class="formboard-row">
                             <div class="name">Message</div>
                             <div class="value">
                                 <div class="input-group">
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row">
+                        <div class="formboard-row">
                             <div class="name">Upload CV</div>
                             <div class="value">
                                 <div class="input-group js-input-file">
