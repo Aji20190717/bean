@@ -221,6 +221,17 @@ table.table .avatar {
 	$(document).ready(function() {
 		$('[data-toggle="tooltip"]').tooltip();
 	});
+
+	function loginAlarm() {
+
+		alert('로그인 해주세요');
+
+	}
+	
+	function studentAlarm(){
+		
+		alert('학생 계정만 글작성이 가능합니다');
+	}
 </script>
 
 </head>
@@ -239,9 +250,25 @@ table.table .avatar {
 							</h2>
 						</div>
 						<div class="col-sm-7">
-							<a href="questionUpload.do" class="btn btn-secondary"><i
-								class="material-icons">&#xE147;</i> <span>Add New
-									Question</span></a> 
+							<c:choose>
+								<c:when test="${empty login }">
+									<button onclick="loginAlarm()" class="btn btn-secondary">
+										<i class="material-icons">&#xE147;</i> <span>Add New
+											Question</span>
+									</button>
+								</c:when>
+								<c:when test="${login.member_type eq 'T' }">
+									<button onclick="studentAlarm()" class="btn btn-secondary">
+										<i class="material-icons">&#xE147;</i> <span>Add New
+											Question</span>
+									</button>
+								</c:when>
+								<c:otherwise>
+									<a href="questionUpload.do" class="btn btn-secondary"><i
+										class="material-icons">&#xE147;</i> <span>Add New
+											Question</span></a>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</div>
@@ -268,12 +295,14 @@ table.table .avatar {
 									<tr>
 										<td>${questiondto.questionboard_no }</td>
 										<td>${questiondto.questionboard_title}</td>
-										<td><fmt:formatDate value="${questiondto.questionboard_date }" pattern = "yyyy/MM/dd" /></td>
+										<td><fmt:formatDate
+												value="${questiondto.questionboard_date }"
+												pattern="yyyy/MM/dd" /></td>
 										<td>${questiondto.questionboard_name }</td>
-										
+
 										<!-- 답변이 되지 않았을 경우 빈칸 -->
 										<c:choose>
-											<c:when test = "${empty questiondto.questionboard_reply }">
+											<c:when test="${empty questiondto.questionboard_reply }">
 												<td>대기중</td>
 											</c:when>
 											<c:otherwise>
@@ -281,14 +310,14 @@ table.table .avatar {
 											</c:otherwise>
 										</c:choose>
 										<!-- detail logo 바꾸기 -->
-										<td><a href="questionDetail.do?questionboard_no=${questiondto.questionboard_no }" class="settings" title="detail"
-											data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-											<!-- 본인이 쓴 글이거나 Admin 계정일 경우 삭제 가능 -->
-											<c:if test= "${login.member_no eq questiondto.member_no }">
-											<a href="" class="delete" title="Delete"
-											data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-											</c:if>
-										</td>
+										<td><a
+											href="questionDetail.do?questionboard_no=${questiondto.questionboard_no }"
+											class="settings" title="detail" data-toggle="tooltip"><i
+												class="material-icons">&#xE8B8;</i></a> <!-- 본인이 쓴 글이거나 Admin 계정일 경우 삭제 가능 -->
+											<c:if test="${login.member_no eq questiondto.member_no }">
+												<a href="" class="delete" title="Delete"
+													data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
+											</c:if></td>
 									</tr>
 								</c:forEach>
 							</c:otherwise>

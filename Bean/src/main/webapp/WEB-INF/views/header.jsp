@@ -106,7 +106,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link"
-						href="classList.do"> Select Class <span class="sr-only">(current)</span>
+						href="classList.do"> Select Class
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">English
 							Lounge</a></li>
