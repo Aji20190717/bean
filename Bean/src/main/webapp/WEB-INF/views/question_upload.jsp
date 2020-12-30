@@ -26,7 +26,6 @@
 		<input type="hidden" name="questionboard_name"
 			value="${login.member_name }" />
 			
-							<div class="row justify-content-md-center" name="reviewboard_content">
 					<div class="col_c" style="margin-bottom: 30px">
 						<div class="input-group">
 							<textarea class="form-control" id="p_content" name="questionboard_content"></textarea>
@@ -37,7 +36,6 @@
 							</script>
 						</div>
 					</div>
-				</div>
 		<input type="hidden" name="questoinbaord_groupno" value="<%=groupno%>" />
 		<input type="text" name="questionboard_title" />
 		<input type="file" name="question_mpfile" />
