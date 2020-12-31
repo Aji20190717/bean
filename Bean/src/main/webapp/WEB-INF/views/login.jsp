@@ -18,7 +18,7 @@
 	
 	<!-- 일반로그인 -->
 	<section>
-		<form action="/logininfo.do" method="post">
+		<form action="/bean/logininfo.do" method="post">
 			<ul>
 				<li>
 					<label for="userID">ID</label>
@@ -32,7 +32,7 @@
 					<input type="submit" value="로그인"/>
 				</li>
 			</ul>
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<input type="text" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form>
 	</section>
 

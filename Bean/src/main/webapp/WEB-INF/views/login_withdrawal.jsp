@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -15,6 +15,15 @@
 	</c:if>
 	<c:if test="${not empty msg}">
 		<h1>${msg }</h1>
+	</c:if>
+	<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+		<font color="red">
+			<p>
+				Your login attempt was not successful due to <br />
+				${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+			</p>
+			<c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session" />
+		</font>
 	</c:if>
 
 	<a href="loginform.do">회원가입 화면으로 돌아가기</a>

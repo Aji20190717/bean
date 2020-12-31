@@ -85,14 +85,5 @@ public class LoginDaoImpl implements LoginDao {
 		return dto;
 	}
 
-	@Override
-	public String getUsersByID(String member_id) {
-		// TODO Auto-generated method stub
-		String password = "";
-		
-		password = sqlSession.selectOne(NAMESPACE + "security" , member_id);
-		
-		return password;
-	}
 
 }
