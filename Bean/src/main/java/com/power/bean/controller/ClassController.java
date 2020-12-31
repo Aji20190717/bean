@@ -4,13 +4,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,6 +24,9 @@ import com.power.bean.dto.LoginDto;
 
 @Controller
 public class ClassController {
+	
+	@Autowired
+	private JavaMailSender mailSender;
 
 	@Autowired
 	private ClassBiz classBiz;
@@ -108,7 +115,8 @@ public class ClassController {
 	}
 
 	@RequestMapping("/insertClass")
-	public String insertClass(ClassDto insertDto) {
+	public String insertClass(ClassDto insertDto, String email) {
+		
 
 		int res = classBiz.insertClass(insertDto);
 		if (res > 0) {
@@ -118,5 +126,50 @@ public class ClassController {
 		return "redirect:insertRes.do";
 
 	}
+	
+	@RequestMapping("/mailTemp.do")
+	public String mailTemp() {
+		
+		
+		return "mailTemp";
+		
+	}
+	
+	@RequestMapping("/mailTempResGmail.do")
+	public String mailTempResGmail(HttpServletRequest request) {
+		
+		
+		
+		
+		return "redirect:classList.do";
+	}
+	@RequestMapping("/mailTempResNaver.do")
+	public String mailTempResNaver() {
+		
+		String setfrom = "temp59382";
+		//String tomail = "qodbwls70@naver.com";
+		String tomail = "sdfsdf@ssdfdf";
+		String title = "test mail 내용 입니다";
+		String content = "test mail 입니다";
+		
+		MimeMessage message = mailSender.createMimeMessage();
+		try {
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			
+			messageHelper.setFrom(setfrom);
+			messageHelper.setTo(tomail);
+			messageHelper.setSubject(title);
+			messageHelper.setText(content);
+			
+			mailSender.send(message);
+			
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:classList.do";
+	}
+	
 
 }
