@@ -135,41 +135,5 @@ public class ClassController {
 		
 	}
 	
-	@RequestMapping("/mailTempResGmail.do")
-	public String mailTempResGmail(HttpServletRequest request) {
-		
-		
-		
-		
-		return "redirect:classList.do";
-	}
-	@RequestMapping("/mailTempResNaver.do")
-	public String mailTempResNaver() {
-		
-		String setfrom = "temp59382";
-		//String tomail = "qodbwls70@naver.com";
-		String tomail = "sdfsdf@ssdfdf";
-		String title = "test mail 내용 입니다";
-		String content = "test mail 입니다";
-		
-		MimeMessage message = mailSender.createMimeMessage();
-		try {
-			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-			
-			messageHelper.setFrom(setfrom);
-			messageHelper.setTo(tomail);
-			messageHelper.setSubject(title);
-			messageHelper.setText(content);
-			
-			mailSender.send(message);
-			
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-		
-		
-		return "redirect:classList.do";
-	}
-	
 
 }
