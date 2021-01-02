@@ -247,7 +247,11 @@ public class LoginController_Bean {
 		return "mainpage";
 
 	}
-
 	
+	// error
+	@RequestMapping("/error.do")
+	public String accessDeniedPage() throws Exception {
+        return "login_withdrawal";
+	}
 
 }	

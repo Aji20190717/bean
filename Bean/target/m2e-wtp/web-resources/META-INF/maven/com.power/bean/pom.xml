@@ -177,7 +177,6 @@
 			<version>1.9.13</version>
 		</dependency>
 
-
 		<!-- ck에디터 -->
 		<!-- com.cksource/ckfinder3 -->
 		<dependency>
@@ -185,7 +184,6 @@
 			<artifactId>ckfinder3</artifactId>
 			<version>3.5.1</version>
 		</dependency>
-
 
 		<!-- 로그인 email인증 -->
 		<!-- javax.mail/mail -->

@@ -131,7 +131,7 @@ public class QuestionController {
 	
 	@RequestMapping("/questionUploadres.do")
 	public String questionUploadRes(HttpServletRequest request, Model model, QuestionDto dto, BindingResult result) {
-
+		
 		QuestionDto uploadDto = new QuestionDto();
 
 		uploadDto.setMember_no(dto.getMember_no());

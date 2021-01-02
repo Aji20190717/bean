@@ -21,6 +21,13 @@ public class HomeController {
 		return "bean_comeon";
 	}
 	
+	// 인서트 실험
+	@RequestMapping("/test.do")
+	public String test() {
+
+		return "testinsert";
+	}
+	
 	
 
 }

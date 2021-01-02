@@ -70,6 +70,9 @@
 										});
 									</script>
 								</div>
+								 <!-- 
+								 <textarea rows="10" cols="60" name="questionboard_content"></textarea>
+								  -->
 							</div>
 						</div>
 						<div class="formboard-row">
@@ -77,7 +80,8 @@
 							<div class="value">
 								<div class="input-group js-input-file">
 									<input class="input-file" type="file" name="question_mpfile"
-										id="file"> <label class="label--file" for="file">Choose
+										id="file">
+									<label class="label--file" for="file">Choose
 										file</label>
 									<!-- TODO : 파일명이 뜨도록 변경하기
 									 <span
@@ -104,7 +108,6 @@
 	<script>
 		CKEDITOR.replace('contents');
 	</script>
-
 
 </body>
 </html>

@@ -164,7 +164,6 @@ supports (-ms-ime-align: auto) { .form-label-group >label { display:none;
 							</div>
 							<button class="btn btn-lg btn-primary btn-block text-uppercase"
 								type="submit">Sign in</button>
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</form>
 						<a onclick="location.href='registtype.do'">회원가입</a>
 						<hr class="my-4">
