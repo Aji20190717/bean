@@ -147,13 +147,13 @@ supports (-ms-ime-align: auto) { .form-label-group >label { display:none;
 				<div class="card card-signin my-5">
 					<div class="card-body">
 						<h5 class="card-title text-center">Sign In</h5>
-						<form class="form-signin" action="login.do">
+						<form class="form-signin" action="login.do" method="post">
 							<div class="form-label-group">
 								<input type="text" name="member_id" placeholder= "id"class="form-control"
 									required autofocus> 
 							</div>
 							<div class="form-label-group">
-								<input type="text" name="member_pw" placeholder= "password"  class="form-control"
+								<input type="password" name="member_pw" placeholder= "password"  class="form-control"
 									placeholder="Password" required>
 							</div>
 
@@ -164,6 +164,7 @@ supports (-ms-ime-align: auto) { .form-label-group >label { display:none;
 							</div>
 							<button class="btn btn-lg btn-primary btn-block text-uppercase"
 								type="submit">Sign in</button>
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</form>
 						<a onclick="location.href='registtype.do'">회원가입</a>
 						<hr class="my-4">
