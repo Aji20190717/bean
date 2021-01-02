@@ -36,4 +36,7 @@ WHERE MEMBER_NO= 62 ;
 
 SELECT * FROM MEMBER ORDER BY MEMBER_NO DESC;
 
+INSERT INTO MEMBER
+VALUES (MEMBER_SEQ.NEXTVAL, 'user', 'userPw', 'userPw', '테스터', 'BEAN@KH.COM', '010-1234-5678','00000',
+'서울시 강남구 역삼동', '남도빌딩', '1900-04-04', '', '', 'A', 'N', '');
 

@@ -25,6 +25,7 @@
 			<intercept-url pattern="/idChk.do" access="permitAll" />
 			<intercept-url pattern="/emailChk.do" access="permitAll" />
 			<intercept-url pattern="/registform.do" access="permitAll" />
+			<intercept-url pattern="/logininfo.do" access="permitAll" />
 			
 			<!-- 그외 -->
             <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
@@ -78,7 +79,7 @@
         <authentication-manager>
             <authentication-provider>
                 <user-service>
-                    <user name="user3" password="1234" authorities="ROLE_USER"/>
+                    <user name="user" password="userPw" authorities="ROLE_USER"/>
                     <user name="guest" password="guest" authorities="ROLE_GUEST"/>
                 </user-service>
             </authentication-provider>

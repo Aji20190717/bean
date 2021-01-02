@@ -147,7 +147,7 @@ supports (-ms-ime-align: auto) { .form-label-group >label { display:none;
 				<div class="card card-signin my-5">
 					<div class="card-body">
 						<h5 class="card-title text-center">Sign In</h5>
-						<form class="form-signin" action="login.do" method="post">
+						<form class="form-signin" action="/bean/logininfo.do" method="post">
 							<div class="form-label-group">
 								<input type="text" name="member_id" placeholder= "id"class="form-control"
 									required autofocus> 

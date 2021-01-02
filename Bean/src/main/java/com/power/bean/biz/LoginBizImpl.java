@@ -13,8 +13,9 @@ public class LoginBizImpl implements LoginBiz {
 	private LoginDao dao;
 
 	@Override
-	public LoginDto login(LoginDto dto) {
-		return dao.login(dto);
+	public LoginDto login(String member_id) {
+		System.out.println("biz.login");
+		return dao.login(member_id);
 	}
 
 	@Override

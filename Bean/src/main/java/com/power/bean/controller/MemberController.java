@@ -252,8 +252,8 @@ public class MemberController {
 			LoginDto login = new LoginDto();
 			LoginDto info = new LoginDto();
 			info.setMember_id(dto.getMember_id());
-			info.setMember_pw(dto.getMember_pw());
-			login = loginbiz.login(info);
+			// info.setMember_pw(dto.getMember_pw());
+			login = loginbiz.login(info.getMember_id());
 
 			session.setAttribute("login", login);
 			return "redirect:myinfodetail.do";

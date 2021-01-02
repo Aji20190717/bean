@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -210,9 +212,16 @@ public class LoginController_Bean {
 
 	// 로그인
 	@RequestMapping("/login.do")
-	public String login(LoginDto dto, HttpSession session, Model model) {
+	public String login(HttpSession session, Model model) {
+		
+		System.out.println("login.do");
+		System.out.println("session");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(auth.getName());
+		
+		String member_id = auth.getName();
 
-		LoginDto res = biz.login(dto);
+		LoginDto res = biz.login(member_id);
 
 		if (res != null) {
 			if (res.getMember_withdrawal().equals("N")) {
@@ -225,6 +234,7 @@ public class LoginController_Bean {
 			}
 		}
 
+		System.out.println("res is null");
 		return "login";
 
 	}
