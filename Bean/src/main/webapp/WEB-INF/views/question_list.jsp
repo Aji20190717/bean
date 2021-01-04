@@ -17,7 +17,7 @@
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <script
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script
@@ -227,9 +227,9 @@ table.table .avatar {
 		alert('로그인 해주세요');
 
 	}
-	
-	function studentAlarm(){
-		
+
+	function studentAlarm() {
+
 		alert('학생 계정만 글작성이 가능합니다');
 	}
 </script>
@@ -324,23 +324,35 @@ table.table .avatar {
 						</c:choose>
 					</tbody>
 				</table>
-				<div class="clearfix">
+				<div class = "clearfix">
 					<div class="hint-text">
-						Showing <b>5</b> out of <b>25</b> entries
+						Showing <b>5</b> out of <b>${questionCount}</b> entries
 					</div>
-					<ul class="pagination">
-						<li class="page-item disabled"><a href="#">Previous</a></li>
-						<li class="page-item"><a href="#" class="page-link">1</a></li>
-						<li class="page-item"><a href="#" class="page-link">2</a></li>
-						<li class="page-item active"><a href="#" class="page-link">3</a></li>
-						<li class="page-item"><a href="#" class="page-link">4</a></li>
-						<li class="page-item"><a href="#" class="page-link">5</a></li>
-						<li class="page-item"><a href="#" class="page-link">Next</a></li>
+					<ul class ="pagination">
+					<c:if test="${paging.startPage != 1 }">
+						<li class = "page-item disabled"><a href="/bean/questionList.do?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">Previous</a></li>
+					</c:if>
+					<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
+						var="p">
+						<c:choose>
+							<c:when test="${p == paging.nowPage }">
+								<li class = "page-item active">
+								<a class = "page-link" href="/bean/questionList.do?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+							</c:when>
+							<c:when test="${p != paging.nowPage }">
+								<li class = "page-item"><a href="/bean/questionList.do?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${paging.endPage != paging.lastPage}">
+					<li class = "page-item"><a href="/bean/questionList.do?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">Next</a></li>
+					</c:if>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
+
 
 </body>
 

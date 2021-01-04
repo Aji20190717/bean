@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.power.bean.dao.QuestionDao;
+import com.power.bean.dto.PagingDto;
 import com.power.bean.dto.QuestionDto;
 
 @Service
@@ -14,11 +15,13 @@ public class QuestionBizImpl implements QuestionBiz{
 	@Autowired
 	private QuestionDao questionDao;
 
-	public List<QuestionDto> selectQuestionList(){
-		
-		return questionDao.selectQuestionList();
-	}
 	
+
+	@Override
+	public List<QuestionDto> selectQuestionList(PagingDto pagingDto) {
+		return questionDao.selectQuestionList(pagingDto);
+	}
+
 	public QuestionDto selectOneQuestion(int questionboard_no) {
 		
 		return questionDao.selectOneQuestion(questionboard_no);
@@ -49,6 +52,12 @@ public class QuestionBizImpl implements QuestionBiz{
 		
 		return questionDao.selectOneForReplyOrUpdate(questionboard_no);
 		
+	}
+
+	@Override
+	public int countBoard() {
+		
+		return questionDao.countBoard();
 	}
 	
 	

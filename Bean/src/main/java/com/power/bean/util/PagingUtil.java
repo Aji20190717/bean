@@ -21,9 +21,7 @@ public class PagingUtil {
 		this.currentPageNo = currentPageNo;
 		this.sizeOfPage = 10;
 		this.recordsPerPage = (recordsPerPage != 0) ? recordsPerPage : 3;
-		
 	}
-	
 	
 	public int getRecordsPerPage() {
 		return recordsPerPage;

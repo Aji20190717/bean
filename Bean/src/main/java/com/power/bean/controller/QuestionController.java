@@ -32,8 +32,11 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.power.bean.biz.QuestionBiz;
 import com.power.bean.dto.LoginDto;
+import com.power.bean.dto.PagingDto;
 import com.power.bean.dto.QuestionDto;
 import com.power.bean.util.QuestionFileValidator;
 
@@ -50,73 +53,99 @@ public class QuestionController {
 	private QuestionFileValidator fileValidator;
 
 	@RequestMapping("/questionList.do")
-	public String questionList(Model model) {
+	public String questionList(Model model, PagingDto pagingDto, String nowPage, String cntPerPage) {
 
-		System.out.println("questionList.do");
+		// total question count
+		int questionCount = questionBiz.countBoard();
 
-		List<QuestionDto> questionlist = questionBiz.selectQuestionList();
+		// pagingination
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+
+		} else if (nowPage == null) {
+
+			nowPage = "1";
+
+		} else if (cntPerPage == null) {
+			cntPerPage = "5";
+		}
+
+		pagingDto = new PagingDto(questionCount, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		List<QuestionDto> questionlist = questionBiz.selectQuestionList(pagingDto);
+
+		model.addAttribute("paging", pagingDto);
 		model.addAttribute("questionlist", questionlist);
-
-		System.out.println(questionlist);
+		model.addAttribute("questionCount", questionCount);
 
 		return "question_list";
 
 	}
 
 	@RequestMapping("/questionDetail.do")
-	public String questionDetail(Model model, int questionboard_no, HttpServletRequest request) throws FileNotFoundException {
+	public String questionDetail(Model model, int questionboard_no, HttpServletRequest request)
+			throws FileNotFoundException {
 
 		QuestionDto questionDto = questionBiz.selectOneQuestion(questionboard_no);
 		model.addAttribute("questionDto", questionDto);
-		
+
 		return "question_detail";
 
 	}
 
 	@RequestMapping("/questionReply.do")
 	public String questionReply(Model model, int questionboard_no) {
-		
+
+		Gson gson = new GsonBuilder().create();
 		QuestionDto questionDto = questionBiz.selectOneForReplyOrUpdate(questionboard_no);
-		
+		String json = "";
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		if (questionDto.getQuestionboard_ocr() != null) {
+
+			map.put("ocrText", questionDto.getQuestionboard_ocr());
+		}
+
+		json = gson.toJson(map);
+
+		model.addAttribute("ocrjson", json);
 		model.addAttribute("questionDto", questionDto);
 
 		return "question_reply";
 	}
-	
+
 	@RequestMapping("/questionReplyRes.do")
 	public String questionReplyRes(QuestionDto questionDto, HttpSession session) {
-		
+
 		LoginDto replyUserDto = (LoginDto) session.getAttribute("login");
 		System.out.println(replyUserDto);
 		questionDto.setQuestionboard_step(replyUserDto.getMember_no());
 		int res = questionBiz.QuestionReply(questionDto);
-		
-		if(res > 0) {
-			
+
+		if (res > 0) {
+
 			return "redirect:questionDetail.do?questionboard_no=" + questionDto.getQuestionboard_no();
 		}
-		
+
 		return "redirect:qustionReply.do?questionboard_no=" + questionDto.getQuestionboard_no();
 	}
-	
+
 	@RequestMapping("/questionUpdate.do")
 	public String questionUpdate(int questionboard_no, Model model) {
-		
-		
+
 		QuestionDto questionDto = questionBiz.selectOneForReplyOrUpdate(questionboard_no);
 		model.addAttribute("questionDto", questionDto);
-		
+
 		return "question_update";
 	}
 
 	@RequestMapping("/questionUpdateres.do")
 	public String questionUpdateRes(QuestionDto questionDto) {
-		
-		
+
 		int res = questionBiz.QuestionUpdate(questionDto);
-		
-		if(res > 0) {
-			
+
+		if (res > 0) {
+
 			return "redirect:questionDetail.do?questionboard_no=" + questionDto.getQuestionboard_no();
 		}
 
@@ -128,15 +157,30 @@ public class QuestionController {
 
 		return "question_upload";
 	}
-	
+
 	@RequestMapping("/questionUploadres.do")
-	public String questionUploadRes(HttpServletRequest request, Model model, QuestionDto dto, BindingResult result) {
+	public String questionUploadRes(HttpServletRequest request, Model model, QuestionDto dto, BindingResult result,
+			String groupOption) {
 
 		QuestionDto uploadDto = new QuestionDto();
 
+		// 1 : 글쓰기 첨삭 2 : 문제 첨삭 3: 수업 첨삭
+		if (groupOption.equals("글쓰기 첨삭")) {
+
+			uploadDto.setQuestionboard_groupno(0);
+
+		} else if (groupOption.equals("문제 첨삭")) {
+
+			uploadDto.setQuestionboard_groupno(1);
+
+		} else {
+
+			uploadDto.setQuestionboard_groupno(2);
+
+		}
+
 		uploadDto.setMember_no(dto.getMember_no());
 		uploadDto.setQuestionboard_name(dto.getQuestionboard_name());
-		uploadDto.setQuestionboard_groupno(dto.getQuestionboard_groupno());
 		uploadDto.setQuestionboard_title(dto.getQuestionboard_title());
 		uploadDto.setQuestionboard_content(dto.getQuestionboard_content());
 		uploadDto.setQuestionboard_reply("");
@@ -145,9 +189,10 @@ public class QuestionController {
 		String path;
 		String ocr;
 
+		// TODO : 배포 시 url 변경
 		String url = "http://127.0.0.1:5000/";
 		String body = null;
-		
+
 		// file upload
 		fileValidator.validate(dto, result);
 
@@ -161,7 +206,7 @@ public class QuestionController {
 
 			MultipartFile file = dto.getQuestion_mpfile();
 			name = file.getOriginalFilename();
-			name ="Question" + dto.getMember_no() + timeStamp + name;
+			name = "Question" + dto.getMember_no() + timeStamp + name;
 
 			// QuestionDto fileObj = new QuestionDto();
 			// fileObj.setQuestionboard_imgname(name);
@@ -172,9 +217,8 @@ public class QuestionController {
 			try {
 
 				inputStream = file.getInputStream();
-				//TODO : 경로 바꾸기
-				path = WebUtils.getRealPath(request.getSession().getServletContext(),
-						"/resources/storage/");
+				// TODO : 경로 바꾸기
+				path = WebUtils.getRealPath(request.getSession().getServletContext(), "/resources/storage/");
 
 				System.out.println("업로드 될 실제 경로(real path) : " + path);
 
@@ -204,14 +248,11 @@ public class QuestionController {
 				// OCR(Connect flask)
 
 				Map<String, Object> params = new HashMap<String, Object>();
-				params.put("hi", "hello");
 				params.put("path", path);
 				params.put("filename", name);
-				
 
-				
 				try {
-					 body = objectMapper.writeValueAsString(params);
+					body = objectMapper.writeValueAsString(params);
 				} catch (JsonGenerationException e) {
 					e.printStackTrace();
 				} catch (JsonMappingException e) {
@@ -219,22 +260,18 @@ public class QuestionController {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
-				if(body!=null) {
-					
+
+				if (body != null) {
+
 					// TODO : 이미지 전송으로 교체할 것
 					HttpHeaders headers = new HttpHeaders();
 					headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 					HttpEntity entity = new HttpEntity(body, headers);
-					
+
 					ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
 					ocr = response.getBody();
-					//System.out.println(response.getBody());
-					
-					uploadDto.setQuestionboard_ocr(ocr);	
+					uploadDto.setQuestionboard_ocr(ocr);
 				}
-				
-
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -248,7 +285,6 @@ public class QuestionController {
 				}
 
 			}
-
 
 		} else {
 

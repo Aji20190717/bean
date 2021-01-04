@@ -51,7 +51,6 @@ public class ClassController {
 
 		if (loginDto != null) {
 
-			System.out.println(loginDto.getMember_no());
 			String usernum = "" + loginDto.getMember_no();
 			String userName = loginDto.getMember_name();
 

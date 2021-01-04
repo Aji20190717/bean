@@ -44,15 +44,8 @@
 </style>
 
 
-<script src="webjars/jquery/3.5.1/dist/jquery.min.js"></script>
-<script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="resources/css/MainPageCss.css" />
-<link rel="script" href="resources/js/MainPageJQ.js" />
-<link rel="script" href="resources/js/MainPageJs.js" />
-
 <link rel='stylesheet'
 	href='webjars/fullcalendar/3.5.1/dist/fullcalendar.css' />
-
 
 <script src='webjars/moment/2.19.1/min/moment.min.js'></script>
 </head>

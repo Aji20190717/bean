@@ -11,6 +11,7 @@
 
 	<!-- typeAlias는 위로 쌓기 -->
 	<typeAliases>
+		<typeAlias type="com.power.bean.dto.PagingDto" alias = "PagingDto"/>
 		<typeAlias type="com.power.bean.dto.PayingDto" alias = "PayingDto"/>
 		<typeAlias type="com.power.bean.dto.ClassDto" alias = "ClassDto"/>
 		<typeAlias type="com.power.bean.dto.ReviewDto"
