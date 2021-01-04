@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.power.bean.biz.ClassBiz;
 import com.power.bean.biz.ReviewBiz;
 import com.power.bean.dto.ClassDto;
 import com.power.bean.dto.LoginDto;
@@ -23,6 +24,9 @@ public class ReviewController {
 	
 	@Autowired
 	private ReviewBiz biz;
+	
+	@Autowired
+	private ClassBiz classbiz;
 	
 	@RequestMapping("/review_list.do")
 	public String selectList(Model model,CriteriaDto dto
@@ -49,6 +53,8 @@ public class ReviewController {
 		return "review_list";
 	}
 	
+	
+	
 	@RequestMapping("/review_search.do")
 	public String review_search(Model model,String search,String search_text) {
 		System.out.println("reveiw_search.do");
@@ -61,19 +67,42 @@ public class ReviewController {
 		return "review_search";
 	}
 	
+	
+	
 
 	
 	@RequestMapping("/review_insertform.do")
-	public String review_insertForm(HttpSession session) {
+	public String review_insertForm(HttpSession session
+			,Model model) {
 		System.out.println("review_insertform.do");
 		
 		 
 		LoginDto dto=(LoginDto)session.getAttribute("login");
+		System.out.println(dto.getMember_no());
+		List<ClassDto>classList=classbiz.selectPayingClassList(dto.getMember_no());
+		
+		model.addAttribute("classList",classList);
+		
+		
 		if(dto == null || dto.getMember_no() == 0) {
 			return "redirect:loginform.do";
 		}
 		return "review_insert";
 	}
+	
+	@RequestMapping("/review_updateform.do")
+	public String updateForm(HttpSession session,Model model,int reviewboard_no) {
+		System.out.println("review_updateform.do");
+		
+		LoginDto dto=(LoginDto)session.getAttribute("login");
+		List<ClassDto>classList=classbiz.selectPayingClassList(dto.getMember_no());
+		
+		model.addAttribute("classList",classList);
+		model.addAttribute("dto",biz.review_selectOne(reviewboard_no));
+		
+		return "review_update";
+	}
+	
 	
 	@RequestMapping("/review_insertres.do")
 	public String review_insertRes(ReviewDto dto) {
@@ -85,24 +114,8 @@ public class ReviewController {
 			return "redirect:review_list.do";
 		}
 		
+		
 	return "redirect:review_insertform.do";	
-	}
-	
-	@RequestMapping("/review_detail.do")
-	public String detail(Model model,int reviewboard_no) {
-		System.out.println("review_detail.do");
-		
-		model.addAttribute("dto",biz.review_selectOne(reviewboard_no));
-		return "review_detail";
-	}
-	
-	@RequestMapping("/review_updateform.do")
-	public String updateForm(Model model,int reviewboard_no) {
-		System.out.println("review_updateform.do");
-		
-		model.addAttribute("dto",biz.review_selectOne(reviewboard_no));
-		
-		return "review_update";
 	}
 	
 	@RequestMapping("/review_updateres.do")
@@ -117,6 +130,17 @@ public class ReviewController {
 		return "redirect:review_updateform.do?reviewboard_no="+dto.getReviewboard_no();
 	}
 	
+	@RequestMapping("/review_detail.do")
+	public String detail(Model model,int reviewboard_no) {
+		System.out.println("review_detail.do");
+		
+		model.addAttribute("dto",biz.review_selectOne(reviewboard_no));
+		return "review_detail";
+	}
+	
+
+	
+
 	@RequestMapping("/review_delete.do")
 	public String delete(int reviewboard_no) {
 		System.out.println("review_delete.do");

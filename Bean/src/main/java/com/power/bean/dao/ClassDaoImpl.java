@@ -36,7 +36,7 @@ public class ClassDaoImpl implements ClassDao{
 		String searchString = "\""+member_no + "\"";
 		
 		List<ClassDto> payingClassList = sqlSession.selectList(CLASSNAMESPACE + "selectPayingClassList", searchString);
-		
+		System.out.println(payingClassList.toString());
 		return payingClassList;
 	}
 

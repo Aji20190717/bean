@@ -55,7 +55,7 @@
 		INSERT INTO REVIEWBOARD
 		VALUES(REVIEWBOARD_SEQ.NEXTVAL,#{member_no},
 		#{reviewboard_name},#{reviewboard_title}, #{reviewboard_content},
-		SYSDATE, 0,'N', #{class_name}, #{reviewboard_te},
+		SYSDATE, 0,'N', #{class_name}, 'null',
 		#{reviewboard_star})
 	</insert>
 
@@ -75,7 +75,7 @@
 		UPDATE REVIEWBOARD
 		SET
 		MEMBER_NO=#{member_no},
-		REVIEWBOARD_TITLE=#{reviewboard_title},REVIEWBOARD_CONTENT=#{reviewboard_content},CLASS_NAME=#{class_name},REVIEWBOARD_TE=#{reviewboard_te},REVIEWBOARD_STAR=#{reviewboard_star}
+		REVIEWBOARD_TITLE=#{reviewboard_title},REVIEWBOARD_CONTENT=#{reviewboard_content},CLASS_NAME=#{class_name},REVIEWBOARD_TE='null',REVIEWBOARD_STAR=#{reviewboard_star}
 		WHERE REVIEWBOARD_NO=#{reviewboard_no}
 	</update>
 
