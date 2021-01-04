@@ -44,7 +44,7 @@
 </style>
 
 
-<script src="webjars/jquery/3.5.1/dist/jquery.min.js"></script>
+<script src="webjars/jquery/3.4.1/dist/jquery.min.js"></script>
 <script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="resources/css/MainPageCss.css" />
 <link rel="script" href="resources/js/MainPageJQ.js" />

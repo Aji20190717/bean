@@ -50,17 +50,19 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 	text-decoration: none;
 }
 </style>
-<script src="webjars/jquery/3.5.1/dist/jquery.min.js"></script>
+<script src="webjars/jquery/3.4.1/dist/jquery.min.js"></script>
 <script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="resources/css/MainPageCss.css" />
 <link rel="script" href="resources/js/MainPageJQ.js" />
 <link rel="script" href="resources/js/MainPageJs.js" />
+
 
 <script type="text/javascript">
 
 $(document).ready(function(){
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
+    alert("바본가봉가");
     /*
     	$(document).ajaxSend(function(e, xhr, options) {
     	    xhr.setRequestHeader(header, token);

@@ -64,11 +64,13 @@
 				invalidate-session="true"
 				logout-url="/logoutSecurity.do"
 				logout-success-url="/logout.do"
+				delete-cookies="ture"
 			/>
 			<!-- 
 				invalidate-session : 로그아웃되면 세션 초기화 
 				logout-success-url : 로그아웃되면 이동할 페이지 
 				logout-url : 로그아웃을 위한 URL설정. 이거 안해주면 디폴트로 POST방식의 /logout 해주면됨.
+				delete-cookies : 쿠키 삭제 여부
 			-->
 			
 			<!-- enable csrf protection -->
@@ -82,12 +84,23 @@
         </http>
         
         <authentication-manager>
+            <!-- 
             <authentication-provider>
                 <user-service>
                     <user name="user" password="userPw" authorities="ROLE_USER"/>
                     <user name="guest" password="guest" authorities="ROLE_GUEST"/>
                 </user-service>
             </authentication-provider>
+             -->
+             <authentication-provider user-service-ref="SecurityService" />
         </authentication-manager>
-    
+        
+        <beans:import resource="applicationContext.xml" />
+        
+        <beans:bean id="SecurityService" class="com.power.bean.biz.SecurityService" />
+        
+		<beans:bean id="SecurityDao" class="com.power.bean.dao.SecurityDao" >
+			<beans:constructor-arg ref="sqlSessionTemplate"></beans:constructor-arg>
+		</beans:bean>
+        
 </beans:beans>

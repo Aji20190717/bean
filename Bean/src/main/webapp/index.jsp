@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<jsp:forward page="./WEB-INF/views/mainpage.jsp"></jsp:forward>
+	<a href="main.do">가자</a>
 
 </body>
 </html>

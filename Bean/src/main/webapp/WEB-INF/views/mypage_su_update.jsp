@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 
 <script type="text/javascript"
-	src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <script
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
