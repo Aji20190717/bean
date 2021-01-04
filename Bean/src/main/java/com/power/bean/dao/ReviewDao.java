@@ -2,7 +2,7 @@ package com.power.bean.dao;
 
 import java.util.List;
 
-import com.power.bean.dto.PagingDto;
+import com.power.bean.dto.CriteriaDto;
 import com.power.bean.dto.ReviewDto;
 
 public interface ReviewDao {
@@ -14,13 +14,14 @@ public interface ReviewDao {
 	public int review_insert(ReviewDto dto);
 	public int review_update(ReviewDto dto);
 	public int review_delete(int reviewboard_no);
-	public String reviewboard();
+	public String test();
 	
 	
+	public List<ReviewDto> review_search(String search, String search_text);
 	
 	
 	public int countBoard();
-	public List<ReviewDto> selectBoard(PagingDto dto);
+	public List<ReviewDto> selectBoard(CriteriaDto dto);
 	
 	
 }

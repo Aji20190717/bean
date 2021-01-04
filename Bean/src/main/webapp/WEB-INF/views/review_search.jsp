@@ -11,16 +11,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-
 </head>
-<!-- 
-<script>
-	function selChange() {
-		var sel = document.getElementById('cntPerPage').value;
-		location.href = "review_list.do?nowPage=${paging.nowPage}&cntPerPage=" + sel;
-	}
-</script>
--->
+
+
 <style>
 h2 {
 	text-align: center;
@@ -42,10 +35,6 @@ a {
 				+ sel;
 	}
 </script>
-
-
-
-
 
 
 <body>
@@ -138,7 +127,7 @@ a {
 
 		<form action="review_search.do" method="post">
 
-			<select name="search">
+				<select name="search">
 				<option value="reviewboard_title">제목</option>
 				<option value="class_name">수강과목</option>
 			</select> <input type="text" name="search_text"> <input type="submit"

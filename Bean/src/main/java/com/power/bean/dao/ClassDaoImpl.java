@@ -170,11 +170,14 @@ public class ClassDaoImpl implements ClassDao{
 	@Override
 	public List<ClassDto> selectTrainerClass(int member_no) {
 		
+		System.out.println("selectTrainerClassDao : " + member_no);
+		
 		List<ClassDto> trainerClassList = sqlSession.selectList(CLASSNAMESPACE + "selectTrainerClass", member_no);
 		
 		return trainerClassList;
 	}
 
+	
 
 	
 	

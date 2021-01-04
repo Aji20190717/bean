@@ -3,14 +3,16 @@ package com.power.bean.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.power.bean.dto.PagingDto;
+import com.power.bean.dto.CriteriaDto;
 import com.power.bean.dto.ReviewDto;
+import com.power.bean.dto.Review_Search;
 
 @Repository
 public class ReviewDaoImpl implements ReviewDao {
@@ -30,6 +32,31 @@ public class ReviewDaoImpl implements ReviewDao {
 		}
 		return list;
 	}
+	
+	//글 목록 가져오기
+	@Override
+	public List<ReviewDto> review_search(String search, String search_text) {
+		
+		List<ReviewDto> review_search=new ArrayList<ReviewDto>();
+
+		Map<String , String> map=new HashMap<String, String>();
+		map.put("search", search);
+		map.put("search_text",search_text);
+		
+		System.out.println(search_text);
+		try {
+			
+			review_search = sqlSession.selectList(NAMESPACE + "search", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(review_search.size());
+		return review_search;
+	}
+	
+	
+	
+	
 
 	@Override
 	public ReviewDto review_selectOne(int reviewboard_no) {
@@ -91,7 +118,7 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 	
 	@Override
-	public List<ReviewDto> selectBoard(PagingDto dto) {
+	public List<ReviewDto> selectBoard(CriteriaDto dto) {
 		
 	//	System.out.println(dto.getStart()+" : "+dto.getEnd());
 		
@@ -102,9 +129,10 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 	@Override
-	public String reviewboard() {
+	public String test() {
 		return null;
 	}
+
 
 
 	

@@ -43,7 +43,7 @@
 								<option value="성아름">성아름</option>
 								<option value="조용승">조용승</option>
 							</select> <select name="reviewboard_star" class="custom-select" id="inputGroupSelect03">
-								<option selected>별점</option>
+								<option value="0">별점</option>
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>

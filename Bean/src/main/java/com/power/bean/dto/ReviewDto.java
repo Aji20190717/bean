@@ -15,6 +15,17 @@ public class ReviewDto {
 	private String class_name;
 	private String reviewboard_te;
 	private int reviewboard_star;
+	
+	private String review_search;
+	
+	public String getReview_search() {
+		return review_search;
+	}
+	public void setReview_search(String review_search) {
+		this.review_search=review_search;
+	}
+	
+	
 	public int getReviewboard_no() {
 		return reviewboard_no;
 	}

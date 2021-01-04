@@ -22,6 +22,5 @@ public interface ClassDao {
 	//트레이너 번호를 넣으면 트레이너가 담당한 class를 보여준다
 	public List<ClassDto> selectTrainerClass(int member_no);
 	
-	
 
 }

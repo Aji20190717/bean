@@ -1,5 +1,7 @@
 package com.power.bean.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.power.bean.biz.ReviewBiz;
 import com.power.bean.dto.ClassDto;
 import com.power.bean.dto.LoginDto;
-import com.power.bean.dto.PagingDto;
+import com.power.bean.dto.CriteriaDto;
 import com.power.bean.dto.ReviewDto;
 
 @Controller
@@ -23,7 +25,7 @@ public class ReviewController {
 	private ReviewBiz biz;
 	
 	@RequestMapping("/review_list.do")
-	public String selectList(Model model,PagingDto dto
+	public String selectList(Model model,CriteriaDto dto
 			, @RequestParam(value="nowPage", required=false)String nowPage
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
 		
@@ -39,7 +41,7 @@ public class ReviewController {
 		} else if (cntPerPage == null) { 
 			cntPerPage = "5";
 		}
-		dto = new PagingDto(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		dto = new CriteriaDto(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", dto);
 		model.addAttribute("list", biz.selectBoard(dto));
 		
@@ -47,29 +49,19 @@ public class ReviewController {
 		return "review_list";
 	}
 	
-	/*
-	
-	@RequestMapping("review_list.do")
-	public String boardList(PagingDto dto, Model model
-			, @RequestParam(value="nowPage", required=false)String nowPage
-			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+	@RequestMapping("/review_search.do")
+	public String review_search(Model model,String search,String search_text) {
+		System.out.println("reveiw_search.do");
 		
-		int total = biz.countBoard();
-		//System.out.println(dto.getStart()+" : "+dto.getEnd());
-		if (nowPage == null && cntPerPage == null) {
-			nowPage = "1";
-			cntPerPage = "5";
-		} else if (nowPage == null) {
-			nowPage = "1";
-		} else if (cntPerPage == null) { 
-			cntPerPage = "5";
-		}
-		dto = new PagingDto(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-		model.addAttribute("paging", dto);
-		model.addAttribute("list", biz.selectBoard(dto));
-		return "redirect:review_list.do";
+		List<ReviewDto> review_search=biz.review_search(search, search_text);
+		model.addAttribute("list",review_search);
+		
+		
+		
+		return "review_search";
 	}
-	*/
+	
+
 	
 	@RequestMapping("/review_insertform.do")
 	public String review_insertForm(HttpSession session) {
@@ -136,10 +128,10 @@ public class ReviewController {
 		return "redirect:review_delete.do?reviewboard_no="+reviewboard_no;
 	}
 	
-	@RequestMapping("/reviewboard.do")
+	@RequestMapping("/test.do")
 	public String reviewboard() {
-		System.out.println("/reviewboard.do");
-		biz.reviewboard();
+		System.out.println("/test.do");
+		biz.test();
 		return "redirect:review_list.do";
 	}	
 	
