@@ -173,7 +173,8 @@ table.table .avatar {
 }
 
 .pagination {
-	float: right;
+
+	float:right;
 	margin: 0 0 5px;
 }
 
@@ -215,6 +216,67 @@ table.table .avatar {
 	float: left;
 	margin-top: 10px;
 	font-size: 13px;
+}
+
+*{padding:0;margin:0;}
+
+body{
+	font-family:Verdana, Geneva, sans-serif;
+	background-color:#CCC;
+	font-size:12px;
+}
+
+.label-container{
+	position:fixed;
+	bottom:48px;
+	right:105px;
+	display:table;
+	visibility: hidden;
+}
+
+.label-text{
+	color:#FFF;
+	background:rgba(51,51,51,0.5);
+	display:table-cell;
+	vertical-align:middle;
+	padding:10px;
+	border-radius:3px;
+}
+
+.label-arrow{
+	display:table-cell;
+	vertical-align:middle;
+	color:#333;
+	opacity:0.5;
+}
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#06C;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float{
+	font-size:24px;
+	margin-top:18px;
+}
+
+a.float + div.label-container {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s ease;
+}
+
+a.float:hover + div.label-container{
+  visibility: visible;
+  opacity: 1;
 }
 </style>
 <script>
@@ -324,35 +386,45 @@ table.table .avatar {
 						</c:choose>
 					</tbody>
 				</table>
-				<div class = "clearfix">
+				<div class="clearfix">
+				
 					<div class="hint-text">
 						Showing <b>5</b> out of <b>${questionCount}</b> entries
 					</div>
-					<ul class ="pagination">
-					<c:if test="${paging.startPage != 1 }">
-						<li class = "page-item disabled"><a href="/bean/questionList.do?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">Previous</a></li>
-					</c:if>
-					<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
-						var="p">
-						<c:choose>
-							<c:when test="${p == paging.nowPage }">
-								<li class = "page-item active">
-								<a class = "page-link" href="/bean/questionList.do?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
-							</c:when>
-							<c:when test="${p != paging.nowPage }">
-								<li class = "page-item"><a href="/bean/questionList.do?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
-							</c:when>
-						</c:choose>
-					</c:forEach>
-					<c:if test="${paging.endPage != paging.lastPage}">
-					<li class = "page-item"><a href="/bean/questionList.do?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">Next</a></li>
-					</c:if>
+					<ul class="pagination">
+						<c:if test="${paging.startPage != 1 }">
+							<li class="page-item disabled"><a
+								href="/bean/questionList.do?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">Previous</a></li>
+						</c:if>
+						<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
+							var="p">
+							<c:choose>
+								<c:when test="${p == paging.nowPage }">
+									<li class="page-item active"><a class="page-link"
+										href="/bean/questionList.do?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+								</c:when>
+								<c:when test="${p != paging.nowPage }">
+									<li class="page-item"><a
+										href="/bean/questionList.do?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${paging.endPage != paging.lastPage}">
+							<li class="page-item"><a
+								href="/bean/questionList.do?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">Next</a></li>
+						</c:if>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
 
+	<a href="trans.do" class="float"> <i class="fa fa-envelope my-float"></i>
+	</a>
+	<div class="label-container">
+		<div class="label-text">Translator</div>
+		<i class="fa fa-play label-arrow"></i>
+	</div>
 
 </body>
 

@@ -19,23 +19,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.power.bean.biz.ClassBiz;
+import com.power.bean.biz.LoginBiz;
+import com.power.bean.biz.MemberBiz;
 import com.power.bean.dto.ClassDto;
 import com.power.bean.dto.LoginDto;
 
 @Controller
 public class ClassController {
 	
-	@Autowired
-	private JavaMailSender mailSender;
 
 	@Autowired
 	private ClassBiz classBiz;
+	
+	@Autowired
+	private MemberBiz memberBiz;
 
 	@RequestMapping("/classList.do")
 	public String selectClassList(Model model) {
 
 		List<ClassDto> classList = classBiz.selectClassList();
+		List<LoginDto> trainerList = memberBiz.selectTrainer();
+		System.out.println(trainerList);
 		model.addAttribute("classList", classList);
+		model.addAttribute("trainerList", trainerList);
 
 		return "class_list";
 	}

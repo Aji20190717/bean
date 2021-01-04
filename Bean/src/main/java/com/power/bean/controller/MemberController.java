@@ -106,9 +106,11 @@ public class MemberController {
 
 	// 개인정보 조회 : 강사
 	@RequestMapping("/mypagedetail.do")
-	public String mypage_te_detail(Model model, int member_no) {
+	public String mypage_te_detail(Model model, HttpSession session) {
 	
-		List<ClassDto> ClassList = classbiz.selectTrainerClass(member_no);
+		LoginDto loginDto = (LoginDto) session.getAttribute("login");
+		
+		List<ClassDto> ClassList = classbiz.selectTrainerClass(loginDto.getMember_no());
 		model.addAttribute("classList", ClassList);
 
 		return "mypage_te_detail";

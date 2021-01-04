@@ -10,6 +10,33 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+
+</head>
+	<%@ include file="./header.jsp"%>
+<body>
+	<form action="insertClass.do" method="post">
+		<table border="1">
+		<input type = "hidden" value = "${member_no }" name = "member_no"/>
+			<tr>
+				<th>class_max</th>
+				<td><input type = "number" name = "class_max"/></td>
+			</tr>
+			<tr>
+				<th>class_name</th>
+				<td><input type = "text" name = "class_name"/></td>
+			</tr>
+			<tr>
+				<td><label for="class_startDate">class_startDate</label> <input type="text" id="class_startDate"
+					name="class_startDate"></td>
+				<td><label for="class_endDate">class_endDate</label> <input type="text" id="class_endDate"
+					name="class_endDate"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" value="작성" /> <input
+					type="button" value="취소" onclick="" /></td>
+			</tr>
+		</table>
+	</form>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 	$(function() {
@@ -39,33 +66,6 @@
 		}
 	});
 </script>
-
-</head>
-	<%@ include file="./header.jsp"%>
-<body>
-	<form action="insertClass.do" method="post">
-		<table border="1">
-		<input type = "hidden" value = "${member_no }" name = "member_no"/>
-			<tr>
-				<th>class_max</th>
-				<td><input type = "number" name = "class_max"/></td>
-			</tr>
-			<tr>
-				<th>class_name</th>
-				<td><input type = "text" name = "class_name"/></td>
-			</tr>
-			<tr>
-				<td><label for="class_startDate">class_startDate</label> <input type="text" id="class_startDate"
-					name="class_startDate"></td>
-				<td><label for="class_endDate">class_endDate</label> <input type="text" id="class_endDate"
-					name="class_endDate"></td>
-			</tr>
-			<tr>
-				<td colspan="2"><input type="submit" value="작성" /> <input
-					type="button" value="취소" onclick="" /></td>
-			</tr>
-		</table>
-	</form>
 
 
 </body>
