@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.power.bean.dao.ClassDao;
 import com.power.bean.dto.ClassDto;
+import com.power.bean.dto.PagingDto;
 
 @Service
 public class ClassBizImpl implements ClassBiz{
@@ -15,8 +16,8 @@ public class ClassBizImpl implements ClassBiz{
 	private ClassDao classDao;
 
 	@Override
-	public List<ClassDto> selectClassList() {
-		return classDao.selectClassList();
+	public List<ClassDto> selectClassList(PagingDto pagingDto) {
+		return classDao.selectClassList(pagingDto);
 	}
 
 	
@@ -74,6 +75,13 @@ public class ClassBizImpl implements ClassBiz{
 	public List<ClassDto> selectTrainerClass(int member_no) {
 		
 		return classDao.selectTrainerClass(member_no);
+	}
+
+
+	@Override
+	public int countClass() {
+		// TODO Auto-generated method stub
+		return classDao.countClass();
 	}
 
 

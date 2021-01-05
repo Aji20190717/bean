@@ -1,5 +1,7 @@
 package com.power.bean.dao;
 
+import java.util.List;
+
 import com.power.bean.dto.LoginDto;
 
 public interface MemberDao {
@@ -13,5 +15,12 @@ public interface MemberDao {
 
 	// 회원 탈퇴
 	public int withdrawal(int member_no);
+	
+	public List<LoginDto> selectNormalMember();
+	public List<LoginDto> selectTrainer();
+	public List<LoginDto> selectAll();
+
+	public LoginDto selectOneMember(int member_no);
+	
 
 }

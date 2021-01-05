@@ -12,15 +12,16 @@ public class ClassDto {
 	private Date class_startDate;
 	private Date class_endDate;
 	private String class_name;
+	private String class_content;
 	private String class_memberName;
 	private String class_delflag;
 	
 	public ClassDto() {
 		
 	}
-
+	
 	public ClassDto(int class_no, int member_no, int class_max, int class_now, Date class_startDate, Date class_endDate,
-			String class_name, String class_memberName, String class_delflag) {
+			String class_name, String class_content, String class_memberName, String class_delflag) {
 		this.class_no = class_no;
 		this.member_no = member_no;
 		this.class_max = class_max;
@@ -28,9 +29,11 @@ public class ClassDto {
 		this.class_startDate = class_startDate;
 		this.class_endDate = class_endDate;
 		this.class_name = class_name;
+		this.class_content = class_content;
 		this.class_memberName = class_memberName;
 		this.class_delflag = class_delflag;
 	}
+
 
 	public int getClass_no() {
 		return class_no;
@@ -104,19 +107,21 @@ public class ClassDto {
 		this.class_delflag = class_delflag;
 	}
 
+	public String getClass_content() {
+		return class_content;
+	}
+
+	public void setClass_content(String class_content) {
+		this.class_content = class_content;
+	}
+
 	@Override
 	public String toString() {
 		return "ClassDto [class_no=" + class_no + ", member_no=" + member_no + ", class_max=" + class_max
 				+ ", class_now=" + class_now + ", class_startDate=" + class_startDate + ", class_endDate="
-				+ class_endDate + ", class_name=" + class_name + ", class_memberName=" + class_memberName
-				+ ", class_delflag=" + class_delflag + "]";
+				+ class_endDate + ", class_name=" + class_name + ", class_content=" + class_content
+				+ ", class_memberName=" + class_memberName + ", class_delflag=" + class_delflag + "]";
 	}
-	
-	
-	
-	
-	
-	
-		
+
 	
 }
