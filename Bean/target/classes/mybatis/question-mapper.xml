@@ -12,7 +12,8 @@
 		FROM
 		QUESTIONBOARD
 		WHERE QUESTIONBOARD_DELFLAG = 'N'
-		ORDER BY QUESTIONBOARD_DATE DESC
+		ORDER BY
+		QUESTIONBOARD_DATE DESC
 
 	</select>
 
@@ -28,8 +29,10 @@
 	</select>
 
 	<insert id="uploadQuestion" parameterType="QuestionDto">
-		INSERT INTO QUESTIONBOARD
-		VALUES(QUESTIONBOARD_SEQ.NEXTVAL, #{member_no}, #{questionboard_name}, #{questionboard_title},
+		INSERT INTO
+		QUESTIONBOARD
+		VALUES(QUESTIONBOARD_SEQ.NEXTVAL, #{member_no},
+		#{questionboard_name}, #{questionboard_title},
 		#{questionboard_content}, SYSDATE, 0, 0, 0 , #{questionboard_reply},
 		#{questionboard_replydate}, 'N' ,#{questionboard_imgname},
 		#{questionboard_imgpath}, #{questionboard_ocr})
@@ -37,7 +40,8 @@
 
 	<update id="questionReply" parameterType="QuestionDto">
 		UPDATE QUESTIONBOARD
-		SET QUESTIONBOARD_REPLY = #{questionboard_reply},QUESTIONBOARD_STEP = #{questionboard_step} , QUESTIONBOARD_REPLYDATE = SYSDATE
+		SET QUESTIONBOARD_REPLY = #{questionboard_reply},QUESTIONBOARD_STEP =
+		#{questionboard_step} , QUESTIONBOARD_REPLYDATE = SYSDATE
 		WHERE
 		QUESTIONBOARD_NO = #{questionboard_no}
 	</update>
@@ -45,7 +49,8 @@
 	<update id="questionUpdate" parameterType="QuestionDto">
 		UPDATE QUESTIONBOARD
 		SET QUESTIONBOARD_CONTENT = #{questionboard_content}
-		WHERE QUESTIONBOARD_NO = #{questionboard_no}
+		WHERE
+		QUESTIONBOARD_NO = #{questionboard_no}
 	</update>
 
 	<delete id="questionDelete">
@@ -59,5 +64,22 @@
 		1
 		WHERE QUESTIONBOARD_NO = #{questionboard_no}
 	</update>
+	
+	<select id = "countBoard" resultType = "int">
+		SELECT COUNT(*) FROM QUESTIONBOARD
+	</select>
+	
+	<select id = "selectPagingList" resultType = "QuestionDto" parameterType = "PagingDto">
+		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM QUESTIONBOARD 
+							ORDER BY QUESTIONBOARD_NO DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
 
 </mapper>

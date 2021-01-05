@@ -122,7 +122,7 @@
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 
-
+	<!-- selectBoard에서 parameterType="PagingDto" 를 넣어주세요! -->
 
 
 

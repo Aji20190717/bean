@@ -16,10 +16,6 @@
 <script src="resources/js/boardjs.js"></script>
 </head>
 <body>
-	<%
-		//이거도 선택하도록 제작(dropdown 형식)
-	int groupno = 0;
-	%>
 
 	<%@ include file="./header.jsp"%>
 
@@ -45,17 +41,12 @@
 						<div class="formboard-row">
 							<div class="name">Question Type</div>
 							<div class="value">
-								<div class="dropdown">
-									<button class="btn btn-secondary dropdown-toggle" type="button"
-										id="dropdownMenuButton" data-toggle="dropdown"
-										aria-haspopup="true" aria-expanded="false">Dropdown
-										button</button>
-									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										<a class="dropdown-item" href="#">Action</a> <a
-											class="dropdown-item" href="#">Another action</a> <a
-											class="dropdown-item" href="#">Something else here</a>
-									</div>
-								</div>
+								<select class="selectpicker" name = "groupOption">
+									<option>글쓰기 첨삭</option>
+									<option>문제 첨삭</option>
+									<option>수업 첨삭</option>
+								</select>
+
 							</div>
 						</div>
 						<div class="formboard-row">

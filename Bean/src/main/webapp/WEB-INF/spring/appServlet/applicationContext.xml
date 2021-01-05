@@ -59,6 +59,7 @@
 
 	<bean id="logProcessor" class="com.power.bean.util.LogProcessor">
 		<property name="quartzClassdao" ref="insertClassDao"></property>
+		<property name="mailSender" ref="mailSender"></property>
 	</bean>
 
 	<!-- Spring Quartz -->
@@ -83,6 +84,7 @@
 		<property name = "jobDetail" ref = "runMeJob"/>
 		<!-- 매일 오전 0시 실행 -->
 		<property name = "cronExpression" value = "0 0 23 * * ?"/>
+		
 	</bean>
 
 	<bean id = "cronTriggerScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
@@ -91,6 +93,20 @@
 		</property>
 	</bean>
 
-
+<!-- 메일보내기 -->
+   <bean id="mailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp.gmail.com" />
+      <property name="port" value="587" />
+      <property name="username" value="temp59382" />
+      <property name="password" value="temp1234%" />
+      <property name="javaMailProperties">
+         <props>
+               <prop key="mail.transport.protocol">smtp</prop>
+               <prop key="mail.smtp.auth">true</prop>
+               <prop key="mail.smtp.starttls.enable">true</prop>
+               <prop key="mail.debug">true</prop>
+         </props>
+      </property>
+   </bean>
 
 </beans>

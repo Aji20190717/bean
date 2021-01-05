@@ -12,14 +12,15 @@
 <script type="text/javascript"
 	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
 	charset="utf-8"></script>
+<!-- 
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	-->
+
 <link rel="stylesheet" href="resources/css/login_css.css" />
 <link rel="stylesheet" href="resources/css/login_css2.css" />
 <link rel="script" href="resources/js/login_jq.js" />
 <link rel="script" href="resources/js/login_js1.js" />
-<script src="webjars/font-awesome/5.8.2/webfonts/fa-brands-400.woff"></script>
-
 
 <style type="text/css">
 :root { -
@@ -192,6 +193,9 @@ supports (-ms-ime-align: auto) { .form-label-group >label { display:none;
 	//naver_id_login.setPopup();
 	naver_id_login.init_naver_id_login();
 </script>
+
+
+<script src="webjars/font-awesome/5.8.2/webfonts/fa-brands-400.woff"></script>
 
 
 </body>

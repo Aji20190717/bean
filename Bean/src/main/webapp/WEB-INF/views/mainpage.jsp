@@ -53,7 +53,6 @@
 <link rel='stylesheet'
 	href='webjars/fullcalendar/3.5.1/dist/fullcalendar.css' />
 
-
 <script src='webjars/moment/2.19.1/min/moment.min.js'></script>
 </head>
 
@@ -101,8 +100,6 @@
 			</a>
 		</div>
 	</header>
-
-
 
 	<!-- Page Content -->
 	<div class="container">

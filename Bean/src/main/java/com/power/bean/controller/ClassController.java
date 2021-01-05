@@ -4,13 +4,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,6 +24,9 @@ import com.power.bean.dto.LoginDto;
 
 @Controller
 public class ClassController {
+	
+	@Autowired
+	private JavaMailSender mailSender;
 
 	@Autowired
 	private ClassBiz classBiz;
@@ -44,7 +51,6 @@ public class ClassController {
 
 		if (loginDto != null) {
 
-			System.out.println(loginDto.getMember_no());
 			String usernum = "" + loginDto.getMember_no();
 			String userName = loginDto.getMember_name();
 
@@ -108,7 +114,8 @@ public class ClassController {
 	}
 
 	@RequestMapping("/insertClass")
-	public String insertClass(ClassDto insertDto) {
+	public String insertClass(ClassDto insertDto, String email) {
+		
 
 		int res = classBiz.insertClass(insertDto);
 		if (res > 0) {
@@ -118,5 +125,14 @@ public class ClassController {
 		return "redirect:insertRes.do";
 
 	}
+	
+	@RequestMapping("/mailTemp.do")
+	public String mailTemp() {
+		
+		
+		return "mailTemp";
+		
+	}
+	
 
 }

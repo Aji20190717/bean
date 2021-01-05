@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.power.bean.dto.PagingDto;
 import com.power.bean.dto.QuestionDto;
 
 @Repository
@@ -13,15 +14,15 @@ public class QuestionDaoImpl implements QuestionDao{
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-
-	//TODO : paging 관련
-	public List<QuestionDto> selectQuestionList(){
-		
-		List<QuestionDto> dtolist = sqlSession.selectList(QUESTIONNAMSESPACE + "selectQuestionList");
-		
-		return dtolist;
-	}
 	
+	@Override
+	public List<QuestionDto> selectQuestionList(PagingDto pagingDto) {
+		
+		List<QuestionDto> PagingQuestionDtoList = sqlSession.selectList(QUESTIONNAMSESPACE + "selectPagingList", pagingDto);
+		
+		return PagingQuestionDtoList;
+	}
+
 	public QuestionDto selectOneQuestion(int questionboard_no) {
 		
 		//조회수 처리
@@ -76,6 +77,16 @@ public class QuestionDaoImpl implements QuestionDao{
 		
 	}
 
+	@Override
+	public int countBoard() {
+		
+		int count = sqlSession.selectOne(QUESTIONNAMSESPACE + "countBoard");
+		
+		return count;
+	}
+
+	
+	
 	
 	
 }
