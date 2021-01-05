@@ -4,46 +4,58 @@
 
 	<select id="selectList" resultType="ReviewDto">
 		SELECT REVIEWBOARD_NO,
-		REVIEWBOARD_NAME,REVIEWBOARD_TITLE, REVIEWBOARD_CONTENT,
-		REVIEWBOARD_DATE,CLASS_NAME, REVIEWBOARD_TE, REVIEWBOARD_STAR
+		REVIEWBOARD_NAME,REVIEWBOARD_TITLE,
+		REVIEWBOARD_CONTENT,
+		REVIEWBOARD_DATE,CLASS_NAME, REVIEWBOARD_TE,
+		REVIEWBOARD_STAR
 		FROM
 		REVIEWBOARD
-				<trim prefix="WHERE" prefixOverrides="AND|OR">
-
-<if test="keyword != null and keyword != '' ">
-
-			<if test="searchType=='reviewboard_title'">
-
-				AND REVIEWBOARD_TITLE like CONCAT('%', #{keyword}, '%')
-
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="keyword != null and keyword != '' ">
+				<if test="searchType=='reviewboard_title'">
+					AND REVIEWBOARD_TITLE like CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="searchType=='reviewboard_content'">
+					AND REVIEWBOARD_CONTENT like CONCAT('%', #{keyword},
+					'%')
+				</if>
+				<if test="searchType=='reviewboard_name'">
+					AND REVIEWBOARD_NAME like CONCAT('%', #{keyword}, '%')
+				</if>
 			</if>
-
-			<if test="searchType=='reviewboard_content'">
-
-				AND REVIEWBOARD_CONTENT like CONCAT('%', #{keyword}, '%')
-
-			</if>
-
-			<if test="searchType=='reviewboard_name'">
-
-				AND REVIEWBOARD_NAME like CONCAT('%', #{keyword}, '%')
-
-			</if>
-
-      </if>
-
-	</trim>
-
-
-
+		</trim>
 		ORDER BY REVIEWBOARD_NO DESC
 	</select>
+
+
+	<select id="search" parameterType="map" resultType="ReviewDto">
+
+		SELECT
+		REVIEWBOARD_NO,MEMBER_NO, REVIEWBOARD_NAME,
+		REVIEWBOARD_TITLE, REVIEWBOARD_CONTENT,
+		REVIEWBOARD_DATE,
+		REVIEWBOARD_READCOUNT, REVIEWBOARD_DELFLAG,
+		CLASS_NAME,
+		REVIEWBOARD_TE, REVIEWBOARD_STAR
+		FROM REVIEWBOARD
+		<where>
+			<choose>
+				<when test="search !=null">
+					${search} LIKE '%'||#{search_text}||'%'
+				</when>
+				<otherwise>
+					0=1
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+
 
 	<insert id="review_insert" parameterType="ReviewDto">
 		INSERT INTO REVIEWBOARD
 		VALUES(REVIEWBOARD_SEQ.NEXTVAL,#{member_no},
 		#{reviewboard_name},#{reviewboard_title}, #{reviewboard_content},
-		SYSDATE, 0,'N', #{class_name}, #{reviewboard_te},
+		SYSDATE, 0,'N', #{class_name}, 'null',
 		#{reviewboard_star})
 	</insert>
 
@@ -63,7 +75,7 @@
 		UPDATE REVIEWBOARD
 		SET
 		MEMBER_NO=#{member_no},
-		REVIEWBOARD_TITLE=#{reviewboard_title},REVIEWBOARD_CONTENT=#{reviewboard_content},CLASS_NAME=#{class_name},REVIEWBOARD_TE=#{reviewboard_te},REVIEWBOARD_STAR=#{reviewboard_star}
+		REVIEWBOARD_TITLE=#{reviewboard_title},REVIEWBOARD_CONTENT=#{reviewboard_content},CLASS_NAME=#{class_name},REVIEWBOARD_TE='null',REVIEWBOARD_STAR=#{reviewboard_star}
 		WHERE REVIEWBOARD_NO=#{reviewboard_no}
 	</update>
 
@@ -71,38 +83,39 @@
 		DELETE FROM REVIEWBOARD
 		WHERE REVIEWBOARD_NO=#{reviewboard_no}
 	</delete>
-	
+
 
 
 
 
 	<select id="countBoard" resultType="int">
 		SELECT COUNT(*) FROM REVIEWBOARD
-				<trim prefix="WHERE" prefixOverrides="AND|OR">
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
 
-<if test="keyword != null and keyword != '' ">
+			<if test="keyword != null and keyword != '' ">
 
-			<if test="searchType=='reviewboard_title'">
+				<if test="searchType=='reviewboard_title'">
 
-				AND REVIEWBOARD_TITLE like CONCAT('%', #{keyword}, '%')
+					AND REVIEWBOARD_TITLE like CONCAT('%', #{keyword}, '%')
+
+				</if>
+
+				<if test="searchType=='reviewboard_content'">
+
+					AND REVIEWBOARD_CONTENT like CONCAT('%', #{keyword},
+					'%')
+
+				</if>
+
+				<if test="searchType=='reviewboard_name'">
+
+					AND REVIEWBOARD_NAME like CONCAT('%', #{keyword}, '%')
+
+				</if>
 
 			</if>
 
-			<if test="searchType=='reviewboard_content'">
-
-				AND REVIEWBOARD_CONTENT like CONCAT('%', #{keyword}, '%')
-
-			</if>
-
-			<if test="searchType=='reviewboard_name'">
-
-				AND REVIEWBOARD_NAME like CONCAT('%', #{keyword}, '%')
-
-			</if>
-
-      </if>
-
-	</trim>
+		</trim>
 
 
 
@@ -110,20 +123,18 @@
 	</select>
 
 	<select id="selectBoard" resultType="ReviewDto">
-		SELECT * 
-			FROM (
-				SELECT ROWNUM RN, A.* 
-					FROM (
-							SELECT * 
-							FROM REVIEWBOARD 
-							ORDER BY REVIEWBOARD_NO DESC 
-							) A
-					)
+		SELECT *
+		FROM (
+		SELECT ROWNUM
+		RN, A.*
+		FROM (
+		SELECT *
+		FROM REVIEWBOARD
+		ORDER BY REVIEWBOARD_NO DESC
+		) A
+		)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
-
-	<!-- selectBoard에서 parameterType="PagingDto" 를 넣어주세요! -->
-
 
 
 </mapper>

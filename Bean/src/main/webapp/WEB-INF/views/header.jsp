@@ -12,7 +12,6 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 %>
 
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +19,6 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 <title>Insert title here</title>
 
 <!-- security 자리 -->
-
 
 <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
 <meta id="_csrf_header" name="_csrf_header"

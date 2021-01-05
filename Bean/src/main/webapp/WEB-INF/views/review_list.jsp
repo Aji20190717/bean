@@ -25,11 +25,9 @@
 h2 {
 	text-align: center;
 }
-
 table {
 	width: 100%;
 }
-
 a {
 	text-decoration: none;
 }
@@ -47,25 +45,15 @@ a {
 <c:url var="getBoardListURL" value="/board/getBoardList"></c:url>
 
 <script>
-
    // 생략	
-
 	$(document).on('click', '#btnSearch', function(e){
-
 		e.preventDefault();
-
 		var url = "${pageContext.request.contextPath}/bean/review_list.do";
-
 		url = url + "?searchType=" + $('#searchType').val();
-
 		url = url + "&keyword=" + $('#keyword').val();
-
 		location.href = url;
-
 		console.log(url);
-
 	});	
-
 </script>
 
 
