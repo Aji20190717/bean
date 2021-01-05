@@ -8,10 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-body {
-	margin-top: 20px;
-	background-color: #eee;
-}
+
 
 .search-result-categories>li>a {
 	color: #b6b6b6;
@@ -109,13 +106,60 @@ body {
 		margin: 0
 	}
 }
+
+.pagination {
+	float: right;
+	margin: 0 0 5px;
+}
+
+.pagination li a {
+	border: none;
+	font-size: 13px;
+	min-width: 30px;
+	min-height: 30px;
+	color: #999;
+	margin: 0 2px;
+	line-height: 30px;
+	border-radius: 2px !important;
+	text-align: center;
+	padding: 0 6px;
+}
+
+.pagination li a:hover {
+	color: #666;
+}
+
+.pagination li.active a, .pagination li.active a.page-link {
+	background: #03A9F4;
+}
+
+.pagination li.active a:hover {
+	background: #0397d6;
+}
+
+.pagination li.disabled i {
+	color: #ccc;
+}
+
+.pagination li i {
+	font-size: 16px;
+	padding-top: 6px
+}
+
+.hint-text {
+	float: left;
+	margin-top: 10px;
+	font-size: 13px;
+}
 </style>
 
+<link rel="stylesheet" href="resources/css/boardcss.css" />
+
 </head>
-<body>
+<body class = "bg-gra-01">
 	<%@ include file="./header.jsp"%>
 
-	<div class="container">
+	<div class="container ">
 		<div class="row ng-scope">
 			<div class="col-md-9 col-md-pull-3">
 				<p class="search-results-count"></p>
@@ -129,30 +173,48 @@ body {
 								<c:choose>
 									<c:when test="${classDto.member_no eq trainerDto.member_no}">
 										<section class="search-result-item">
-											<div class="image-link"><img class="image"
-												src="resources/images/profile/profile.png">
-											</div>
+											<c:choose>
+												<c:when test="${!empty trainerDto.member_imgname }">
+													<div class="image-link">
+														<img class="image"
+															src="${pageContext.request.contextPath }/resources/storage/${trainerDto.member_imgname}">
+													</div>
+												</c:when>
+												<c:otherwise>
+													<div class="image-link">
+														<img class="image"
+															src="resources/images/profile/profile.png">
+													</div>
+												</c:otherwise>
+											</c:choose>
+
 											<div class="search-result-item-body">
 												<div class="row">
 													<div class="col-sm-9">
 														<h4 class="search-result-item-heading">
 															<b>${classDto.class_name } class</b>
 														</h4>
-														<p class="info">${trainerDto.member_name } 강사</p>
+														<p class="info">${trainerDto.member_name }강사</p>
 														<!-- TODO :  class 수업 부분을 DB에 추가하기 -->
-														   <p class="description"><b>수업 소개 : </b>Not just usual Metro. But something bigger. Not just usual widgets, but real widgets. Not just yet another admin template, but nex</p>
-														
+														<p class="description">
+															<b>수업 소개 : 
+																${classDto.class_content }
+															</b>														</p>
+
 													</div>
 													<div class="col-sm-3 text-align-center">
-													<!-- TODO : 수강료 DB 추가 -->
+														<!-- TODO : 수강료 DB 추가 -->
 														<p class="value3 mt-sm">수강료</p>
 														<p class="fs-mini text-muted">
-															시작일 : <fmt:formatDate value="${classDto.class_startDate }" pattern = "yyyy/MM/dd"/>
-															<br/>
-															종강일 : <fmt:formatDate value="${classDto.class_endDate }" pattern = "yyyy/MM/dd"/>
-															
+															시작일 :
+															<fmt:formatDate value="${classDto.class_startDate }"
+																pattern="yyyy/MM/dd" />
+															<br /> 종강일 :
+															<fmt:formatDate value="${classDto.class_endDate }"
+																pattern="yyyy/MM/dd" />
 														</p>
-														<a class="btn btn-primary btn-info btn-sm" href="selectOneClass.do?class_no=${classDto.class_no }">수강하기</a>
+														<a class="btn btn-primary btn-info btn-sm"
+															href="selectOneClass.do?class_no=${classDto.class_no }">수강하기</a>
 													</div>
 												</div>
 											</div>
@@ -164,15 +226,32 @@ body {
 					</c:otherwise>
 				</c:choose>
 
-				<div class="text-align-center">
-					<ul class="pagination pagination-sm">
-						<li class="disabled"><a href="#">Prev</a></li>
-						<li class="active"><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">Next</a></li>
+				<div class="clearfix">
+					<div class="hint-text">
+						Showing <b>5</b> out of <b>${classCount}</b> entries
+					</div>
+					<ul class="pagination">
+						<c:if test="${paging.startPage != 1 }">
+							<li class="page-item disabled"><a
+								href="/bean/classList.do?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">Previous</a></li>
+						</c:if>
+						<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
+							var="p">
+							<c:choose>
+								<c:when test="${p == paging.nowPage }">
+									<li class="page-item active"><a class="page-link"
+										href="/bean/classList.do?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+								</c:when>
+								<c:when test="${p != paging.nowPage }">
+									<li class="page-item"><a
+										href="/bean/classList.do?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${paging.endPage != paging.lastPage}">
+							<li class="page-item"><a
+								href="/bean/classList.do?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">Next</a></li>
+						</c:if>
 					</ul>
 				</div>
 			</div>

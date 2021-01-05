@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.power.bean.dto.ClassDto;
+import com.power.bean.dto.PagingDto;
 
 @Repository
 public class ClassDaoImpl implements ClassDao{
@@ -23,9 +24,9 @@ public class ClassDaoImpl implements ClassDao{
 	
 
 	@Override
-	public List<ClassDto> selectClassList() {
+	public List<ClassDto> selectClassList(PagingDto pagingDto) {
 		
-		List<ClassDto> classList = sqlSession.selectList(CLASSNAMESPACE + "selectClassList");
+		List<ClassDto> classList = sqlSession.selectList(CLASSNAMESPACE + "selectPagingClassList", pagingDto);
 		
 		return classList;
 	}
@@ -48,7 +49,6 @@ public class ClassDaoImpl implements ClassDao{
 		return classDto;
 	}
 
-	//TODO : 무엇을 업데이트 해야 생각해보기
 	@Override
 	public int updateClassinform(ClassDto classDto) {
 		
@@ -58,7 +58,6 @@ public class ClassDaoImpl implements ClassDao{
 	}
 
 	@Override
-	// TODO : 문자열 처리로 할 지 json으로 넣을 지 생각 
 	public int updateClassStudent(int class_no, int member_no, String impuid) {
 		
 		//nowNumber에 따라 다르게 해야한다
@@ -173,6 +172,14 @@ public class ClassDaoImpl implements ClassDao{
 		List<ClassDto> trainerClassList = sqlSession.selectList(CLASSNAMESPACE + "selectTrainerClass", member_no);
 		
 		return trainerClassList;
+	}
+
+	@Override
+	public int countClass() {
+		
+		int count = sqlSession.selectOne(CLASSNAMESPACE + "countBoard");
+		
+		return count;
 	}
 
 

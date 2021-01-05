@@ -83,7 +83,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 						<c:choose>
 							<c:when
 								test="${login.member_type eq 'S' || login.member_type eq 'SN' || login.member_type eq 'SG' }">
-								<a class="navbar-write" href="myinfo.do?member_no">${login.member_name }님
+								<a class="navbar-write" href="myinfo.do">${login.member_name }님
 									마이페이지</a>
 							</c:when>
 							<c:when test="${login.member_type eq 'T' }">

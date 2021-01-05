@@ -19,6 +19,8 @@ public interface MemberDao {
 	public List<LoginDto> selectNormalMember();
 	public List<LoginDto> selectTrainer();
 	public List<LoginDto> selectAll();
+
+	public LoginDto selectOneMember(int member_no);
 	
 
 }

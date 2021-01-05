@@ -39,6 +39,12 @@ public class MemberBizImpl implements MemberBiz {
 		return dao.selectAll();
 	}
 
+	@Override
+	public LoginDto selectOneMember(int member_no) {
+		return dao.selectOneMember(member_no);
+	}
+
+	
 	
 	
 }

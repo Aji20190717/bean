@@ -5,7 +5,7 @@
 	<select id="selectClassList" resultType="ClassDto">
 		SELECT CLASS_NO,
 		MEMBER_NO, CLASS_MAX, CLASS_NOW, CLASS_STARTDATE, CLASS_ENDDATE,
-		CLASS_NAME, CLASS_MEMBERNAME, CLASS_DELFLAG
+		CLASS_NAME, CLASS_CONTENT, CLASS_MEMBERNAME, CLASS_DELFLAG
 		FROM CLASS
 		WHERE
 		CLASS_DELFLAG = 'N'
@@ -16,7 +16,7 @@
 		resultType="ClassDto">
 		SELECT CLASS_NO, MEMBER_NO, CLASS_MAX, CLASS_NOW,
 		CLASS_STARTDATE,
-		CLASS_ENDDATE, CLASS_NAME, CLASS_MEMBERNAME,
+		CLASS_ENDDATE, CLASS_NAME, CLASS_CONTENT , CLASS_MEMBERNAME,
 		CLASS_DELFLAG
 		FROM CLASS
 		WHERE CLASS_NO = #{class_no}
@@ -25,7 +25,7 @@
 	<select id="selectPayingClassList" resultType="ClassDto"
 		parameterType="String">
 		SELECT CLASS_NO, MEMBER_NO, CLASS_MAX, CLASS_NOW, CLASS_STARTDATE,
-		CLASS_ENDDATE, CLASS_NAME, CLASS_MEMBERNAME, CLASS_DELFLAG
+		CLASS_ENDDATE, CLASS_NAME, CLASS_CONTENT, CLASS_MEMBERNAME, CLASS_DELFLAG
 		FROM CLASS
 		<where>
 			<if test="searchString != null">
@@ -63,7 +63,7 @@
 		resultType="ClassDto">
 		SELECT CLASS_NO, MEMBER_NO, CLASS_MAX, CLASS_NOW,
 		CLASS_STARTDATE,
-		CLASS_ENDDATE, CLASS_NAME, CLASS_MEMBERNAME,
+		CLASS_ENDDATE, CLASS_NAME, CLASS_CONTENT, CLASS_MEMBERNAME,
 		CLASS_DELFLAG
 		FROM CLASS
 		WHERE MEMBER_NO = #{member_no}
@@ -72,7 +72,7 @@
 	<insert id="insertClass" parameterType="ClassDto">
 		INSERT INTO CLASS
 		VALUES(CLASS_SEQ.NEXTVAL, #{member_no}, #{class_max}, 0,
-		#{class_startDate}, #{class_endDate}, #{class_name}, '', 'N')
+		#{class_startDate}, #{class_endDate}, #{class_name}, #{class_content} ,'', 'N')
 	</insert>
 
 	<update id="classListFin" parameterType="int">
@@ -84,10 +84,32 @@
 	<select id="FinYesterDayClassList" resultType="ClassDto">
 		<![CDATA[ SELECT CLASS_NO, MEMBER_NO, CLASS_MAX, CLASS_NOW,
 		CLASS_STARTDATE,
-		CLASS_ENDDATE, CLASS_NAME, CLASS_MEMBERNAME,
+		CLASS_ENDDATE, CLASS_NAME, CLASS_CONTENT, CLASS_MEMBERNAME,
 		CLASS_DELFLAG
 		FROM CLASS WHERE TO_CHAR(CLASS_ENDDATE, 'YYYYMMDD') = TO_CHAR(SYSDATE-1 , 'YYYYMMDD')
 		AND CLASS_DELFLAG = 'F'
 		 ]]>
 	</select>
+	
+	<select id = "selectPagingClassList" resultType = "ClassDto" parameterType = "PagingDto">
+		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM CLASS
+							WHERE CLASS_DELFLAG = 'N'
+							ORDER BY CLASS_NO DESC 
+							
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+	
+	<select id = "countBoard" resultType = "int">
+		SELECT COUNT(*) FROM CLASS WHERE CLASS_DELFLAG = 'N' 
+	</select>
+	
+	
 </mapper>
