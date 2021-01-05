@@ -9,7 +9,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			/WEB-INF/spring/appServlet/applicationContext.xml
-			/WEB-INF/spring/appServlet/context-security.xml
+			/WEB-INF/spring/appServlet/security-context.xml
 		</param-value>
 	</context-param>
 
@@ -59,7 +59,8 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<!-- log filter -->
+	<!-- 
+		log filter
 	<filter>
 		<filter-name>LogFilter</filter-name>
 		<filter-class>com.power.bean.util.LogFilter</filter-class>
@@ -69,6 +70,7 @@
 		<filter-name>LogFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	 -->
 
 	<!-- Spring Security Filter -->
 	<filter>

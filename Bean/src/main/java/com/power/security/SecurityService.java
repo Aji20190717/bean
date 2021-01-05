@@ -1,12 +1,11 @@
-package com.power.bean.biz;
+package com.power.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-import com.power.bean.dao.SecurityDao;
-import com.power.bean.dao.SecurityUser;
 import com.power.bean.dto.LoginDto;
 
 import java.util.ArrayList;
@@ -15,6 +14,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Service
 public class SecurityService implements UserDetailsService {
 	
 	Logger log = LoggerFactory.getLogger(this.getClass());
@@ -22,6 +22,10 @@ public class SecurityService implements UserDetailsService {
 	@Autowired
 	private SecurityDao dao;
 	
+	public SecurityService() {
+		log.info("만들었다");
+	}
+
 	@Override
 	public UserDetails loadUserByUsername(String member_id) throws UsernameNotFoundException {
 		
@@ -29,6 +33,8 @@ public class SecurityService implements UserDetailsService {
 		
 		LoginDto dto = new LoginDto();
 		dto = dao.login(member_id);
+		
+		// System.out.println("security service dto : " + dto.getMember_id());
 		
 		SecurityUser user = new SecurityUser();
 		
@@ -47,6 +53,8 @@ public class SecurityService implements UserDetailsService {
 			log.info("## 계정 정보 담는 중 ##");
 			user.setUsername(dto.getMember_id());
 			user.setPassword(dto.getMember_pw());
+			
+			System.out.println("security service:" + user.getUsername());
 			
 			if(!dto.getMember_type().equals("A")) {
 				List<String> list = new ArrayList<String>();

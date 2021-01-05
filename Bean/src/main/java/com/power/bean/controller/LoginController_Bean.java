@@ -26,10 +26,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.util.WebUtils;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.power.bean.biz.LoginBiz;
 import com.power.bean.dto.LoginDto;
-import com.power.bean.util.FileValidator;
 
 @Controller
 public class LoginController_Bean {
@@ -158,15 +156,15 @@ public class LoginController_Bean {
 				}
 
 				File newFile = new File(path + "/" + name);
-				System.out.println(newFile);
+				// System.out.println(newFile);
 				// 해당 경로에 파일이 없을 경우 파일을 새로 생성
 				if (!newFile.exists()) {
 					newFile.createNewFile();
 				}
 
 				dto.setMember_imgpath(path);
-				System.out.println(dto.getMember_imgname());
-				System.out.println(dto.getMember_imgpath());
+				// System.out.println(dto.getMember_imgname());
+				// System.out.println(dto.getMember_imgpath());
 
 				// newFile에 쓰기 위한 outputstream
 				outputStream = new FileOutputStream(newFile);
@@ -214,10 +212,10 @@ public class LoginController_Bean {
 	@RequestMapping("/login.do")
 	public String login(HttpSession session, Model model) {
 		
-		System.out.println("login.do");
-		System.out.println("session");
+		// System.out.println("login.do");
+		// System.out.println("session");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println(auth.getName());
+		// System.out.println(auth.getName());
 		
 		String member_id = auth.getName();
 
@@ -234,16 +232,24 @@ public class LoginController_Bean {
 			}
 		}
 
-		System.out.println("res is null");
+		// System.out.println("res is null");
 		return "login";
 
 	}
 
 	// 로그아웃
 	@RequestMapping("/logout.do")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, HttpServletRequest request) {
 
 		session.invalidate();
+		session = request.getSession(true);
+		
+		if(session.isNew()) {
+			System.out.println("세션만료");
+		} else {
+			System.out.println("세션 살아있음");
+		}
+		
 		return "mainpage";
 
 	}

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-             xmlns:beans="http://www.springframework.org/schema/beans"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://www.springframework.org/schema/beans
-                                 http://www.springframework.org/schema/beans/spring-beans.xsd
-                                 http://www.springframework.org/schema/security
-                                 http://www.springframework.org/schema/security/spring-security.xsd">
+			 xmlns:beans="http://www.springframework.org/schema/beans"
+			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			 xmlns:context="http://www.springframework.org/schema/context"
+			 xsi:schemaLocation="http://www.springframework.org/schema/security
+								 http://www.springframework.org/schema/security/spring-security.xsd
+								 http://www.springframework.org/schema/beans
+								 http://www.springframework.org/schema/beans/spring-beans.xsd
+								 http://www.springframework.org/schema/context
+								 http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+                                 
+		<context:component-scan base-package="com.power.security" />
         
         <http auto-config="true" use-expressions="true">
         	
@@ -28,11 +33,11 @@
 			<intercept-url pattern="/logininfo.do" access="permitAll" />
 			
 			<!-- 그외 -->
-
+ <!-- 
             <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
-            <!-- 
+           -->
              <intercept-url pattern="/**" access="permitAll" />
-             -->
+             
             <!--
 				auto-config='true' 를 설정한것만으로 기본 로그인페이지/ HTTP 기본인증 / 로그아웃기능 등을 제공한다. 
 				use-expressions="true" 는 SpEL 을 사용한다는 의미이다. false의 예 :: hasRole('ROLE_USER') -> ROLE_USER
@@ -64,7 +69,7 @@
 				invalidate-session="true"
 				logout-url="/logoutSecurity.do"
 				logout-success-url="/logout.do"
-				delete-cookies="ture"
+				delete-cookies="true"
 			/>
 			<!-- 
 				invalidate-session : 로그아웃되면 세션 초기화 
@@ -92,15 +97,8 @@
                 </user-service>
             </authentication-provider>
              -->
-             <authentication-provider user-service-ref="SecurityService" />
+             <authentication-provider user-service-ref="securityService" />
         </authentication-manager>
         
-        <beans:import resource="applicationContext.xml" />
-        
-        <beans:bean id="SecurityService" class="com.power.bean.biz.SecurityService" />
-        
-		<beans:bean id="SecurityDao" class="com.power.bean.dao.SecurityDao" >
-			<beans:constructor-arg ref="sqlSessionTemplate"></beans:constructor-arg>
-		</beans:bean>
         
 </beans:beans>

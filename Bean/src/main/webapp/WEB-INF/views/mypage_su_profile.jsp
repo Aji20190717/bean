@@ -16,7 +16,12 @@
 					<img style="width: 150px; height: 150px;" alt="" src="resources/images/profile/profile.png">
 				</c:when>
 				<c:otherwise>
-					<img style="width: 150px; height: 150px;" alt="" src="profileimg.do">
+					<c:if test="${img eq null }">
+						<img style="width: 150px; height: 150px;" alt="" src="resources/images/profile/profile.png">
+					</c:if>
+					<c:if test="${img ne null }">
+						<img style="width: 150px; height: 150px;" alt="" src="profileimg.do">
+					</c:if>
 				</c:otherwise>
 			</c:choose>
 		</span>

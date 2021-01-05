@@ -2,6 +2,7 @@ package com.power.bean.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -59,7 +60,7 @@ public class MemberController {
 	    ServletOutputStream bout = response.getOutputStream();
 	    
 	    LoginDto dto = (LoginDto) session.getAttribute("login");
-		System.out.println(dto.getMember_no());
+		// System.out.println(dto.getMember_no());
 
 		// System.out.println(session.getAttribute("login"));
 
@@ -67,7 +68,7 @@ public class MemberController {
 		
 		int index = dto.getMember_imgname().lastIndexOf(".");
 		String file = dto.getMember_imgname().substring(index, dto.getMember_imgname().length());
-		System.out.println(file);
+		// System.out.println(file);
 		
 		if(file.equals(".jpg")) {
 			response.setContentType("image/jpg");
@@ -76,12 +77,20 @@ public class MemberController {
 		}
 
 	    //파일의 경로
-	    FileInputStream f = new FileInputStream(imgpath);
+	    FileInputStream f;
 	    int length;
 	    byte[] buffer = new byte[10];
-	    while((length=f.read(buffer)) != -1){
-	    	bout.write(buffer,0,length);
-	    }
+		try {
+			f = new FileInputStream(imgpath);
+		    while((length=f.read(buffer)) != -1){
+		    	bout.write(buffer,0,length);
+		    }
+		} catch (FileNotFoundException e) {
+			// e.printStackTrace();
+			model.addAttribute("img", null);
+			// System.out.println("error catch : 파일없음");
+		}
+	    
 	    return null;
 	}
 
@@ -137,7 +146,7 @@ public class MemberController {
 			@RequestParam("member_mpfile") MultipartFile file, BindingResult result, HttpSession session) {
 
 		// dto.setMember_mpfile(file);
-		System.out.println("id : " + dto.getMember_id());
+		// System.out.println("id : " + dto.getMember_id());
 
 		// FileValidator fileValidator = new FileValidator();
 		boolean filechk = true;
@@ -203,7 +212,7 @@ public class MemberController {
 				}
 
 				File newFile = new File(path + "/" + name);
-				System.out.println(newFile);
+				// System.out.println(newFile);
 				// 해당 경로에 파일이 없을 경우 파일을 새로 생성
 				if (!newFile.exists()) {
 					newFile.createNewFile();

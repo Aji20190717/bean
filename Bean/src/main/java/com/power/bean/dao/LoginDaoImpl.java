@@ -16,7 +16,8 @@ public class LoginDaoImpl implements LoginDao {
 	public LoginDto login(String member_id) {
 		
 		System.out.println("dao.login");
-
+		System.out.println(member_id);
+		
 		LoginDto res = null;
 
 		try {

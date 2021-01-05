@@ -56,28 +56,6 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 <link rel="script" href="resources/js/MainPageJQ.js" />
 <link rel="script" href="resources/js/MainPageJs.js" />
 
-
-<script type="text/javascript">
-
-$(document).ready(function(){
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-    alert("바본가봉가");
-    /*
-    	$(document).ajaxSend(function(e, xhr, options) {
-    	    xhr.setRequestHeader(header, token);
-	    });
-
-    var $csrf = $("<input>");
-    $csrf.attr("type", "hidden").attr("name", "_csrf").attr("value", token);
-    $("form").prepend($csrf);
-    $('form').submit(function(e, xhr, options){
-    	xhr.setRequestHeader("X-CSRF-TOKEN", token);
-    });
-     */
-});
-
-</script>
 </head>
 <body>
 
@@ -143,6 +121,28 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</nav>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    // alert("바본가봉가");
+    /*
+    	$(document).ajaxSend(function(e, xhr, options) {
+    	    xhr.setRequestHeader(header, token);
+	    });
+
+    var $csrf = $("<input>");
+    $csrf.attr("type", "hidden").attr("name", "_csrf").attr("value", token);
+    $("form").prepend($csrf);
+    $('form').submit(function(e, xhr, options){
+    	xhr.setRequestHeader("X-CSRF-TOKEN", token);
+    });
+     */
+});
+
+</script>
 
 </body>
 </html>
