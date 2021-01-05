@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,6 +45,9 @@ public class MemberController {
 
 	@Autowired
 	private LoginBiz loginbiz;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	// 마이페이지 첫 화면 : 로그인 후 이름 누르면 나오는 곳 (수강생)
 	@RequestMapping("/myinfo.do")
@@ -250,6 +254,14 @@ public class MemberController {
 			}
 
 		}
+		
+		//pw 인코딩하는 부분
+		// System.out.println("암호화 전 : " + dto.getMember_pw());
+			
+		dto.setMember_pw(passwordEncoder.encode(dto.getMember_pw()));
+		dto.setMember_pwchk(passwordEncoder.encode(dto.getMember_pwchk()));
+				
+		// System.out.println("암호화 후 : " + dto.getMember_pw());
 
 		int res = biz.myinfoupdate(dto);
 		System.out.println(res);

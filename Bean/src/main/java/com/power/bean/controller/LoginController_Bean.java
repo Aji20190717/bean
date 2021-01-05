@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,6 +35,9 @@ public class LoginController_Bean {
 
 	@Autowired
 	private LoginBiz biz;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	// 메인 페이지에서 로그인/회원가입 버튼 누르면 오는 곳
 	@RequestMapping("/loginform.do")
@@ -197,6 +201,14 @@ public class LoginController_Bean {
 
 		}
 
+		//pw 인코딩하는 부분
+		System.out.println("암호화 전 : " + dto.getMember_pw());
+		
+		dto.setMember_pw(passwordEncoder.encode(dto.getMember_pw()));
+		dto.setMember_pwchk(passwordEncoder.encode(dto.getMember_pwchk()));
+		
+		System.out.println("암호화 후 : " + dto.getMember_pw());
+		
 		int res = biz.resister(dto);
 
 		if (res > 0) {

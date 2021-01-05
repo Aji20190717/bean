@@ -22,6 +22,7 @@
         	<intercept-url pattern="/header.jsp" access="permitAll" />
         	<intercept-url pattern="/main.do" access="permitAll" />
         	<intercept-url pattern="/mainpage.jsp" access="permitAll" />
+        	<intercept-url pattern="/intro.do" access="permitAll" />
         	
         	<!-- 로그인/회원가입 관련 url -->
         	<intercept-url pattern="/loginform.do" access="permitAll" />
@@ -82,9 +83,7 @@
 			<!-- 4.x부터 디폴트로 작용한다. but, 커스텀하면 해줘야 한다. -->
 			<csrf disabled="true" />
 
-<!--
 			<access-denied-handler error-page="/error.do" />
--->
 
         </http>
         
@@ -97,8 +96,11 @@
                 </user-service>
             </authentication-provider>
              -->
-             <authentication-provider user-service-ref="securityService" />
+             <authentication-provider user-service-ref="securityService">
+             	<password-encoder ref="passwordEncoder" />
+             </authentication-provider>
         </authentication-manager>
         
-        
+        <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/> 
+
 </beans:beans>

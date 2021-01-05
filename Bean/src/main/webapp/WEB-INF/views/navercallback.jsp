@@ -14,7 +14,7 @@
 
 <body>
 	<script type="text/javascript">
-		var naver_id_login = new naver_id_login("", "http://localhost:8787/bean/navercallback.jsp");
+		var naver_id_login = new naver_id_login("zjjj7_AqHxAv9Xan5omR", "http://localhost:8787/bean/navercallback.jsp");
 		// 접근 토큰 값 출력
 		//alert(naver_id_login.oauthParams.access_token);
 		var token = naver_id_login.oauthParams.access_token;

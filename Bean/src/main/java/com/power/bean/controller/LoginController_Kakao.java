@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,6 +38,9 @@ public class LoginController_Kakao {
 
 	@Autowired
 	private LoginBiz biz;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping(value = "/kakaologin.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String kakaoLogin(@RequestParam("code") String code, HttpServletRequest request,
@@ -172,8 +176,17 @@ public class LoginController_Kakao {
 			}
 
 		}
+		
 		dto.setMember_sns("kakao" + dto.getMember_sns());
 
+		//pw 인코딩하는 부분
+		// System.out.println("암호화 전 : " + dto.getMember_pw());
+					
+		dto.setMember_pw(passwordEncoder.encode(dto.getMember_pw()));
+		dto.setMember_pwchk(passwordEncoder.encode(dto.getMember_pwchk()));
+						
+		// System.out.println("암호화 후 : " + dto.getMember_pw());
+		
 		int res = biz.resister(dto);
 
 		if (res > 0) {
