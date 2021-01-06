@@ -212,11 +212,20 @@ img.rounded {
 									</div>
 								</c:when>
 								<c:otherwise>
-									<div class="avatar">
-										<img src="resources/images/profile/profile.png"
-											alt="Circle Image"
-											class="img-raised rounded-circle img-fluid">
-									</div>
+									<c:if test="${img eq null }">
+										<div class="avatar">
+											<img src="resources/images/profile/profile.png"
+												alt="Circle Image"
+												class="img-raised rounded-circle img-fluid">
+										</div>
+									</c:if>
+									<c:if test="${img ne null }">
+										<div class="avatar">
+											<img src="resources/images/profile/profile.png"
+												alt="Circle Image"
+												class="img-raised rounded-circle img-fluid">
+										</div>
+									</c:if>
 								</c:otherwise>
 							</c:choose>
 
