@@ -39,6 +39,7 @@ a {
 
 <body>
 
+<%@ include file="./header.jsp"%>
 	<h1>list</h1>
 
 

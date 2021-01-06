@@ -53,6 +53,19 @@ public class ReviewBizImpl implements ReviewBiz {
 	public List<ReviewDto> selectBoard(PagingDto dto) {
 		return dao.selectBoard(dto);
 	}
+	
+	
+
+	@Override
+	public int countSearchCount(String searchType, String keyword) {
+		return dao.countSearchCount(searchType, keyword);
+	}
+	
+
+	@Override
+	public List<ReviewDto> selectPagingReview(PagingDto dto, String searchType, String keyword) {
+		return dao.selectPagingReview(dto, searchType, keyword);
+	}
 
 	@Transactional
 	@Override

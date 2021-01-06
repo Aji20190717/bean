@@ -2,60 +2,54 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.reviewboard">
 
-	<select id="selectList" resultType="ReviewDto">
-		SELECT REVIEWBOARD_NO,
-		REVIEWBOARD_NAME,REVIEWBOARD_TITLE,
-		REVIEWBOARD_CONTENT,
-		REVIEWBOARD_DATE,CLASS_NAME, REVIEWBOARD_TE,
-		REVIEWBOARD_STAR
-		FROM
-		REVIEWBOARD
+<select id="selectList" resultType="ReviewDto" parameterType="hashmap">
+		SELECT *
+		FROM (
+		SELECT ROWNUM
+		RN, A.* FROM ( SELECT * FROM REVIEWBOARD
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
 			<if test="keyword != null and keyword != '' ">
 				<if test="searchType=='reviewboard_title'">
-					AND REVIEWBOARD_TITLE like CONCAT('%', #{keyword}, '%')
+					AND REVIEWBOARD_TITLE like '%' || #{keyword} ||'%'
 				</if>
 				<if test="searchType=='reviewboard_content'">
-					AND REVIEWBOARD_CONTENT like CONCAT('%', #{keyword},
-					'%')
+					AND REVIEWBOARD_CONTENT like '%'|| #{keyword} || '%'
 				</if>
 				<if test="searchType=='reviewboard_name'">
-					AND REVIEWBOARD_NAME like CONCAT('%', #{keyword}, '%')
+					AND REVIEWBOARD_NAME like '%' || #{keyword} || '%'
 				</if>
 			</if>
 		</trim>
-		ORDER BY REVIEWBOARD_NO DESC
+		ORDER BY REVIEWBOARD_NO DESC) A
+		)
+		WHERE RN BETWEEN #{start} AND #{end}
+		
+
 	</select>
 
-
-	<select id="search" parameterType="map" resultType="ReviewDto">
-
-		SELECT
-		REVIEWBOARD_NO,MEMBER_NO, REVIEWBOARD_NAME,
-		REVIEWBOARD_TITLE, REVIEWBOARD_CONTENT,
-		REVIEWBOARD_DATE,
-		REVIEWBOARD_READCOUNT, REVIEWBOARD_DELFLAG,
-		CLASS_NAME,
-		REVIEWBOARD_TE, REVIEWBOARD_STAR
-		FROM REVIEWBOARD
-		<where>
-			<choose>
-				<when test="search !=null">
-					${search} LIKE '%'||#{search_text}||'%'
-				</when>
-				<otherwise>
-					0=1
-				</otherwise>
-			</choose>
-		</where>
+	<select id="countSearchCount" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) FROM REVIEWBOARD
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="keyword != null and keyword != '' ">
+				<if test="searchType=='reviewboard_title'">
+					AND REVIEWBOARD_TITLE like '%' || #{keyword} || '%'
+				</if>
+				<if test="searchType=='reviewboard_content'">
+					AND REVIEWBOARD_CONTENT like '%' || #{keyword} || '%'
+					
+				</if>
+				<if test="searchType=='reviewboard_name'">
+					AND REVIEWBOARD_NAME like '%'|| #{keyword} || '%'
+				</if>
+			</if>
+		</trim>
 	</select>
-
 
 	<insert id="review_insert" parameterType="ReviewDto">
 		INSERT INTO REVIEWBOARD
 		VALUES(REVIEWBOARD_SEQ.NEXTVAL,#{member_no},
 		#{reviewboard_name},#{reviewboard_title}, #{reviewboard_content},
-		SYSDATE, 0,'N', #{class_name}, 'null',
+		SYSDATE, 0,'N', #{class_name}, #{reviewboard_te},
 		#{reviewboard_star})
 	</insert>
 
@@ -83,58 +77,6 @@
 		DELETE FROM REVIEWBOARD
 		WHERE REVIEWBOARD_NO=#{reviewboard_no}
 	</delete>
-
-
-
-
-
-	<select id="countBoard" resultType="int">
-		SELECT COUNT(*) FROM REVIEWBOARD
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
-
-			<if test="keyword != null and keyword != '' ">
-
-				<if test="searchType=='reviewboard_title'">
-
-					AND REVIEWBOARD_TITLE like CONCAT('%', #{keyword}, '%')
-
-				</if>
-
-				<if test="searchType=='reviewboard_content'">
-
-					AND REVIEWBOARD_CONTENT like CONCAT('%', #{keyword},
-					'%')
-
-				</if>
-
-				<if test="searchType=='reviewboard_name'">
-
-					AND REVIEWBOARD_NAME like CONCAT('%', #{keyword}, '%')
-
-				</if>
-
-			</if>
-
-		</trim>
-
-
-
-
-	</select>
-
-	<select id="selectBoard" resultType="ReviewDto">
-		SELECT *
-		FROM (
-		SELECT ROWNUM
-		RN, A.*
-		FROM (
-		SELECT *
-		FROM REVIEWBOARD
-		ORDER BY REVIEWBOARD_NO DESC
-		) A
-		)
-		WHERE RN BETWEEN #{start} AND #{end}
-	</select>
-
+	
 
 </mapper>

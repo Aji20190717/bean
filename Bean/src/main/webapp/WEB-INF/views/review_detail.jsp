@@ -31,6 +31,8 @@
 </head>
 <body>
 
+<%@ include file="./header.jsp"%>
+
 	<table border="1">
 		<tr>
 			<th>작성자</th>
@@ -46,10 +48,13 @@
 		</tr>
 		<tr>
 			<td colspan="2" align="right">
+			<!-- 
 			<input type="text" id="memberno" value="${dto.member_no}">
 			<input type="text" id="loginmemberno" value="${login.member_no}">
 			<input type="text" id="membertype" value="${login.member_type}">
 			<input type="text" id="loginmembertype" value="${login.member_type}">
+			
+			-->
 				
 				<c:choose>
 					<c:when test="${login.member_no != dto.member_no}">

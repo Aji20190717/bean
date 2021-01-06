@@ -54,7 +54,6 @@
 	<%@ include file="./header.jsp"%>
 	
 
-
 <body>
 
 	<header>
