@@ -56,6 +56,13 @@
 							</div>
 						</div>
 						<div class="formboard-row">
+							<div class="name">Class Number</div>
+							<div class="value">
+								<input class="input--style-6" type="number"
+									name="class_max">
+							</div>
+						</div>
+						<div class="formboard-row">
 							<div class="name">Class Start Date</div>
 							<div class="value">
 							<td><label for="class_startDate">click here and select start Date</label> <input type="text" id="class_startDate"

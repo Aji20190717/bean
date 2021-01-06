@@ -174,7 +174,6 @@ public class QuestionController {
 			uploadDto.setQuestionboard_groupno(1);
 
 		} else {
-
 			uploadDto.setQuestionboard_groupno(2);
 
 		}
@@ -208,16 +207,12 @@ public class QuestionController {
 			name = file.getOriginalFilename();
 			name = "Question" + dto.getMember_no() + timeStamp + name;
 
-			// QuestionDto fileObj = new QuestionDto();
-			// fileObj.setQuestionboard_imgname(name);
-
 			InputStream inputStream = null;
 			OutputStream outputStream = null;
 
 			try {
 
 				inputStream = file.getInputStream();
-				// TODO : 경로 바꾸기
 				path = WebUtils.getRealPath(request.getSession().getServletContext(), "/resources/storage/");
 
 				System.out.println("업로드 될 실제 경로(real path) : " + path);
@@ -246,7 +241,6 @@ public class QuestionController {
 				}
 
 				// OCR(Connect flask)
-
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put("path", path);
 				params.put("filename", name);
@@ -263,7 +257,6 @@ public class QuestionController {
 
 				if (body != null) {
 
-					// TODO : 이미지 전송으로 교체할 것
 					HttpHeaders headers = new HttpHeaders();
 					headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 					HttpEntity entity = new HttpEntity(body, headers);
