@@ -387,7 +387,6 @@ a.float:hover+div.label-container {
 				<div class="clearfix">
 
 					<div class="hint-text">
-						Showing <b>5</b> out of <b>${questionCount}</b> entries
 					</div>
 					<ul class="pagination">
 						<c:if test="${paging.startPage != 1 }">

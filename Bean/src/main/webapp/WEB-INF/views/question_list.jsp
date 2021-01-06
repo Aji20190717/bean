@@ -290,6 +290,8 @@ a.float:hover + div.label-container{
 	function loginAlarm() {
 
 		alert('로그인 해주세요');
+		window.location.href = 'loginform.do';
+
 
 	}
 
@@ -421,8 +423,7 @@ a.float:hover + div.label-container{
 			</div>
 		</div>
 	</div>
-
-	<a href="trans.do" class="float"> <i class="fa fa-envelope my-float"></i>
+	<a href="trans.do" class="float"> <i class="fa fa-language my-float"></i>
 	</a>
 	<div class="label-container">
 		<div class="label-text">Translator</div>
