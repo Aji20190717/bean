@@ -1,4 +1,4 @@
-  
+
 package com.power.bean.controller;
 
 import java.io.File;
@@ -238,6 +238,4 @@ public class LoginController_Bean {
 
 	}
 
-	
-
-}	
+}

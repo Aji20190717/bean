@@ -11,6 +11,7 @@
 
 	<!-- typeAlias는 위로 쌓기 -->
 	<typeAliases>
+		<typeAlias type="com.power.bean.dto.CsDto" alias = "CsDto"/>
 		<typeAlias type="com.power.bean.dto.PayingDto" alias = "PayingDto"/>
 		<typeAlias type="com.power.bean.dto.ClassDto" alias = "ClassDto"/>
 		<typeAlias type="com.power.bean.dto.ReviewDto"
@@ -31,6 +32,7 @@
 		<mapper resource="/mybatis/question-mapper.xml" />
 		<mapper resource="/mybatis/member-mapper.xml"/>
 		<mapper resource="/mybatis/review-mapper.xml" />
+		<mapper resource="/mybatis/cs-mapper.xml" />
 	</mappers>
 
 </configuration>

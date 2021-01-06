@@ -72,7 +72,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 			<a class="navbar-brand" href="main.do">Bean</a>
 			<div class="loginbar"
 				style="margin-left: auto; margin-right: 20px; display: inline-block;">
-				<a class="login navbar-write" href="">About Bean</a>
+				<a class="login navbar-write" href="intro.do">About Bean</a>
 				<c:choose>
 					<c:when test="${empty login }">
 						<a class="login navbar-write" href="registtype.do">Sign Up</a>
@@ -95,7 +95,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 				</c:choose>
 
 
-				<a class="signup navbar-write" href="">CS Center</a>
+				<a class="signup navbar-write" href="cslist.do">CS Center</a>
 			</div>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarResponsive" aria-controls="navbarResponsive"
