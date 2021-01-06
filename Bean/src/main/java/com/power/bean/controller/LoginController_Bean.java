@@ -1,4 +1,4 @@
-  
+
 package com.power.bean.controller;
 
 import java.io.File;
@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,7 @@ public class LoginController_Bean {
 
 	@Autowired
 	private LoginBiz biz;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
@@ -201,14 +200,14 @@ public class LoginController_Bean {
 
 		}
 
-		//pw 인코딩하는 부분
+		// pw 인코딩하는 부분
 		System.out.println("암호화 전 : " + dto.getMember_pw());
-		
+
 		dto.setMember_pw(passwordEncoder.encode(dto.getMember_pw()));
 		dto.setMember_pwchk(passwordEncoder.encode(dto.getMember_pwchk()));
-		
+
 		System.out.println("암호화 후 : " + dto.getMember_pw());
-		
+
 		int res = biz.resister(dto);
 
 		if (res > 0) {
@@ -223,12 +222,12 @@ public class LoginController_Bean {
 	// 로그인
 	@RequestMapping("/login.do")
 	public String login(HttpSession session, Model model) {
-		
+
 		// System.out.println("login.do");
 		// System.out.println("session");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		// System.out.println(auth.getName());
-		
+
 		String member_id = auth.getName();
 
 		LoginDto res = biz.login(member_id);
@@ -255,21 +254,20 @@ public class LoginController_Bean {
 
 		session.invalidate();
 		session = request.getSession(true);
-		
-		if(session.isNew()) {
+
+		if (session.isNew()) {
 			System.out.println("세션만료");
 		} else {
 			System.out.println("세션 살아있음");
 		}
-		
+
 		return "mainpage";
 
 	}
-	
+
 	// error
 	@RequestMapping("/error.do")
 	public String accessDeniedPage() throws Exception {
-        return "login_withdrawal";
+		return "login_withdrawal";
 	}
-
-}	
+}

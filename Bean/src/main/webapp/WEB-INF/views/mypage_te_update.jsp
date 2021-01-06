@@ -96,7 +96,6 @@
 			<hr />
 		</div>
 		<form action="myinfoupdate.do" method="POST" enctype="multipart/form-data" accept-charset="UTF-8" name="form">
-			<input type="text" value="${login.member_no }" name="member_no" readonly="readonly"/>
 			<table border="1">
 				<tr>
 					<th>아이디</th>

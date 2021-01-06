@@ -206,17 +206,26 @@ img.rounded {
 								<c:when test="${!empty login.member_imgname }">
 									<div class="avatar">
 										<img
-											src="${pageContext.request.contextPath }/resources/storage/${login.member_imgname}"
+											src="profileimg.do"
 											alt="Circle Image"
 											class="img-raised rounded-circle img-fluid">
 									</div>
 								</c:when>
 								<c:otherwise>
-									<div class="avatar">
-										<img src="resources/images/profile/profile.png"
-											alt="Circle Image"
-											class="img-raised rounded-circle img-fluid">
-									</div>
+									<c:if test="${img eq null }">
+										<div class="avatar">
+											<img src="resources/images/profile/profile.png"
+												alt="Circle Image"
+												class="img-raised rounded-circle img-fluid">
+										</div>
+									</c:if>
+									<c:if test="${img ne null }">
+										<div class="avatar">
+											<img src="resources/images/profile/profile.png"
+												alt="Circle Image"
+												class="img-raised rounded-circle img-fluid">
+										</div>
+									</c:if>
 								</c:otherwise>
 							</c:choose>
 
