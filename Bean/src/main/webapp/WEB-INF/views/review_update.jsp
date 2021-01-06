@@ -1,96 +1,79 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<h1>update</h1>
-<title>The CKEditor initialized Property &mdash; CKEditor Sample</title>
-<script src="//cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+<title>Insert title here</title>
 </head>
+<script src="//cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+<link rel="stylesheet" href="resources/css/boardcss.css" />
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
+	rel="stylesheet">
+<script src="resources/js/boardjq.js"></script>
+<script src="resources/js/boardjq2.js"></script>
+<script src="resources/js/boardjs.js"></script>
 <body>
 
-<%@ include file="./header.jsp"%>
+	<%@ include file="./header.jsp"%>
 	<form action="review_updateres.do" method="post">
 		<input type="hidden" name="member_no" value="${login.member_no }">
 		<input type="hidden" name="reviewboard_name"
-			value="${login.member_name }">
-		<input type="hidden" name="reviewboard_no" value="${dto.reviewboard_no }"/>
-		<div class="container">
-			<div class="content" style="width: 70%">
-
-				<div class="row justify-content-md-center">
-					<div class="col-sm-9">
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<label class="input-group-text">제목</label>
+			value="${login.member_name }"> <input type="hidden"
+			name="reviewboard_no" value="${dto.reviewboard_no }" />
+		<div class="page-wrapper bg-gra-03 p-t-100 p-b-50">
+			<div class="wrapper wrapper--w900">
+				<div class="cardboard cardboard-6">
+					<div class="cardboard-heading">
+						<h2 class="title">Update Review</h2>
+					</div>
+					<div class="cardboard-body">
+						<div class="formboard-row">
+							<div class="name">Title</div>
+							<div class="value">
+								<input readonly="readonly" class="input--style-6" type="text"
+									value="${dto.reviewboard_title }" name="reviewboard_title">
 							</div>
-							<input type="text" class="form-control" name="reviewboard_title" value="${dto.reviewboard_title }">
+						</div>
+						<div class="formboard-row">
+							<div class="name">ClassName</div>
+							<div class="value">
+								<input readonly="readonly" class="input--style-6" type="text"
+									value="${dto.class_name }" name="class_name">
+							</div>
+						</div>
+						<div class="formboard-row">
+							<div class="name">Content</div>
+							<div class="value">
+								<div class="input-group">
+									<textarea class="form-control" id="p_content"
+										name="reviewboard_content">${dto.reviewboard_content }</textarea>
+									<script type="text/javascript">
+										CKEDITOR.replace('p_content', {
+											height : 500
+										});
+									</script>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="col-sm-3">
-						<div class="input-group mb-3">
-							<select name="class_name" class="custom-select" id="inputGroupSelect03">
-								<option selected>수강과목</option>
-								<option value="생활영어">생활영어</option>
-								<option value="토익">토익</option>
-								<option value="토플">토플</option>
-							</select>
-							<select name="reviewboard_te" class="custom-select" id="inputGroupSelect03">
-								<option selected>선생</option>
-								<option value="김선아">김선아</option>
-								<option value="배유진">배유진</option>
-								<option value="성아름">성아름</option>
-								<option value="조용승">조용승</option>
-							</select> <select name="reviewboard_star" class="custom-select" id="inputGroupSelect03">
-								<option selected>별점</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-							</select>
-
+					<div class="cardboard-footer">
+						<div>
+							<input type="submit" value="수정" />
 						</div>
-					</div>
-				</div>
-
-				<hr>
-
-				<div class="row justify-content-md-center"
-					name="reviewboard_content">
-					<div class="col_c" style="margin-bottom: 30px">
-						<div class="input-group">
-							<textarea class="form-control" id="p_content"
-								name="reviewboard_content">${dto.reviewboard_content }</textarea>
-							<script type="text/javascript">
-								CKEDITOR.replace('p_content', {
-									height : 500
-								});
-							</script>
+						<div>
+							<br /> <input type="button" value="취소"
+								onclick="location.href='review_detail.do?reveiwboard_no=${dto.reviewboard_no}'" />
 						</div>
 					</div>
 				</div>
-
-
-
-				<div class="row justify-content-md-center">
-					<input type="submit" value="수정" /> 
-					<input type="button" value="취소" onclick="location.href='review_detail.do?reveiwboard_no=${dto.reviewboard_no}'" /> 
-				</div>
-
-
 			</div>
 		</div>
-		<script>
-			CKEDITOR.replace('contents');
-		</script>
-
-
 	</form>
-
+	<script>
+		CKEDITOR.replace('contents');
+	</script>
 
 </body>
 </html>
