@@ -5,7 +5,7 @@
 <br/><br/>
 <b>2. 개발환경</b>
   <li>구현 언어 : Java, HTML, Javascript, CSS, Oracle, Node.js, Express</li>
-  <li>사용 기술 : 로그인 API, 글쓰기 API, 지도 API, 번역 API, 결제 API, 페이징, 파일 업로드, spring security, custom filter,
+  <li>사용 기술 : 로그인 API, 글쓰기 API, 지도 API, 번역 API, 결제 API, 페이징, 파일 업로드, spring security, custom filter,<br/>
                   aop, webRTC, 음성-문자 번역 API, OCR API, 챗봇 API, 스케줄 관리(Spring Quartz), DataBase, Spring websocket</li>
   <li>사용 도구 : Spring framework, jQuery, Tomcat, 부트스트랩</li>
 <br/><br/>
