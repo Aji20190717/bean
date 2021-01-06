@@ -189,6 +189,31 @@ img.rounded {
 	padding-bottom: 50px;
 }
 </style>
+
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$.ajax({
+		type : "post",
+		url : "profileimg.do",
+		contentType : "application/json",
+		dataType : "json",
+		success : function(msg){
+			console.log(msg);
+			if(msg.check == true){
+				$("#profileimg").attr("src","${pageContext.request.contextPath }/resources/storage/${login.member_imgname}");
+			} else {
+				$("#profileimg").attr("src","resources/images/profile/profile.png");
+			}
+		}, error : function(){
+			alert("통실 실패");
+		}
+	});
+
+});
+</script>
 </head>
 <body class="profile-page">
 
@@ -202,33 +227,11 @@ img.rounded {
 				<div class="row">
 					<div class="col-md-6 ml-auto mr-auto">
 						<div class="profile">
-							<c:choose>
-								<c:when test="${!empty login.member_imgname }">
-									<div class="avatar">
-										<img
-											src="profileimg.do"
-											alt="Circle Image"
-											class="img-raised rounded-circle img-fluid">
-									</div>
-								</c:when>
-								<c:otherwise>
-									<c:if test="${img eq null }">
-										<div class="avatar">
-											<img src="resources/images/profile/profile.png"
-												alt="Circle Image"
-												class="img-raised rounded-circle img-fluid">
-										</div>
-									</c:if>
-									<c:if test="${img ne null }">
-										<div class="avatar">
-											<img src="resources/images/profile/profile.png"
-												alt="Circle Image"
-												class="img-raised rounded-circle img-fluid">
-										</div>
-									</c:if>
-								</c:otherwise>
-							</c:choose>
-
+							<div class="avatar">
+								<img id="profileimg"
+									alt="Circle Image"
+									class="img-raised rounded-circle img-fluid">
+							</div>
 							<div class="name">
 								<br />
 								<h6>${login.member_name }
@@ -254,6 +257,7 @@ img.rounded {
 								</div>
 								<div>
 									<b>Phone</b>${login.member_phone }
+								</div>
 								<div>
 									<b>Address</b>${login.member_post }<span>${login.member_addr1 }</span><span>${login.member_addr2 }</span>
 								</div>
@@ -267,6 +271,7 @@ img.rounded {
 			</div>
 		</div>
 	</div>
+
 
 </body>
 </html>

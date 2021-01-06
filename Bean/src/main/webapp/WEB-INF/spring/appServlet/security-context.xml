@@ -37,7 +37,7 @@
  <!-- 
             <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
            -->
-             <intercept-url pattern="/**" access="permitAll" />
+            <intercept-url pattern="/**" access="permitAll" />
              
             <!--
 				auto-config='true' 를 설정한것만으로 기본 로그인페이지/ HTTP 기본인증 / 로그아웃기능 등을 제공한다. 
