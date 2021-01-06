@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="//cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script type="text/javascript">
 	
@@ -31,6 +31,8 @@
 </head>
 <body>
 
+<%@ include file="./header.jsp"%>
+
 	<table border="1">
 		<tr>
 			<th>작성자</th>
@@ -42,14 +44,17 @@
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td><textarea rows="10" cols="60" readonly="readonly">${dto.reviewboard_content }</textarea></td>
+			<td>${dto.reviewboard_content }</td>
 		</tr>
 		<tr>
 			<td colspan="2" align="right">
+			<!-- 
 			<input type="text" id="memberno" value="${dto.member_no}">
 			<input type="text" id="loginmemberno" value="${login.member_no}">
 			<input type="text" id="membertype" value="${login.member_type}">
 			<input type="text" id="loginmembertype" value="${login.member_type}">
+			
+			-->
 				
 				<c:choose>
 					<c:when test="${login.member_no != dto.member_no}">
@@ -64,7 +69,7 @@
 					
 					<c:otherwise>
 						<input type="button" value="수정" onclick="location.href='review_updateform.do?reviewboard_no=${dto.reviewboard_no}'"/>
-						<input type="button" value="삭제" onclick="location.href='review_delete.do?reveiwboard_no=${dto.reviewboard_no}'"/>
+						<input type="button" value="삭제" onclick="location.href='review_delete.do?reviewboard_no=${dto.reviewboard_no}'"/>
 						<input type="button" value="목록" onclick="location.href='review_list.do'"/>					
 					</c:otherwise>				
 				</c:choose>

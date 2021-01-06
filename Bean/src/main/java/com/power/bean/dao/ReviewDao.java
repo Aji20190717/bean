@@ -17,10 +17,10 @@ public interface ReviewDao {
 	public String reviewboard();
 	
 	
-	
-	
 	public int countBoard();
 	public List<ReviewDto> selectBoard(PagingDto dto);
+	public int countSearchCount(String searchType, String keyword);
+	public List<ReviewDto> selectPagingReview(PagingDto dto, String searchType, String keyword);
 	
 	
 }

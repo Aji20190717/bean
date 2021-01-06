@@ -3,8 +3,8 @@ package com.power.bean.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -86,25 +86,58 @@ public class ReviewDaoImpl implements ReviewDao {
 
 	@Override
 	public int countBoard() {
-		int res = sqlSession.selectOne("countBoard");
+		int res = sqlSession.selectOne(NAMESPACE + "countBoard");
 		return res;
 	}
 	
 	@Override
 	public List<ReviewDto> selectBoard(PagingDto dto) {
 		
-	//	System.out.println(dto.getStart()+" : "+dto.getEnd());
-		
 		List<ReviewDto> list = new ArrayList<ReviewDto>();
-		list = sqlSession.selectList("selectBoard",dto);
+		list = sqlSession.selectList(NAMESPACE + "selectBoard",dto);
 		
 		return list;
 	}
 
 	@Override
+	public int countSearchCount(String searchType, String keyword) {
+		
+		Map<String, String> countParameter = new HashMap<String, String>();
+		
+		countParameter.put("searchType", searchType);
+		countParameter.put("keyword", keyword);
+
+		int searchCount  = sqlSession.selectOne(NAMESPACE + "countSearchCount", countParameter);
+		
+		return searchCount;
+	}
+
+	@Override
+	public List<ReviewDto> selectPagingReview(PagingDto dto, String searchType, String keyword) {
+		
+		int start = dto.getStart();
+		int end = dto.getEnd();
+		
+		Map<String, Object> searchReviewParam = new HashMap<String, Object>();
+		searchReviewParam.put("start", start);
+		searchReviewParam.put("end", end);
+		searchReviewParam.put("searchType", searchType);
+		searchReviewParam.put("keyword", keyword);
+		
+		List<ReviewDto> searchPagingReviewList = sqlSession.selectList(NAMESPACE + "selectList", searchReviewParam);
+		
+		
+		return searchPagingReviewList;
+	}
+
+	@Override
 	public String reviewboard() {
+		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+
 
 
 	

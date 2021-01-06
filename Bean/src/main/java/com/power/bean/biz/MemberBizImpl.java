@@ -1,5 +1,7 @@
 package com.power.bean.biz;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,4 +24,27 @@ public class MemberBizImpl implements MemberBiz {
 		return dao.withdrawal(member_no);
 	}
 
+	@Override
+	public List<LoginDto> selectNormalMember() {
+		return dao.selectNormalMember();
+	}
+
+	@Override
+	public List<LoginDto> selectTrainer() {
+		return dao.selectTrainer();
+	}
+
+	@Override
+	public List<LoginDto> selectAll() {
+		return dao.selectAll();
+	}
+
+	@Override
+	public LoginDto selectOneMember(int member_no) {
+		return dao.selectOneMember(member_no);
+	}
+
+	
+	
+	
 }

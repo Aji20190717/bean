@@ -14,6 +14,8 @@ textarea{
 </style>
 </head>
 <body>
+
+	<%@ include file="./header.jsp"%>
 	<h1>번역기</h1>
 	<form action="transres.do" method="post">
 		<section>

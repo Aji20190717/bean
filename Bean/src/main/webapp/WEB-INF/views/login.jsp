@@ -184,7 +184,7 @@ supports (-ms-ime-align: auto) { .form-label-group >label { display:none;
 	</div>
 
 <script type="text/javascript">
-	var naver_id_login = new naver_id_login("zjjj7_AqHxAv9Xan5omR",
+	var naver_id_login = new naver_id_login("",
 			"http://localhost:8787/bean/navercallback.do");
 	var state = naver_id_login.getUniqState();
 	naver_id_login.setButton("green", 3, 45);

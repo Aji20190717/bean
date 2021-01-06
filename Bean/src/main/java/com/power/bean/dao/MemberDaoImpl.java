@@ -1,5 +1,7 @@
 package com.power.bean.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -42,4 +44,38 @@ public class MemberDaoImpl implements MemberDao {
 		return res;
 	}
 
+	@Override
+	public List<LoginDto> selectNormalMember() {
+		
+		List<LoginDto> normalMemberList = sqlSession.selectList(NAMESPACE + "selectNormalMember");
+		
+		return normalMemberList;
+	}
+
+	@Override
+	public List<LoginDto> selectTrainer() {
+		
+		List<LoginDto> trainerList = sqlSession.selectList(NAMESPACE + "selectTrainer");
+		
+		return trainerList;
+	}
+
+	@Override
+	public List<LoginDto> selectAll() {
+		
+		List<LoginDto> selectMember = sqlSession.selectList(NAMESPACE + "selectAll");
+		
+		return selectMember;
+	}
+
+	@Override
+	public LoginDto selectOneMember(int member_no) {
+		
+		LoginDto memberDto = sqlSession.selectOne(NAMESPACE + "selectOneMember", member_no);
+		
+		return memberDto;
+	}
+	
+	
+	
 }

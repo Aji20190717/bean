@@ -108,9 +108,12 @@ public class MemberController {
 
 	// 개인정보 조회 : 수강생
 	@RequestMapping("/myinfodetail.do")
-	public String mypage_su_detail(Model model, int member_no) {
+	public String mypage_su_detail(Model model, HttpSession session) {
 		
-		List<ClassDto> classList = classbiz.selectPayingClassList(member_no);
+		LoginDto loginDto = (LoginDto) session.getAttribute("login");
+				
+		
+		List<ClassDto> classList = classbiz.selectPayingClassList(loginDto.getMember_no());
 		model.addAttribute("classList", classList);
 		
 		return "mypage_su_detail";
@@ -119,9 +122,11 @@ public class MemberController {
 
 	// 개인정보 조회 : 강사
 	@RequestMapping("/mypagedetail.do")
-	public String mypage_te_detail(Model model, int member_no) {
+	public String mypage_te_detail(Model model, HttpSession session) {
 	
-		List<ClassDto> ClassList = classbiz.selectTrainerClass(member_no);
+		LoginDto loginDto = (LoginDto) session.getAttribute("login");
+		
+		List<ClassDto> ClassList = classbiz.selectTrainerClass(loginDto.getMember_no());
 		model.addAttribute("classList", ClassList);
 
 		return "mypage_te_detail";
@@ -136,7 +141,7 @@ public class MemberController {
 
 	}
 
-	// 개인정보 수정폼 : 수강생
+	// 개인정보 수정폼 : 강사
 	@RequestMapping("/mypageupdateform.do")
 	public String mypage_te_update() {
 
@@ -287,9 +292,12 @@ public class MemberController {
 
 	// 개인정보 수정 : 탈퇴
 	@RequestMapping("/myinfodelete.do")
-	public String mypagedelete(HttpSession session, String member_no) {
+	public String mypagedelete(HttpSession session) {
+		
+		LoginDto loginDto = (LoginDto) session.getAttribute("login");
+		int member_no = loginDto.getMember_no();
 
-		int res = biz.withdrawal(Integer.parseInt(member_no));
+		int res = biz.withdrawal(member_no);
 
 		if (res > 0) {
 			session.invalidate();

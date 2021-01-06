@@ -20,4 +20,6 @@ public interface ReviewBiz {
 
 	// 페이징 처리 게시글 조회
 	public List<ReviewDto> selectBoard(PagingDto dto);
+	public int countSearchCount(String searchType, String keyword);
+	public List<ReviewDto> selectPagingReview(PagingDto dto, String searchType, String keyword);
 }

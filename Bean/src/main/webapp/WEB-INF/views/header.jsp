@@ -4,13 +4,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.power.bean.dto.LoginDto"%>
 
-
 <%
-response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+	response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
 response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 %>
+
 
 <!DOCTYPE html>
 <html>
@@ -18,8 +18,11 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-    <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
-    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
+<!-- security 자리 -->
+
+<meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header"
+	content="${_csrf.headerName}" />
 
 <style type="text/css">
 .carousel-item {
@@ -50,9 +53,9 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 	text-decoration: none;
 }
 </style>
-<script src="webjars/jquery/3.4.1/dist/jquery.min.js"></script>
-<script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="webjars/jquery/3.5.1/dist/jquery.min.js"></script>
 <link rel="stylesheet" href="resources/css/MainPageCss.css" />
+<script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="script" href="resources/js/MainPageJQ.js" />
 <link rel="script" href="resources/js/MainPageJs.js" />
 
@@ -61,15 +64,15 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 
 	<%
 		LoginDto login = null;
-		if(session.getAttribute("login") != null){
+	if (session.getAttribute("login") != null) {
 		login = (LoginDto) session.getAttribute("login");
 		System.out.println(login);
-		}else{
-			login = null;
-		}
+	} else {
+		login = null;
+	}
 	%>
-	
-	<!-- TODO : review, english lounge 연결 -->
+
+
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
 		<div class="container">
@@ -86,7 +89,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 						<c:choose>
 							<c:when
 								test="${login.member_type eq 'S' || login.member_type eq 'SN' || login.member_type eq 'SG' }">
-								<a class="navbar-write" href="myinfo.do?member_no">${login.member_name }님
+								<a class="navbar-write" href="myinfo.do">${login.member_name }님
 									마이페이지</a>
 							</c:when>
 							<c:when test="${login.member_type eq 'T' }">
@@ -109,8 +112,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link"
-						href="classList.do"> Select Class
-					</a></li>
+						href="classList.do"> Select Class </a></li>
 					<li class="nav-item"><a class="nav-link" href="#">English
 							Lounge</a></li>
 					<li class="nav-item"><a class="nav-link"
@@ -122,27 +124,14 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 		</div>
 	</nav>
 
-<script type="text/javascript">
 
-$(document).ready(function(){
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-    // alert("바본가봉가");
-    /*
-    	$(document).ajaxSend(function(e, xhr, options) {
-    	    xhr.setRequestHeader(header, token);
-	    });
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
 
-    var $csrf = $("<input>");
-    $csrf.attr("type", "hidden").attr("name", "_csrf").attr("value", token);
-    $("form").prepend($csrf);
-    $('form').submit(function(e, xhr, options){
-    	xhr.setRequestHeader("X-CSRF-TOKEN", token);
-    });
-     */
-});
-
-</script>
+		});
+	</script>
 
 </body>
 </html>
