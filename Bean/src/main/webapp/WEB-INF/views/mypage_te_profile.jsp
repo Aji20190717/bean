@@ -227,11 +227,41 @@ $(document).ready(function(){
 				<div class="row">
 					<div class="col-md-6 ml-auto mr-auto">
 						<div class="profile">
+<<<<<<< HEAD
 							<div class="avatar">
 								<img id="profileimg"
 									alt="Circle Image"
 									class="img-raised rounded-circle img-fluid">
 							</div>
+=======
+							<c:choose>
+								<c:when test="${!empty login.member_imgname }">
+									<div class="avatar">
+										<img
+											src="profileimg.do"
+											alt="Circle Image"
+											class="img-raised rounded-circle img-fluid">
+									</div>
+								</c:when>
+								<c:otherwise>
+									<c:if test="${img eq null }">
+										<div class="avatar">
+											<img src="resources/images/profile/profile.png"
+												alt="Circle Image"
+												class="img-raised rounded-circle img-fluid">
+										</div>
+									</c:if>
+									<c:if test="${img ne null }">
+										<div class="avatar">
+											<img src="resources/images/profile/profile.png"
+												alt="Circle Image"
+												class="img-raised rounded-circle img-fluid">
+										</div>
+									</c:if>
+								</c:otherwise>
+							</c:choose>
+
+>>>>>>> a229b7c41a3f0f04978c14deb2043a6572e28db7
 							<div class="name">
 								<br />
 								<h6>${login.member_name }

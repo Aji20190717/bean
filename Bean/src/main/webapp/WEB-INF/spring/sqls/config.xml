@@ -4,34 +4,35 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-	
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
 
 	<!-- typeAlias는 위로 쌓기 -->
 	<typeAliases>
-		<typeAlias type="com.power.bean.dto.PagingDto" alias = "PagingDto"/>
-		<typeAlias type="com.power.bean.dto.PayingDto" alias = "PayingDto"/>
-		<typeAlias type="com.power.bean.dto.ClassDto" alias = "ClassDto"/>
+		<typeAlias type="com.power.bean.dto.CsDto" alias="CsDto" />
+		<typeAlias type="com.power.bean.dto.PagingDto" alias="PagingDto" />
+		<typeAlias type="com.power.bean.dto.PayingDto"
+			alias="PayingDto" />
+		<typeAlias type="com.power.bean.dto.ClassDto"
+			alias="ClassDto" />
 		<typeAlias type="com.power.bean.dto.ReviewDto"
 			alias="ReviewDto" />
 		<typeAlias type="com.power.bean.dto.LoginDto"
 			alias="LoginDto" />
-		<typeAlias type="com.power.bean.dto.QuestionDto"
-			alias="QuestionDto" />
+		<typeAlias type="com.power.bean.dto.QuestionDto" alias="QuestionDto" />
 	</typeAliases>
 
 	<!-- resource: src/main/resources -->
 	<!-- mapper은 밑으로 쌓기 -->
 	<mappers>
-		<mapper resource="/mybatis/paying-mapper.xml"/>
-		<mapper resource="/mybatis/class-mapper.xml"/>
+		<mapper resource="/mybatis/paying-mapper.xml" />
+		<mapper resource="/mybatis/class-mapper.xml" />
 		<mapper resource="/mybatis/review-mapper.xml" />
 		<mapper resource="/mybatis/loginBean-mapper.xml" />
 		<mapper resource="/mybatis/question-mapper.xml" />
-		<mapper resource="/mybatis/member-mapper.xml"/>
+		<mapper resource="/mybatis/member-mapper.xml" />
 		<mapper resource="/mybatis/review-mapper.xml" />
+		<mapper resource="/mybatis/cs-mapper.xml" />
 	</mappers>
-
 </configuration>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.csboard">
+
+	<resultMap type="CsDto" id="CsMap">
+		<result property="csno" column="CSNO" />
+		<result property="cscategory" column="CSCATEGORY" />
+		<result property="csname" column="CSNAME" />
+		<result property="cstitle" column="CSTITLE" />
+		<result property="cscontent" column="CSCONTENT" />
+		<result property="csdate" column="CSDATE" />
+	</resultMap>
+
+	<select id="selectList" resultMap="CsMap">
+		SELECT CSNO, CSCATEGORY,
+		CSNAME, CSTITLE, CSCONMENT, CSDATE
+		FROM CSBOARD
+		ORDER BY CSNO DESC
+	</select>
+
+	<select id="selectOne" resultMap="CsMap">
+		SELECT csno, cscategory,
+		csname, cstitle, csconment, csdate
+		FROM CSBOARD
+		WHERE csno = #{csno}
+	</select>
+
+	<insert id="insert" parameterType="CsDto">
+
+		INSERT INTO CSBOARD
+		VALUES(CSSEQ.NEXTVAL,#{cscategory}, #{cstitle}, #{csname},
+		#{csconment}, SYSDATE)
+	</insert>
+
+	<update id="update" parameterType="CsDto">
+		UPDATE CSBOARD
+		SET CSTITLE =
+		#{cstitle}, CSCONMENT = #{csconment}
+		WHERE CSNO = #{csno}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM CSBOARD WHERE CSNO
+		= #{csno}
+
+	</delete>
+
+
+
+
+
+
+
+
+
+
+</mapper>
+
