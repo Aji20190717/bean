@@ -1,148 +1,448 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<link rel="stylesheet" href="resources/css/boardcss.css" />
 
-</head>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
 <style>
-h2 {
-	text-align: center;
+body {
+	color: #566787;
+	background: #f5f5f5;
+	font-family: 'Varela Round', sans-serif;
+	font-size: 13px;
 }
-table {
-	width: 100%;
+
+.table-responsive {
+	margin: 30px 0;
 }
-a {
+
+.table-wrapper {
+	min-width: 1000px;
+	background: #fff;
+	padding: 20px 25px;
+	border-radius: 3px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+.table-title {
+	padding-bottom: 15px;
+	background: #299be4;
+	color: #fff;
+	padding: 16px 30px;
+	margin: -20px -25px 10px;
+	border-radius: 3px 3px 0 0;
+}
+
+.table-title h2 {
+	margin: 5px 0 0;
+	font-size: 24px;
+}
+
+.table-title .btn {
+	color: #566787;
+	float: right;
+	font-size: 13px;
+	background: #fff;
+	border: none;
+	min-width: 50px;
+	border-radius: 2px;
+	border: none;
+	outline: none !important;
+	margin-left: 10px;
+}
+
+.table-title .btn:hover, .table-title .btn:focus {
+	color: #566787;
+	background: #f2f2f2;
+}
+
+.table-title .btn i {
+	float: left;
+	font-size: 21px;
+	margin-right: 5px;
+}
+
+.table-title .btn span {
+	float: left;
+	margin-top: 2px;
+}
+
+table.table tr th, table.table tr td {
+	border-color: #e9e9e9;
+	padding: 12px 15px;
+	vertical-align: middle;
+}
+
+table.table tr th:first-child {
+	width: 60px;
+}
+
+table.table tr th:last-child {
+	width: 100px;
+}
+
+table.table-striped tbody tr:nth-of-type(odd) {
+	background-color: #fcfcfc;
+}
+
+table.table-striped.table-hover tbody tr:hover {
+	background: #f5f5f5;
+}
+
+table.table th i {
+	font-size: 13px;
+	margin: 0 5px;
+	cursor: pointer;
+}
+
+table.table td:last-child i {
+	opacity: 0.9;
+	font-size: 22px;
+	margin: 0 5px;
+}
+
+table.table td a {
+	font-weight: bold;
+	color: #566787;
+	display: inline-block;
 	text-decoration: none;
 }
+
+table.table td a:hover {
+	color: #2196F3;
+}
+
+table.table td a.settings {
+	color: #2196F3;
+}
+
+table.table td a.delete {
+	color: #F44336;
+}
+
+table.table td i {
+	font-size: 19px;
+}
+
+table.table .avatar {
+	border-radius: 50%;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
+.status {
+	font-size: 30px;
+	margin: 2px 2px 0 0;
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 10px;
+}
+
+.text-success {
+	color: #10c469;
+}
+
+.text-info {
+	color: #62c9e8;
+}
+
+.text-warning {
+	color: #FFC107;
+}
+
+.text-danger {
+	color: #ff5b5b;
+}
+
+.pagination {
+	float: right;
+	margin: 0 0 5px;
+}
+
+.pagination li a {
+	border: none;
+	font-size: 13px;
+	min-width: 30px;
+	min-height: 30px;
+	color: #999;
+	margin: 0 2px;
+	line-height: 30px;
+	border-radius: 2px !important;
+	text-align: center;
+	padding: 0 6px;
+}
+
+.pagination li a:hover {
+	color: #666;
+}
+
+.pagination li.active a, .pagination li.active a.page-link {
+	background: #03A9F4;
+}
+
+.pagination li.active a:hover {
+	background: #0397d6;
+}
+
+.pagination li.disabled i {
+	color: #ccc;
+}
+
+.pagination li i {
+	font-size: 16px;
+	padding-top: 6px
+}
+
+.hint-text {
+	float: left;
+	margin-top: 10px;
+	font-size: 13px;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-family: Verdana, Geneva, sans-serif;
+	background-color: #CCC;
+	font-size: 12px;
+}
+
+.label-container {
+	position: fixed;
+	bottom: 48px;
+	right: 105px;
+	display: table;
+	visibility: hidden;
+}
+
+.label-text {
+	color: #FFF;
+	background: rgba(51, 51, 51, 0.5);
+	display: table-cell;
+	vertical-align: middle;
+	padding: 10px;
+	border-radius: 3px;
+}
+
+.label-arrow {
+	display: table-cell;
+	vertical-align: middle;
+	color: #333;
+	opacity: 0.5;
+}
+
+.float {
+	position: fixed;
+	width: 60px;
+	height: 60px;
+	bottom: 40px;
+	right: 40px;
+	background-color: #06C;
+	color: #FFF;
+	border-radius: 50px;
+	text-align: center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float {
+	font-size: 24px;
+	margin-top: 18px;
+}
+
+a.float+div.label-container {
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.5s ease;
+}
+
+a.float:hover+div.label-container {
+	visibility: visible;
+	opacity: 1;
+}
 </style>
+<script>
 
+</script>
 
-<body>
+</head>
+<body class="bg-gra-01">
 
-<%@ include file="./header.jsp"%>
+	<%@ include file="./header.jsp"%>
 
-	<div>
-			<div class="form-group row">
-			<div class="w100" style="padding-right:10px">
-				<select class="form-control form-control-sm" name="searchType" id="searchType">
+	<div class="container-xl">
+		<div class="table-responsive">
+			<div class="table-wrapper">
+				<div class="table-title">
+					<div class="row">
+						<div class="col-sm-5">
+							<h2>
+								<b>Review Board</b>
+							</h2>
+						</div>
+						<div class="col-sm-7">
+							<div class="form-group row" style="float: right;">
+								<div class="w100" style="padding-right: 10px">
+									<select class="form-control form-control-sm" name="searchType"
+										id="searchType">
 
-					<option value="reviewboard_title">제목</option>
-					<option value="reviewboard_content">본문</option>
-					<option value="reviewboard_name">작성자</option>
+										<option value="reviewboard_title">제목</option>
+										<option value="reviewboard_content">본문</option>
+										<option value="reviewboard_name">작성자</option>
 
-				</select>
-			</div>
-			<div class="w300" style="padding-right:10px">
-				<input type="text" class="form-control form-control-sm" name="keyword" id="keyword">
-			</div>
-			<div>
-				<button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch">검색</button>
-			</div>
-		</div>
+									</select>
+								</div>
+								<div class="w300" style="padding-right: 10px">
+									<input type="text" class="form-control form-control-sm"
+										name="keyword" id="keyword">
+								</div>
+								<div>
+									<button class="btn btn-sm btn-primary" name="btnSearch"
+										id="btnSearch">검색</button>
+								</div>
 
+							</div>
 
-
-		<div style="float: right;">
-			<select id="cntPerPage" name="sel" onchange="selChange()">
-				<option value="5"
-					<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5줄
-					보기</option>
-				<option value="10"
-					<c:if test="${paging.cntPerPage == 10}">selected</c:if>>10줄
-					보기</option>
-				<option value="15"
-					<c:if test="${paging.cntPerPage == 15}">selected</c:if>>15줄
-					보기</option>
-				<option value="20"
-					<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20줄
-					보기</option>
-			</select>
-		</div>
-		<!-- 옵션선택 끝 -->
-
-		<table border="1">
-			<tr>
-				<th>번호</th>
-				<th>작성자</th>
-				<th>리뷰 제목</th>
-				<th>리뷰 내용</th>
-				<th>날짜</th>
-				<th>수업명</th>
-				<th>선생님</th>
-				<th>별점</th>
-			</tr>
-			<c:choose>
-				<c:when test="${empty list }">
-					<tr>
-						<th colspan="4">작성된 글이 존재하지 않습니다.</th>
-					</tr>
-				</c:when>
-				<c:otherwise>
-					<c:forEach items="${list }" var="dto">
+						</div>
+					</div>
+				</div>
+				<div style="float: right;">
+					<select id="cntPerPage" name="sel" onchange="selChange()">
+						<option value="5"
+							<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5줄
+							보기</option>
+						<option value="10"
+							<c:if test="${paging.cntPerPage == 10}">selected</c:if>>10줄
+							보기</option>
+						<option value="15"
+							<c:if test="${paging.cntPerPage == 15}">selected</c:if>>15줄
+							보기</option>
+						<option value="20"
+							<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20줄
+							보기</option>
+					</select>
+				</div>
+				<table class="table table-striped table-hover">
+					<thead>
 						<tr>
-							<td>${dto.reviewboard_no }</td>
-							<td>${dto.reviewboard_name }</td>
-							<td><a
-								href="review_detail.do?reviewboard_no=${dto.reviewboard_no }">${dto.reviewboard_title }</a></td>
-							<td>${dto.reviewboard_content }</td>
-							<td><fmt:formatDate value="${dto.reviewboard_date }"
-									pattern="yyyy-MM-dd-HH시" /></td>
-							<td>${dto.class_name}</td>
-							<td>${dto.reviewboard_te }</td>
-							<td>${dto.reviewboard_star }</td>
-
+							<th>No</th>
+							<th>Writer</th>
+							<th>Title</th>
+							<th>Content</th>
+							<th>Date</th>
+							<th>Class Name</th>
+							<th>Teacher Name</th>
+							<th>Score</th>
 						</tr>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
-			<tr>
-				<c:choose>
-				<c:when test="${empty login }">
-				<td colspan="4" align="left"><input type="button" value="글작성"
-					onclick="alertLogin();" /></td>
-				</c:when>
-				<c:otherwise>
-					<td colspan="4" align="left"><input type="button" value="글작성"
-					onclick="location.href='review_insertform.do'" /></td>
-				</c:otherwise>
-				</c:choose>
-			</tr>
+					</thead>
+					<tbody>
+						<c:choose>
+							<c:when test="${empty list}">
+								<tr>
+									<th colspan="4">--작성된 글이 없습니다----</th>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${list }" var="dto">
+									<tr>
+										<td>${dto.reviewboard_no }</td>
+										<td>${dto.reviewboard_name }</td>
+										<td><a
+											href="review_detail.do?reviewboard_no=${dto.reviewboard_no }">${dto.reviewboard_title }</a></td>
+										<td>${dto.reviewboard_content }</td>
+										<td><fmt:formatDate value="${dto.reviewboard_date }"
+												pattern="yyyy-MM-dd-HH시" /></td>
+										<td>${dto.class_name}</td>
+										<td>${dto.reviewboard_te }</td>
+										<td>${dto.reviewboard_star }</td>
+									</tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</tbody>
+				</table>
+				<div class="clearfix">
 
-		</table>
-		<div style="display: block; text-align: center;">
-			<c:if test="${paging.startPage != 1 }">
-				<a href="/bean/review_list.do?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&searchType=${searchType}&keyword=${keyword}">&lt;</a>
-					
-			</c:if>
-			<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
-				var="p">
-				<c:choose>
-					<c:when test="${p == paging.nowPage }">
-						<b>${p }</b>
-					</c:when>
-					<c:when test="${p != paging.nowPage }">
-						<a
-							href="/bean/review_list.do?nowPage=${p }&cntPerPage=${paging.cntPerPage}&searchType=${searchType}&keyword=${keyword}">${p }</a>
-					</c:when>
-				</c:choose>
-			</c:forEach>
-			<c:if test="${paging.endPage != paging.lastPage}">
-				<a
-					href="/bean/review_list.do?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&searchType=${searchType}&keyword=${keyword}">&gt;</a>
-			</c:if>
+					<div class="hint-text">
+						Showing <b>5</b> out of <b>${questionCount}</b> entries
+					</div>
+					<ul class="pagination">
+						<c:if test="${paging.startPage != 1 }">
+							<li class="page-item disabled"><a
+								href="/bean/review_list.do?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&searchType=${searchType}&keyword=${keyword}">Previous</a></li>
+						</c:if>
+						<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
+							var="p">
+							<c:choose>
+								<c:when test="${p == paging.nowPage }">
+									<li class="page-item active"><a class="page-link"
+										href="/bean/review_list.do?nowPage=${p }&cntPerPage=${paging.cntPerPage}&searchType=${searchType}&keyword=${keyword}">${p }</a></li>
+								</c:when>
+								<c:when test="${p != paging.nowPage }">
+									<li class="page-item"><a
+										href="/bean/review_list.do?nowPage=${p }&cntPerPage=${paging.cntPerPage}&searchType=${searchType}&keyword=${keyword}">${p }</a></li>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${paging.endPage != paging.lastPage}">
+							<li class="page-item"><a
+								href="/bean/review_list.do?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&searchType=${searchType}&keyword=${keyword}">Next</a></li>
+						</c:if>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
+
+	<c:choose>
+		<c:when test="${empty login }">
+			<a onclick="loginAlarm()" class="float"> <i
+		class="fa fa-plus-circle my-float"></i>
+	</a>
+	<div class="label-container">
+		<div class="label-text">Need To login</div>
+		<i class="fa fa-play label-arrow"></i>
+	</div>
+		</c:when>
+		<c:when test="${login.member_type eq 'T' }">
+		
+		</c:when>
+		<c:otherwise>
+			<a href="review_insertform.do" class="float"> <i
+		class="fa fa-plus-circle my-float"></i>
+	</a>
+	<div class="label-container">
+		<div class="label-text">Add New Review</div>
+		<i class="fa fa-play label-arrow"></i>
+	</div>
+		</c:otherwise>
+	</c:choose>
 	
-<script>
+	
+	<script>
 	$(document).on('click', '#btnSearch', function(e){
 		e.preventDefault();
 		var url = "/bean/review_list.do";
@@ -151,12 +451,6 @@ a {
 		location.href = url;
 	});	
    
-   function alertLogin(){
-	   
-	   alert('login 해주세요');
-	   window.location.href = 'loginform.do';
-	   
-   }
    
 	function selChange() {
 		
@@ -176,7 +470,25 @@ a {
 			
 		}
 	}
-</script>
 	
+	$(document).ready(function() {
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+
+	function loginAlarm() {
+
+		alert('로그인 해주세요');
+		window.location.href = 'loginform.do';
+
+	}
+
+	function studentAlarm() {
+
+		alert('학생 계정만 글작성이 가능합니다');
+	}
+	
+	</script>
+</body>
+
 </body>
 </html>
