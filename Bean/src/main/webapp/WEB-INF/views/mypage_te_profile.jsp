@@ -206,7 +206,7 @@ img.rounded {
 								<c:when test="${!empty login.member_imgname }">
 									<div class="avatar">
 										<img
-											src="${pageContext.request.contextPath }/resources/storage/${login.member_imgname}"
+											src="profileimg.do"
 											alt="Circle Image"
 											class="img-raised rounded-circle img-fluid">
 									</div>
