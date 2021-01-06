@@ -9,7 +9,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +25,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.util.WebUtils;
@@ -58,8 +61,9 @@ public class MemberController {
 	}
 	
 	// 프로필 화면의 사진을 로딩하는 컨트롤러
-	@RequestMapping("/profileimg.do")
-	public String displayPhoto (HttpServletResponse response, Model model, HttpSession session) throws Exception {
+	@RequestMapping(value = "/profileimg.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Boolean> displayPhoto (HttpServletResponse response, Model model, HttpSession session) throws Exception {
 
 	    ServletOutputStream bout = response.getOutputStream();
 	    
@@ -80,6 +84,9 @@ public class MemberController {
 			response.setContentType("image/png");
 		}
 
+		boolean check = false;
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		
 	    //파일의 경로
 	    FileInputStream f;
 	    int length;
@@ -89,13 +96,16 @@ public class MemberController {
 		    while((length=f.read(buffer)) != -1){
 		    	bout.write(buffer,0,length);
 		    }
+		    check = true;
+		    map.put("check", check);
 		} catch (FileNotFoundException e) {
 			// e.printStackTrace();
-			model.addAttribute("img", null);
-			// System.out.println("error catch : 파일없음");
+			check = false;
+			map.put("check", check);
+			System.out.println("error catch : 파일없음");
 		}
-	    
-	    return null;
+		
+	    return map;
 	}
 
 	// 마이페이지 첫 화면 : 로그인 후 이름 누르면 나오는 곳 (강사)

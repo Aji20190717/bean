@@ -189,6 +189,32 @@ img.rounded {
 	padding-bottom: 50px;
 }
 </style>
+
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$.ajax({
+		type : "post",
+		url : "profileimg.do",
+		contentType : "application/json",
+		dataType : "json",
+		success : function(msg){
+			console.log(msg);
+			if(msg.check == true){
+				$("#profileimg").attr("src","${pageContext.request.contextPath }/resources/storage/${login.member_imgname}");
+			} else {
+				$("#profileimg").attr("src","resources/images/profile/profile.png");
+			}
+		}, error : function(){
+			alert("통실 실패");
+		}
+	});
+
+});
+</script>
+
 </head>
 <body class="profile-page">
 
@@ -202,23 +228,11 @@ img.rounded {
 				<div class="row">
 					<div class="col-md-6 ml-auto mr-auto">
 						<div class="profile">
-							<c:choose>
-								<c:when test="${!empty login.member_imgname }">
-									<div class="avatar">
-										<img
-											src="${pageContext.request.contextPath }/resources/storage/${login.member_imgname}"
-											alt="Circle Image"
-											class="img-raised rounded-circle img-fluid">
-									</div>
-								</c:when>
-								<c:otherwise>
-									<div class="avatar">
-										<img src="resources/images/profile/profile.png"
-											alt="Circle Image"
-											class="img-raised rounded-circle img-fluid">
-									</div>
-								</c:otherwise>
-							</c:choose>
+							<div class="avatar">
+								<img id="profileimg"
+									alt="Circle Image"
+									class="img-raised rounded-circle img-fluid">
+							</div>
 							<div class="name">
 								<br />
 								<h6>${login.member_name }
@@ -232,7 +246,7 @@ img.rounded {
 									onclick=""
 									class="btn">회원 탈퇴</button>
 								<button
-									onclick="location.href='location.href='myinfoupdateform.do'"
+									onclick="location.href='myinfoupdateform.do'"
 									class="btn">정보 수정</button>
 							</div>
 						</div>
