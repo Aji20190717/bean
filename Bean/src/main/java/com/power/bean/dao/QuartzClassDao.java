@@ -93,7 +93,6 @@ public class QuartzClassDao {
 				JSONObject jsonObj = (JSONObject) obj;
 				Iterator keyIterator = jsonObj.keySet().iterator();
 				
-				
 				while(keyIterator.hasNext()) {
 					
 					

@@ -12,14 +12,15 @@
 <script type="text/javascript"
 	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
 	charset="utf-8"></script>
+<!-- 
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	-->
+
 <link rel="stylesheet" href="resources/css/login_css.css" />
 <link rel="stylesheet" href="resources/css/login_css2.css" />
 <link rel="script" href="resources/js/login_jq.js" />
 <link rel="script" href="resources/js/login_js1.js" />
-<script src="webjars/font-awesome/5.8.2/webfonts/fa-brands-400.woff"></script>
-
 
 <style type="text/css">
 :root { -
@@ -147,13 +148,13 @@ supports (-ms-ime-align: auto) { .form-label-group >label { display:none;
 				<div class="card card-signin my-5">
 					<div class="card-body">
 						<h5 class="card-title text-center">Sign In</h5>
-						<form class="form-signin" action="login.do">
+						<form class="form-signin" action="/bean/logininfo.do" method="post">
 							<div class="form-label-group">
 								<input type="text" name="member_id" placeholder= "id"class="form-control"
 									required autofocus> 
 							</div>
 							<div class="form-label-group">
-								<input type="text" name="member_pw" placeholder= "password"  class="form-control"
+								<input type="password" name="member_pw" placeholder= "password"  class="form-control"
 									placeholder="Password" required>
 							</div>
 
@@ -183,7 +184,7 @@ supports (-ms-ime-align: auto) { .form-label-group >label { display:none;
 	</div>
 
 <script type="text/javascript">
-	var naver_id_login = new naver_id_login("zjjj7_AqHxAv9Xan5omR",
+	var naver_id_login = new naver_id_login("",
 			"http://localhost:8787/bean/navercallback.do");
 	var state = naver_id_login.getUniqState();
 	naver_id_login.setButton("green", 3, 45);
@@ -192,6 +193,9 @@ supports (-ms-ime-align: auto) { .form-label-group >label { display:none;
 	//naver_id_login.setPopup();
 	naver_id_login.init_naver_id_login();
 </script>
+
+
+<script src="webjars/font-awesome/5.8.2/webfonts/fa-brands-400.woff"></script>
 
 
 </body>

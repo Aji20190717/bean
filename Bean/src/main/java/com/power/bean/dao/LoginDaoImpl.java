@@ -13,16 +13,20 @@ public class LoginDaoImpl implements LoginDao {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public LoginDto login(LoginDto dto) {
-
+	public LoginDto login(String member_id) {
+		
+		System.out.println("dao.login");
+		System.out.println(member_id);
+		
 		LoginDto res = null;
 
 		try {
-			res = sqlSession.selectOne(NAMESPACE + "login", dto);
+			res = sqlSession.selectOne(NAMESPACE + "login", member_id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+		System.out.println(res.getMember_id());
 		return res;
 
 	}

@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,6 +34,9 @@ public class LoginController_Naver {
 	
 	@Autowired
 	private LoginBiz biz;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	// 네이버로 로그인하면 네이버에서 콜백해주는 페이지
 	@RequestMapping("/navercallback.do")
@@ -199,6 +203,13 @@ public class LoginController_Naver {
 		} 
 		
 		// dto.setMember_sns("naver" + dto.getMember_sns());
+		//pw 인코딩하는 부분
+		// System.out.println("암호화 전 : " + dto.getMember_pw());
+					
+		dto.setMember_pw(passwordEncoder.encode(dto.getMember_pw()));
+		dto.setMember_pwchk(passwordEncoder.encode(dto.getMember_pwchk()));
+						
+		// System.out.println("암호화 후 : " + dto.getMember_pw());
 		
 		int res = biz.resister(dto);
 

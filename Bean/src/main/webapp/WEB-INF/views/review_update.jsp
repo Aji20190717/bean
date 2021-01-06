@@ -11,6 +11,8 @@
 <script src="//cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
 </head>
 <body>
+
+<%@ include file="./header.jsp"%>
 	<form action="review_updateres.do" method="post">
 		<input type="hidden" name="member_no" value="${login.member_no }">
 		<input type="hidden" name="reviewboard_name"

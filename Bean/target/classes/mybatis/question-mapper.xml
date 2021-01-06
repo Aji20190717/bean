@@ -1,43 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace = "question">
+<mapper namespace="question">
 
-	<select id = "selectQuestionList" resultType = "QuestionDto">
-		SELECT QUESTIONBOARD_NO, MEMBER_NO, QUESTIONBOARD_NAME, QUESTIONBOARD_TITLE, QUESTIONBOARD_CONTENT, QUESTIONBOARD_DATE, QUESTIONBOARD_READCOUNT, QUESTIONBOARD_STEP, QUESTIONBOARD_GROUPNO, QUESTIONBOARD_REPLY, QUESTIONBOARD_REPLYDATE , QUESTIONBOARD_DELFLAG ,QUESTIONBOARD_IMGNAME, QUESTIONBOARD_IMGPATH, QUESTIONBOARD_OCR
-		FROM QUESTIONBOARD 
+	<select id="selectQuestionList" resultType="QuestionDto">
+		SELECT
+		QUESTIONBOARD_NO, MEMBER_NO, QUESTIONBOARD_NAME, QUESTIONBOARD_TITLE,
+		QUESTIONBOARD_CONTENT, QUESTIONBOARD_DATE, QUESTIONBOARD_READCOUNT,
+		QUESTIONBOARD_STEP, QUESTIONBOARD_GROUPNO, QUESTIONBOARD_REPLY,
+		QUESTIONBOARD_REPLYDATE , QUESTIONBOARD_DELFLAG
+		,QUESTIONBOARD_IMGNAME, QUESTIONBOARD_IMGPATH, QUESTIONBOARD_OCR
+		FROM
+		QUESTIONBOARD
 		WHERE QUESTIONBOARD_DELFLAG = 'N'
-		ORDER BY QUESTIONBOARD_DATE DESC
-		
+		ORDER BY
+		QUESTIONBOARD_DATE DESC
+
 	</select>
-	
-	<select id = "selectOneQuestion" parameterType = "int" resultType = "QuestionDto">
-		SELECT QUESTIONBOARD_NO, MEMBER_NO, QUESTIONBOARD_NAME, QUESTIONBOARD_TITLE, QUESTIONBOARD_CONTENT, QUESTIONBOARD_DATE, QUESTIONBOARD_READCOUNT, QUESTIONBOARD_STEP, QUESTIONBOARD_GROUPNO, QUESTIONBOARD_REPLY, QUESTIONBOARD_REPLYDATE , QUESTIONBOARD_DELFLAG ,QUESTIONBOARD_IMGNAME, QUESTIONBOARD_IMGPATH, QUESTIONBOARD_OCR
-		FROM QUESTIONBOARD WHERE QUESTIONBOARD_NO = #{questionNum}
+
+	<select id="selectOneQuestion" parameterType="int"
+		resultType="QuestionDto">
+		SELECT QUESTIONBOARD_NO, MEMBER_NO, QUESTIONBOARD_NAME,
+		QUESTIONBOARD_TITLE, QUESTIONBOARD_CONTENT, QUESTIONBOARD_DATE,
+		QUESTIONBOARD_READCOUNT, QUESTIONBOARD_STEP, QUESTIONBOARD_GROUPNO,
+		QUESTIONBOARD_REPLY, QUESTIONBOARD_REPLYDATE , QUESTIONBOARD_DELFLAG
+		,QUESTIONBOARD_IMGNAME, QUESTIONBOARD_IMGPATH, QUESTIONBOARD_OCR
+		FROM
+		QUESTIONBOARD WHERE QUESTIONBOARD_NO = #{questionNum}
 	</select>
-	
-	<insert id = "uploadQuestion" parameterType = "QuestionDto">
-		 INSERT INTO QUESTIONBOARD 
-		 VALUES(QUESTIONBOARD_SEQ.NEXTVAL, #{member_no}, #{questionboard_name}, #{questionboard_title}, #{questionboard_content}, SYSDATE, 0, 0, 0 , #{questionboard_reply}, #{questionboard_replydate}, 'N' ,#{questionboard_imgname}, #{questionboard_imgpath}, #{questionboard_ocr})
+
+	<insert id="uploadQuestion" parameterType="QuestionDto">
+		INSERT INTO
+		QUESTIONBOARD
+		VALUES(QUESTIONBOARD_SEQ.NEXTVAL, #{member_no},
+		#{questionboard_name}, #{questionboard_title},
+		#{questionboard_content}, SYSDATE, 0, 0, 0 , #{questionboard_reply},
+		#{questionboard_replydate}, 'N' ,#{questionboard_imgname},
+		#{questionboard_imgpath}, #{questionboard_ocr})
 	</insert>
-	
-	<update id = "questionReply" parameterType = "QuestionDto">
-		UPDATE QUESTIONBOARD SET QUESTIONBOARD_REPLY = #{questionboard_reply}, QUESTIONBOARD_REPLYDATE = SYSDATE 
-		WHERE QUESTIONBOARD_NO = #{questionboard_no}
+
+	<update id="questionReply" parameterType="QuestionDto">
+		UPDATE QUESTIONBOARD
+		SET QUESTIONBOARD_REPLY = #{questionboard_reply},QUESTIONBOARD_STEP =
+		#{questionboard_step} , QUESTIONBOARD_REPLYDATE = SYSDATE
+		WHERE
+		QUESTIONBOARD_NO = #{questionboard_no}
 	</update>
-	
-	<update id = "questionUpdate" parameterType = "QuestionDto">
-		UPDATE QUESTIONBOARD SET QUESTIONBOARD_CONTENT = #{questionboard_content}
-		WHERE QUESTIONBOARD_NO = #{questionboard_no}
+
+	<update id="questionUpdate" parameterType="QuestionDto">
+		UPDATE QUESTIONBOARD
+		SET QUESTIONBOARD_CONTENT = #{questionboard_content}
+		WHERE
+		QUESTIONBOARD_NO = #{questionboard_no}
 	</update>
-	
+
 	<delete id="questionDelete">
-		UPDATE QUESTIONBOARD SET QUESTIONBOARD_DELFLAG = 'Y' 
+		UPDATE QUESTIONBOARD SET QUESTIONBOARD_DELFLAG = 'Y'
 		WHERE QUESTIONBOARD_NO = #{questionboard_no}
 	</delete>
-	
-		<update id = "questionReadCount" parameterType = "int">
-		UPDATE QUESTIONBOARD SET QUESTIONBOARD_READCOUNT = QUESTIONBOARD_READCOUNT + 1
+
+	<update id="questionReadCount" parameterType="int">
+		UPDATE
+		QUESTIONBOARD SET QUESTIONBOARD_READCOUNT = QUESTIONBOARD_READCOUNT +
+		1
 		WHERE QUESTIONBOARD_NO = #{questionboard_no}
 	</update>
+	
+	<select id = "countBoard" resultType = "int">
+		SELECT COUNT(*) FROM QUESTIONBOARD
+	</select>
+	
+	<select id = "selectPagingList" resultType = "QuestionDto" parameterType = "PagingDto">
+		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM QUESTIONBOARD 
+							ORDER BY QUESTIONBOARD_NO DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
 
 </mapper>

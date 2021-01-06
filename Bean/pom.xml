@@ -13,6 +13,7 @@
 		<org.springframework-version>4.3.28.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<spring.security.version>4.2.19.RELEASE</spring.security.version>
 	</properties>
 	<dependencies>
 		<!-- Spring -->
@@ -94,14 +95,14 @@
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>4.0.1</version>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>javax.servlet.jsp-api</artifactId>
-			<version>2.3.3</version>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -176,7 +177,6 @@
 			<version>1.9.13</version>
 		</dependency>
 
-
 		<!-- ck에디터 -->
 		<!-- com.cksource/ckfinder3 -->
 		<dependency>
@@ -184,7 +184,6 @@
 			<artifactId>ckfinder3</artifactId>
 			<version>3.5.1</version>
 		</dependency>
-
 
 		<!-- 로그인 email인증 -->
 		<!-- javax.mail/mail -->
@@ -330,16 +329,62 @@
 			<version>5.8.2</version>
 		</dependency>
 
+		<!-- spring security -->
+		<!-- org.springframework.security/spring-security-core :: 인증과 인가 기능을 구현하기 
+			위한 핵심적인 컴포넌트로 구성 -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<!-- org.springframework.security/spring-security-web :: 웹 애플리케이션 보안 기능을 
+			구현하기 위한 컴포넌트로 구성 -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<!-- org.springframework.security/spring-security-config :: 각 모듈에서 제공하는 
+			컴포넌트의 설정을 지원하기 위한 컴포넌트로 구성 -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<!-- org.springframework.security/spring-security-taglibs :: 인증 정보나 인가 
+			정보를 사용하기 위한 JSP태그 라이브러리로 구성 -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+		<!-- Java Mail API -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.3</version>
+		</dependency>
+
+		<!-- 인코딩/디코딩 pw -->
+		<!-- org.springframework.security/spring-security-web -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-websocket</artifactId>
-			<version>${org.springframework-version}</version>
+			<version>4.3.28.RELEASE</version>
 		</dependency>
 
 
 
 	</dependencies>
+
 	<repositories>
 		<repository>
 			<id>cksource-mvn-repo</id>
@@ -351,7 +396,6 @@
 			<url>https://jitpack.io</url>
 		</repository>
 	</repositories>
-
 
 	<build>
 		<plugins>
@@ -392,3 +436,4 @@
 		</plugins>
 	</build>
 </project>
+

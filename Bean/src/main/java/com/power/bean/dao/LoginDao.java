@@ -6,7 +6,7 @@ public interface LoginDao {
 	
 	String NAMESPACE = "login.";
 
-	public LoginDto login(LoginDto dto);
+	public LoginDto login(String member_id);
 	public int resister(LoginDto dto);
 	public boolean idChk(String id);
 	public boolean emailChk(String email);

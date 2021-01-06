@@ -201,6 +201,19 @@ public class QuestionDto {
 		this.qestionboard_delflag = qestionboard_delflag;
 	}
 
+	@Override
+	public String toString() {
+		return "QuestionDto [questionboard_no=" + questionboard_no + ", member_no=" + member_no
+				+ ", questionboard_name=" + questionboard_name + ", questionboard_title=" + questionboard_title
+				+ ", questionboard_content=" + questionboard_content + ", questionboard_date=" + questionboard_date
+				+ ", questionboard_readcount=" + questionboard_readcount + ", questionboard_step=" + questionboard_step
+				+ ", questionboard_groupno=" + questionboard_groupno + ", questionboard_reply=" + questionboard_reply
+				+ ", questionboard_replydate=" + questionboard_replydate + ", qestionboard_delflag="
+				+ qestionboard_delflag + ", questionboard_imgname=" + questionboard_imgname + ", questionboard_imgpath="
+				+ questionboard_imgpath + ", questionboard_ocr=" + questionboard_ocr + ", question_mpfile="
+				+ question_mpfile + "]";
+	}
+
 	
 	
 

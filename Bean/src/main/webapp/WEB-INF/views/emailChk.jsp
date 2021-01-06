@@ -9,23 +9,24 @@
 <title>Insert title here</title>
 
 <script type="text/javascript"
-	src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <script type="text/javascript">
 
 	$(function(){
 		
-		var member_phone = opener.document.getElementsByName("member_email")[0].value;
-        document.getElementsByName("member_email")[0].value = member_email;
+		var member_email= opener.document.getElementById("member_email").value;
+        document.getElementById("member_email").value = member_email;
 		
 	});
 	
 	 function emailConfirm(bool){
 	        if(bool == "true") {
-	            opener.document.getElementsByName("member_email")[0].title = 'y'
-	            opener.document.getElementsByName("member_phone")[0].focus();
+	            opener.document.getElementById("member_email").title = 'y'
+	            opener.document.getElementById("member_email").focus();
 	        } else {
-	            opener.document.getElementsByName("member_email")[0].focus();
+	            opener.document.getElementById("member_email").focus();
+	            
 	        }
 	        self.close();
 	    }
@@ -38,7 +39,7 @@
 
 	<table border="1">
 		<tr>
-			<td><input type="text" name="member_email" readonly="readonly" /></td>
+			<td><input type="text" id = "member_email" readonly="readonly" /></td>
 		</tr>
 		<tr>
 			<td>

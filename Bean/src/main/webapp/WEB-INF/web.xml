@@ -3,12 +3,14 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 	id="WebApp_ID" version="4.0">
-
 	<!-- The definition of the Root Spring Container shared by all Servlets 
 		and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/appServlet/applicationContext.xml</param-value>
+		<param-value>
+			/WEB-INF/spring/appServlet/applicationContext.xml
+			/WEB-INF/spring/appServlet/security-context.xml
+		</param-value>
 	</context-param>
 
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
@@ -23,7 +25,8 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
-			/WEB-INF/spring/appServlet/servlet-context.xml
+				/WEB-INF/spring/appServlet/servlet-context.xml
+				/WEB-INF/spring/appServlet/aop-context.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
@@ -33,7 +36,7 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>appServlet2</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -51,7 +54,6 @@
 		<servlet-name>appServlet2</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
 
 	<!-- encodingFilter -->
 	<filter>
@@ -69,6 +71,21 @@
 
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- log filter <filter> <filter-name>LogFilter</filter-name> <filter-class>com.power.bean.util.LogFilter</filter-class> 
+		</filter> <filter-mapping> <filter-name>LogFilter</filter-name> <url-pattern>/*</url-pattern> 
+		</filter-mapping> -->
+
+	<!-- Spring Security Filter -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 

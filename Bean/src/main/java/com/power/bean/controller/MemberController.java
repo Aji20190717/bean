@@ -2,6 +2,7 @@ package com.power.bean.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,6 +45,9 @@ public class MemberController {
 
 	@Autowired
 	private LoginBiz loginbiz;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	// 마이페이지 첫 화면 : 로그인 후 이름 누르면 나오는 곳 (수강생)
 	@RequestMapping("/myinfo.do")
@@ -59,7 +64,7 @@ public class MemberController {
 	    ServletOutputStream bout = response.getOutputStream();
 	    
 	    LoginDto dto = (LoginDto) session.getAttribute("login");
-		System.out.println(dto.getMember_no());
+		// System.out.println(dto.getMember_no());
 
 		// System.out.println(session.getAttribute("login"));
 
@@ -67,7 +72,7 @@ public class MemberController {
 		
 		int index = dto.getMember_imgname().lastIndexOf(".");
 		String file = dto.getMember_imgname().substring(index, dto.getMember_imgname().length());
-		System.out.println(file);
+		// System.out.println(file);
 		
 		if(file.equals(".jpg")) {
 			response.setContentType("image/jpg");
@@ -76,12 +81,20 @@ public class MemberController {
 		}
 
 	    //파일의 경로
-	    FileInputStream f = new FileInputStream(imgpath);
+	    FileInputStream f;
 	    int length;
 	    byte[] buffer = new byte[10];
-	    while((length=f.read(buffer)) != -1){
-	    	bout.write(buffer,0,length);
-	    }
+		try {
+			f = new FileInputStream(imgpath);
+		    while((length=f.read(buffer)) != -1){
+		    	bout.write(buffer,0,length);
+		    }
+		} catch (FileNotFoundException e) {
+			// e.printStackTrace();
+			model.addAttribute("img", null);
+			// System.out.println("error catch : 파일없음");
+		}
+	    
 	    return null;
 	}
 
@@ -95,9 +108,12 @@ public class MemberController {
 
 	// 개인정보 조회 : 수강생
 	@RequestMapping("/myinfodetail.do")
-	public String mypage_su_detail(Model model, int member_no) {
+	public String mypage_su_detail(Model model, HttpSession session) {
 		
-		List<ClassDto> classList = classbiz.selectPayingClassList(member_no);
+		LoginDto loginDto = (LoginDto) session.getAttribute("login");
+				
+		
+		List<ClassDto> classList = classbiz.selectPayingClassList(loginDto.getMember_no());
 		model.addAttribute("classList", classList);
 		
 		return "mypage_su_detail";
@@ -106,9 +122,11 @@ public class MemberController {
 
 	// 개인정보 조회 : 강사
 	@RequestMapping("/mypagedetail.do")
-	public String mypage_te_detail(Model model, int member_no) {
+	public String mypage_te_detail(Model model, HttpSession session) {
 	
-		List<ClassDto> ClassList = classbiz.selectTrainerClass(member_no);
+		LoginDto loginDto = (LoginDto) session.getAttribute("login");
+		
+		List<ClassDto> ClassList = classbiz.selectTrainerClass(loginDto.getMember_no());
 		model.addAttribute("classList", ClassList);
 
 		return "mypage_te_detail";
@@ -123,7 +141,7 @@ public class MemberController {
 
 	}
 
-	// 개인정보 수정폼 : 수강생
+	// 개인정보 수정폼 : 강사
 	@RequestMapping("/mypageupdateform.do")
 	public String mypage_te_update() {
 
@@ -137,7 +155,7 @@ public class MemberController {
 			@RequestParam("member_mpfile") MultipartFile file, BindingResult result, HttpSession session) {
 
 		// dto.setMember_mpfile(file);
-		System.out.println("id : " + dto.getMember_id());
+		// System.out.println("id : " + dto.getMember_id());
 
 		// FileValidator fileValidator = new FileValidator();
 		boolean filechk = true;
@@ -203,7 +221,7 @@ public class MemberController {
 				}
 
 				File newFile = new File(path + "/" + name);
-				System.out.println(newFile);
+				// System.out.println(newFile);
 				// 해당 경로에 파일이 없을 경우 파일을 새로 생성
 				if (!newFile.exists()) {
 					newFile.createNewFile();
@@ -241,6 +259,14 @@ public class MemberController {
 			}
 
 		}
+		
+		//pw 인코딩하는 부분
+		// System.out.println("암호화 전 : " + dto.getMember_pw());
+			
+		dto.setMember_pw(passwordEncoder.encode(dto.getMember_pw()));
+		dto.setMember_pwchk(passwordEncoder.encode(dto.getMember_pwchk()));
+				
+		// System.out.println("암호화 후 : " + dto.getMember_pw());
 
 		int res = biz.myinfoupdate(dto);
 		System.out.println(res);
@@ -252,8 +278,8 @@ public class MemberController {
 			LoginDto login = new LoginDto();
 			LoginDto info = new LoginDto();
 			info.setMember_id(dto.getMember_id());
-			info.setMember_pw(dto.getMember_pw());
-			login = loginbiz.login(info);
+			// info.setMember_pw(dto.getMember_pw());
+			login = loginbiz.login(info.getMember_id());
 
 			session.setAttribute("login", login);
 			return "redirect:myinfodetail.do";
@@ -266,9 +292,12 @@ public class MemberController {
 
 	// 개인정보 수정 : 탈퇴
 	@RequestMapping("/myinfodelete.do")
-	public String mypagedelete(HttpSession session, String member_no) {
+	public String mypagedelete(HttpSession session) {
+		
+		LoginDto loginDto = (LoginDto) session.getAttribute("login");
+		int member_no = loginDto.getMember_no();
 
-		int res = biz.withdrawal(Integer.parseInt(member_no));
+		int res = biz.withdrawal(member_no);
 
 		if (res > 0) {
 			session.invalidate();

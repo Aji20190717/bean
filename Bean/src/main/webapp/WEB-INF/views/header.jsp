@@ -4,13 +4,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.power.bean.dto.LoginDto"%>
 
-
 <%
-response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+	response.setHeader("Pragma", "no-cache"); //HTTP 1.0
 response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
 response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 %>
+
 
 <!DOCTYPE html>
 <html>
@@ -18,6 +18,11 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<!-- security 자리 -->
+
+<meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header"
+	content="${_csrf.headerName}" />
 
 <style type="text/css">
 .carousel-item {
@@ -49,30 +54,32 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 }
 </style>
 <script src="webjars/jquery/3.5.1/dist/jquery.min.js"></script>
-<script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="resources/css/MainPageCss.css" />
+<script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="script" href="resources/js/MainPageJQ.js" />
 <link rel="script" href="resources/js/MainPageJs.js" />
+
 </head>
 <body>
 
 	<%
-		if(session.getAttribute("login") != null){
-		LoginDto login = (LoginDto) session.getAttribute("login");
+		LoginDto login = null;
+	if (session.getAttribute("login") != null) {
+		login = (LoginDto) session.getAttribute("login");
 		System.out.println(login);
-		}else{
-			LoginDto login = null;
-		}
+	} else {
+		login = null;
+	}
 	%>
-	
-	<!-- TODO : review, english lounge 연결 -->
+
+
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
 		<div class="container">
 			<a class="navbar-brand" href="main.do">Bean</a>
 			<div class="loginbar"
 				style="margin-left: auto; margin-right: 20px; display: inline-block;">
-				<a class="login navbar-write" href="intro.do">About Bean</a>
+				<a class="login navbar-write" href="">About Bean</a>
 				<c:choose>
 					<c:when test="${empty login }">
 						<a class="login navbar-write" href="registtype.do">Sign Up</a>
@@ -82,11 +89,11 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 						<c:choose>
 							<c:when
 								test="${login.member_type eq 'S' || login.member_type eq 'SN' || login.member_type eq 'SG' }">
-								<a class="navbar-write" href="myinfo.do?member_no">${login.member_name }님
+								<a class="navbar-write" href="myinfo.do">${login.member_name }님
 									마이페이지</a>
 							</c:when>
 							<c:when test="${login.member_type eq 'T' }">
-								<span>강사 <a class="navbar-write" href="mypage.do">${login.member_name }님
+								<span> <a class="navbar-write" href="mypage.do">${login.member_name }강사님
 										마이페이지</a></span>
 							</c:when>
 						</c:choose>
@@ -95,7 +102,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 				</c:choose>
 
 
-				<a class="signup navbar-write" href="cslist.do">CS Center</a>
+				<a class="signup navbar-write" href="">CS Center</a>
 			</div>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarResponsive" aria-controls="navbarResponsive"
@@ -105,8 +112,7 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link"
-						href="classList.do"> Select Class <span class="sr-only">(current)</span>
-					</a></li>
+						href="classList.do"> Select Class </a></li>
 					<li class="nav-item"><a class="nav-link" href="#">English
 							Lounge</a></li>
 					<li class="nav-item"><a class="nav-link"
@@ -117,6 +123,15 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 			</div>
 		</div>
 	</nav>
+
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+
+		});
+	</script>
 
 </body>
 </html>
