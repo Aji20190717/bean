@@ -23,8 +23,6 @@
 		ORDER BY REVIEWBOARD_NO DESC) A
 		)
 		WHERE RN BETWEEN #{start} AND #{end}
-		
-
 	</select>
 
 	<select id="countSearchCount" parameterType="hashmap" resultType="int">

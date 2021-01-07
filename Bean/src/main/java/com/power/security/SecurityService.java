@@ -23,38 +23,29 @@ public class SecurityService implements UserDetailsService {
 	private SecurityDao dao;
 	
 	public SecurityService() {
-		log.info("만들었다");
 	}
+	
 
 	@Override
 	public UserDetails loadUserByUsername(String member_id) throws UsernameNotFoundException {
 		
-		log.info("## loadUserByUsername ##");
-		
 		LoginDto dto = new LoginDto();
 		dto = dao.login(member_id);
-		
-		// System.out.println("security service dto : " + dto.getMember_id());
 		
 		SecurityUser user = new SecurityUser();
 		
 		if(dto == null) {
 			
-			log.debug("## 계정 정보가 존재하지 않습니다. ##");
 			throw new UsernameNotFoundException(member_id);
 	
 		} else if (dto.getMember_id() == null) {
 			
-			log.debug("## dto.getMember_id is null ##");
 			throw new UsernameNotFoundException(member_id);
 		
 		} else {
 			
-			log.info("## 계정 정보 담는 중 ##");
 			user.setUsername(dto.getMember_id());
 			user.setPassword(dto.getMember_pw());
-			
-			System.out.println("security service:" + user.getUsername());
 			
 			if(!dto.getMember_type().equals("A")) {
 				List<String> list = new ArrayList<String>();

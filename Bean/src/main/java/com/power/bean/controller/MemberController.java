@@ -68,15 +68,10 @@ public class MemberController {
 	    ServletOutputStream bout = response.getOutputStream();
 	    
 	    LoginDto dto = (LoginDto) session.getAttribute("login");
-		// System.out.println(dto.getMember_no());
-
-		// System.out.println(session.getAttribute("login"));
-
 		String imgpath = dto.getMember_imgpath() + "\\" + dto.getMember_imgname();
 		
 		int index = dto.getMember_imgname().lastIndexOf(".");
 		String file = dto.getMember_imgname().substring(index, dto.getMember_imgname().length());
-		// System.out.println(file);
 		
 		if(file.equals(".jpg")) {
 			response.setContentType("image/jpg");
@@ -99,10 +94,8 @@ public class MemberController {
 		    check = true;
 		    map.put("check", check);
 		} catch (FileNotFoundException e) {
-			// e.printStackTrace();
 			check = false;
 			map.put("check", check);
-			System.out.println("error catch : 파일없음");
 		}
 		
 	    return map;

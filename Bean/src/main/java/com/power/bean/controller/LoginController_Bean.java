@@ -85,22 +85,11 @@ public class LoginController_Bean {
 	public String register(MultipartHttpServletRequest request, Model model, LoginDto dto,
 			@RequestParam("member_mpfile") MultipartFile file, BindingResult result) {
 
-		// dto.setMember_mpfile(file);
-		// System.out.println("file : " + file);
-
-		// FileValidator fileValidator = new FileValidator();
+	
 		boolean filechk = true;
-
-		// fileValidator.validate(file, result);
-		/*
-		 * if(dto.getMember_mpfile().getSize() == 0) { filechk = false; }
-		 */
-
 		if (file.getSize() == 0) {
 			filechk = false;
 		}
-
-		// System.out.println("filechk : " + filechk);
 
 		Date today = new Date();
 		SimpleDateFormat date1 = new SimpleDateFormat("yyyy-MM-dd");
@@ -108,28 +97,17 @@ public class LoginController_Bean {
 
 		String date2 = date1.format(today).replace("-", "");
 		String time2 = time1.format(today).replace(":", "");
-		// System.out.println("time2 : " + time2);
 
-		// file이 있으면
 		if (filechk) {
 
-			// int i = -1;
 			String name = "";
-
 			String oldname = file.getOriginalFilename();
-
 			int index = oldname.lastIndexOf(".");
-			// System.out.println(index);
-			// System.out.println(oldname.substring(0, index));
-
+			
 			if (index != -1) {// 파일 확장자 위치
-				name = date2 + oldname.substring(0, index) + time2 + oldname.substring(index, oldname.length());// 현재
-																												// 시간과
-																												// 확장자
+				name = date2 + oldname.substring(0, index) + time2 + 
+						oldname.substring(index, oldname.length());// 현재
 			}
-			// String name = date.format(today) + file.getOriginalFilename() +
-			// time.format(today);
-
 			dto.setMember_imgname(name);
 
 			InputStream inputStream = null;
@@ -138,49 +116,29 @@ public class LoginController_Bean {
 			try {
 
 				inputStream = file.getInputStream(); // 파일내용을 읽기 위해 inputstream을 받아옴
-				String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/resources/storage");
-				// SpringMVC. 요청에 딸려오는 값들을 처리할 때 유용한 ServletRequestUtils 와 더불어 유용한 클래스.
-				// WebUtils 클래스를 사용하면 Session에 담겨있는 객체들을 보다 짧은 코드로 넣고 빼고 할 수 있으며
-				// 세션 객체나 쿠키 객체를 받아올 수 있다.
-				// ????????????????????????
-				// WebUtils 의 getRealPath 경로가 없으면 FileNotFoundException 발생.
-				// /가 없으면 자동으로 붙여준다.
-
-				// System.out.println("업로드 될 실제 이름(real name) : " + name);
-				// System.out.println("업로드 될 실제 경로(real path) : " + path);
-				// tomcat server의 path가 real path.
-				// tomcat server의 path는 현재 tomcat의 실행 위치를 알려주는 것
-
+				String path = WebUtils.getRealPath(request.getSession().getServletContext(), 
+						"/resources/storage");
+				
 				File storage = new File(path);
 				if (!storage.exists()) {
-					// mkdirs : 경로가 없으면 만들어줌
-					storage.mkdirs(); // mkdir : 있는 경로만 찾아줌. 없으면 안 만들어준다.
+					storage.mkdirs(); 
 				}
 
 				File newFile = new File(path + "/" + name);
-				// System.out.println(newFile);
-				// 해당 경로에 파일이 없을 경우 파일을 새로 생성
+			
 				if (!newFile.exists()) {
 					newFile.createNewFile();
 				}
 
 				dto.setMember_imgpath(path);
-				// System.out.println(dto.getMember_imgname());
-				// System.out.println(dto.getMember_imgpath());
 
-				// newFile에 쓰기 위한 outputstream
 				outputStream = new FileOutputStream(newFile);
 
 				int read = 0;
 				// 읽은 데이터 크기
 				byte[] b = new byte[(int) file.getSize()];
-				// int로 변환한 file의 크기만큼씩 끊어서 읽기
-
-				// inputStream.read(bytes) : bytes의 배열크기 만큼씩 읽어서 bytes배열에 저장 (읽은 데이터는
-				// inputSream에서 사라짐)
-				// read : inputStream이 읽은 데이터의 크기
+		
 				while ((read = inputStream.read(b)) != -1) {
-					// bytes 배열에 저장된 데이터를 0에서 read크기 까지 outputStream에 쓰기
 					outputStream.write(b, 0, read);
 				}
 
@@ -194,18 +152,12 @@ public class LoginController_Bean {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-
 			}
 
 		}
 
-		// pw 인코딩하는 부분
-		System.out.println("암호화 전 : " + dto.getMember_pw());
-
 		dto.setMember_pw(passwordEncoder.encode(dto.getMember_pw()));
 		dto.setMember_pwchk(passwordEncoder.encode(dto.getMember_pwchk()));
-
-		System.out.println("암호화 후 : " + dto.getMember_pw());
 
 		int res = biz.resister(dto);
 
@@ -218,17 +170,11 @@ public class LoginController_Bean {
 
 	}
 
-	// 로그인
 	@RequestMapping("/login.do")
 	public String login(HttpSession session, Model model) {
 
-		// System.out.println("login.do");
-		// System.out.println("session");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		// System.out.println(auth.getName());
-
 		String member_id = auth.getName();
-
 		LoginDto res = biz.login(member_id);
 
 		if (res != null) {
@@ -242,9 +188,7 @@ public class LoginController_Bean {
 			}
 		}
 
-		// System.out.println("res is null");
 		return "login";
-
 	}
 
 	// 로그아웃

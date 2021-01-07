@@ -16,25 +16,20 @@ public class SecurityUser implements UserDetails {
 	private String member_pw; // PW
 	private List<GrantedAuthority> authorities;
 
-	// setter
 	public void setUsername(String member_id) {
 		this.member_id = member_id;
 	}
 
-	// setter
 	public void setPassword(String member_pw) {
 		this.member_pw = member_pw;
 	}
 
-	// setter
 	public void setAuthorities(List<String> authList) {
 
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-
 		for (int i = 0; i < authList.size(); i++) {
 			authorities.add(new SimpleGrantedAuthority(authList.get(i)));
 		}
-
 		this.authorities = authorities;
 	}
 
@@ -46,37 +41,31 @@ public class SecurityUser implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
 		return member_pw;
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
 		return member_id;
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
-
+	
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

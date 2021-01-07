@@ -170,11 +170,11 @@ supports (-ms-ime-align: auto) { .form-label-group >label { display:none;
 						<hr class="my-4">
 						<button class="btn btn-lg btn-google btn-block text-uppercase"
 							onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=3350426d432820aada3df120c58988d4&redirect_uri=http://localhost:8787/bean/kakaologin.do&response_type=code'">
-							<i class="fab fa-google mr-2"></i> Sign in with KaKao
+							 Sign in with KaKao
 						</button>
 						<button class="btn btn-lg btn-facebook btn-block text-uppercase"
 							onclick="document.getElementById('naver_id_login_anchor').click();">
-							<i class="fab fa-facebook-f mr-2"></i> Sign in with Naver
+						 Sign in with Naver
 						</button>
 						<div id="naver_id_login" style="display: none;"></div>
 					</div>
@@ -190,7 +190,6 @@ supports (-ms-ime-align: auto) { .form-label-group >label { display:none;
 	naver_id_login.setButton("green", 3, 45);
 	naver_id_login.setDomain("http://localhost:8787/bean");
 	naver_id_login.setState(state);
-	//naver_id_login.setPopup();
 	naver_id_login.init_naver_id_login();
 </script>
 

@@ -22,8 +22,7 @@ public class SecurityDao {
 
 	public LoginDto login(String member_id) {
 		
-		log.info("dao.login");
-
+		
 		LoginDto res = null;
 
 		try {
@@ -32,7 +31,6 @@ public class SecurityDao {
 			e.printStackTrace();
 		}
 
-		log.info(res.getMember_id());
 		return res;
 
 	}

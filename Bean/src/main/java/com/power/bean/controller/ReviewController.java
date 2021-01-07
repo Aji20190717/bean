@@ -41,8 +41,6 @@ public class ReviewController {
 			@RequestParam(value = "cntPerPage", required = false) String cntPerPage, String searchType,
 			String keyword) {
 
-		
-		//search 중 줄바꿈 처리 시 필요 값
 		Map<String, Object> map = new HashMap<String, Object>();
 		Gson gson = new GsonBuilder().create();
 		String searchjson;

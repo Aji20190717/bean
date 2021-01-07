@@ -136,7 +136,7 @@ label.round::before {
 
 							<div class="value">
 								<div class="input-group">
-									<textarea class="textarea--style-6" name="message"
+									<textarea class="textarea--style-6" name="questionboard_reply"
 										id="replyTextArea">${questionDto.questionboard_reply}</textarea>
 								</div>
 							</div>

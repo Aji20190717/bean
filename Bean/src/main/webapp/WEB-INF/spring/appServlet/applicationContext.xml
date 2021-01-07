@@ -51,7 +51,6 @@
 	</bean>
 
 	<!-- Spring Quartz -->
-	<!-- 실제 작업을 하는 class -->
 	<bean id="insertClassDao"
 		class="com.power.bean.dao.QuartzClassDao">
 		<property name="sqlSession" ref="sqlSessionTemplate"></property>
@@ -63,12 +62,10 @@
 	</bean>
 
 	<!-- Spring Quartz -->
-	<!-- 실제 스케쥴링될 테스크(세터주입 될)과 JOB을 정의한 class 등록 -->
 	<bean name="runMeJob"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean"
 		p:durability="true"
 		>
-		<!-- Job 정의 -->
 		<property name="jobClass"
 			value="com.power.bean.util.RunMeJob" />
 		<property name="jobDataAsMap">
@@ -83,7 +80,7 @@
 	<bean id = "cronTrigger" class = "org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name = "jobDetail" ref = "runMeJob"/>
 		<!-- 매일 오전 0시 실행 -->
-		<property name = "cronExpression" value = "0 0 23 * * ?"/>
+		<property name = "cronExpression" value = "0 0 0 * * ?"/>
 		
 	</bean>
 

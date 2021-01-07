@@ -74,10 +74,6 @@
 										id="file">
 									<label class="label--file" for="file">Choose
 										file</label>
-									<!-- TODO : 파일명이 뜨도록 변경하기
-									 <span
-										class="input-file__info">No file chosen</span>
-										-->
 								</div>
 								<div class="label--desc">Upload your image File.</div>
 							</div>

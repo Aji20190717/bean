@@ -148,47 +148,6 @@ public class IamportClient {
 		return null;
 	}
 
-	/*
-	public IamportResponse<Payment> paymentByImpUid(String impUid) throws Exception {
-
-		String token = this.getToken();
-
-		if (token != null) {
-
-			String path = "/payments/" + impUid;
-			String response = this.getRequest(path, token);
-			
-			
-			System.out.println(response);
-			System.out.println(response.getClass());
-			Type listType = new TypeToken<IamportResponse<Payment>>() {
-			}.getType();
-			IamportResponse<Payment> payment = gson.fromJson(response, listType);
-
-			return payment;
-		}
-		return null;
-	}
-	
-	*/
-		public String paymentByImpUid(String impUid) throws Exception {
-
-		String token = this.getToken();
-
-		if (token != null) {
-
-			String path = "/payments/" + impUid;
-			String response = this.getRequest(path, token);
-			
-			return response;
-			
-		}
-		return null;
-	}
-	
-	
-	
-
 	public String paymentByMerchantUid(String merchantUid) throws Exception {
 
 		String token = this.getToken();
@@ -207,6 +166,23 @@ public class IamportClient {
 
 		return null;
 	}
+
+	
+	public String paymentByImpUid(String impUid) throws Exception {
+
+	String token = this.getToken();
+
+	if (token != null) {
+
+		String path = "/payments/" + impUid;
+		String response = this.getRequest(path, token);
+		
+		return response;
+		
+	}
+	return null;
+}
+
 
 	public IamportResponse<Payment> cancelPayment(CancelData cancelData) throws Exception {
 

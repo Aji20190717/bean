@@ -20,12 +20,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.power.bean.dto.LoginDto;
 
 public class KakaoLogin {
+	
+	static String KAKAO_REST_API_KEY = "3350426d432820aada3df120c58988d4";
+	
 	public static JsonNode getAccessToken(String autorize_code) {
 		final String RequestUrl = "https://kauth.kakao.com/oauth/token";
 
 		final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
 		postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
-		postParams.add(new BasicNameValuePair("client_id", "3350426d432820aada3df120c58988d4")); // REST API KEY
+		postParams.add(new BasicNameValuePair("client_id", KAKAO_REST_API_KEY)); // REST API KEY
 		postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:8787/bean/kakaologin.do")); // 리다이렉트 URI
 		postParams.add(new BasicNameValuePair("code", autorize_code)); // 로그인 과정중 얻은 code 값
 
@@ -38,10 +41,6 @@ public class KakaoLogin {
 			final HttpResponse response = client.execute(post);
 			final int responseCode = response.getStatusLine().getStatusCode();
 
-			System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
-			System.out.println("Post parameters : " + postParams);
-			System.out.println("Response Code : " + responseCode);
-
 			// JSON 형태 반환값 처리
 			ObjectMapper mapper = new ObjectMapper();
 			returnNode = mapper.readTree(response.getEntity().getContent());
@@ -52,9 +51,7 @@ public class KakaoLogin {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			// clear resources
-		}
+		} finally {}
 
 		return returnNode;
 

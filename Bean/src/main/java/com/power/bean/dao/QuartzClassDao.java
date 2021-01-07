@@ -79,7 +79,6 @@ public class QuartzClassDao {
 
 	}
 
-	// TODO : 수업이 끝난 학생들의 번호, 수업 번호를 받아 jsonString으로 처리
 	public List<String> classFinStudentClassInform(List<String> studentClassInform) {
 
 		List<String> classFinStudentClassInformList = new ArrayList<String>();

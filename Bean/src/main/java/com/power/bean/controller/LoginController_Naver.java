@@ -53,10 +53,6 @@ public class LoginController_Naver {
 	@ResponseBody
 	public Map<String, Boolean> naverlogin(@RequestBody LoginDto dto , HttpSession session) {
 
-		System.out.println("member_sns1 : " + dto.getMember_sns());
-		System.out.println("member_name : " + dto.getMember_name());
-		System.out.println("member_email : " + dto.getMember_email());
-		
 		String member_sns = "naver" + dto.getMember_sns();
 		
 		LoginDto res = biz.snsChk(member_sns);
@@ -73,7 +69,6 @@ public class LoginController_Naver {
 			add.setMember_sns(member_sns);
 			add.setMember_email(dto.getMember_email());
 			add.setMember_name(dto.getMember_name());
-			
 			session.setAttribute("info", add);
 			
 		}

@@ -442,12 +442,7 @@ img.rounded {
 					pay_method : 'kakaoPay',
 					merchant_uid : 'merchant_' + new Date().getTime(),
 					name : '주문명:결제테스트',
-					// TODO : 가격에 대한 부분 협의 필요
 					amount : 34000,
-					//buyer_email : 'iamport@siot.do',
-					//buyer_tel : '010-1234-5678',
-					//buyer_addr : '서울특별시 강남구 삼성동',
-					//buyer_postcode : '123-456'
 					buyer_name : obj["userName"]
 
 				}, function(rsp) {
@@ -457,14 +452,11 @@ img.rounded {
 						remainData.usernum = obj["usernum"]; //buyer 회원 번호
 
 						jsonData = JSON.stringify(remainData);
-
-						//Dto 에 포함되는 값은 object에 포함하지 않고 보낼 것
+						
 						$.ajax({
 							url : "insertPaying.do",
 							method : "POST",
 							data : {
-
-								// TODO : classDTO의 payment_price로 추가할 것
 
 								"jsonData" : jsonData,
 								"member_no" : obj["usernum"],
@@ -483,28 +475,20 @@ img.rounded {
 									alert(msg);
 
 								} else {
-
 									var msg = '결제에 실패하였습니다.';
 									msg += '결제가 취소되었습니다'
-
 								}
 							}
 						})
-
 					} else {
 
 						var msg = '결제에 실패하였습니다.';
 						msg += '에러내용 : ' + rsp.error_msg;
-
 					}
 					alert(msg);
 				});
 			} else {
-
 				alert("로그인 해주세요");
-
-				// TODO :redirect 처리
-
 			}
 		}
 	</script>

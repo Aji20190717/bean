@@ -38,65 +38,43 @@ public class LoginController_Kakao {
 
 	@Autowired
 	private LoginBiz biz;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping(value = "/kakaologin.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String kakaoLogin(@RequestParam("code") String code, HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws Exception {
-
+		
+		LoginDto add =null;
+		
 		JsonNode token = KakaoLogin.getAccessToken(code);
 
 		JsonNode profile = KakaoLogin.getKakaoUserInfo(token.path("access_token").toString());
-		System.out.println("111111111111111  profile : " + profile);
 		LoginDto dto = KakaoLogin.changeData(profile);
 
 		dto.setMember_name(dto.getMember_name());
 		dto.setMember_email(dto.getMember_email());
 		dto.setMember_sns(dto.getMember_sns());
-		
 
-		System.out.println("dto.getMember_name() : " + dto.getMember_name());
-		System.out.println("dto.getMember_email() : " + dto.getMember_email());
-		System.out.println("dto.getMember_sns() : " + dto.getMember_sns());
-
-		// 셀렉트하기
-		// loginDto=res로 만들어서
 		LoginDto res = new LoginDto();
-		// 결과값이 나올건데
-		res = biz.snsChk("kakao"+dto.getMember_sns());
-		
-		System.out.println("res   ::   "+res);
-		System.out.println(res.getMember_no());
+		res = biz.snsChk("kakao" + dto.getMember_sns());
 
 		if (res != null) {
-			// res가 널이 아니라는건 값이 있다는거고 그럼 로그인이 됐다는 뜻이죠!
-			// 세션에 담아서 인덱스 페이지로 갑시다
 			session.setAttribute("login", res);
 			return "mainpage";
 
-		} else {
-			// 아니면 회원가입 페이지로 이동해야되요 그거슨 registKakao이죠
-			LoginDto add = new LoginDto();
-			add.setMember_sns(dto.getMember_sns());
-			add.setMember_email(dto.getMember_email());
-			add.setMember_name(dto.getMember_name());
-			session.setAttribute("info", add);
-
-			return "registKakao";
 		}
+		
+		add = new LoginDto();
+	
+		add.setMember_sns(dto.getMember_sns());
+		add.setMember_email(dto.getMember_email());
+		add.setMember_name(dto.getMember_name());
+		session.setAttribute("info", add);
 
-		/*
-		 * 
-		 * dto.setUser_snsId("k" + dto.getUser_snsId());
-		 * 
-		 * System.out.println(session); session.setAttribute("login", dto);
-		 * System.out.println(dto.toString());
-		 * 
-		 * dto = service.kakaoLogin(dto);
-		 */
-
+		return "registKakao";
+		
 	}
 
 	// 카카오 정보 + 개인정보 가입폼 작성 완료하면 실제 insert
@@ -104,7 +82,6 @@ public class LoginController_Kakao {
 	public String kakaoResister(MultipartHttpServletRequest request, Model model, LoginDto dto,
 			@RequestParam("member_mpfile") MultipartFile file, BindingResult result, HttpSession session) {
 
-		// dto.setMember
 		dto.setMember_type("SG");
 		boolean filechk = true;
 
@@ -122,22 +99,18 @@ public class LoginController_Kakao {
 		if (filechk) {
 
 			String name = "";
-			// 예전이름...?은 원래이름?
 			String oldname = file.getOriginalFilename();
 
 			int index = oldname.lastIndexOf(".");
 
-			if (index != -1) { // 파일 확장자 위치.
-				name = date2 + oldname.substring(0, index) + time2 + oldname.substring(index, oldname.length()); // 현재
-																													// 시간과
-																													// 확장자
+			if (index != -1) {
+				name = date2 + oldname.substring(0, index) + time2 + oldname.substring(index, oldname.length()); 
 			}
 			dto.setMember_imgname(name);
 
 			InputStream inputStream = null;
 			OutputStream outputStream = null;
 
-			// sns값을 처리해주세요
 			try {
 
 				inputStream = file.getInputStream();
@@ -176,17 +149,11 @@ public class LoginController_Kakao {
 			}
 
 		}
-		
-		dto.setMember_sns("kakao" + dto.getMember_sns());
 
-		//pw 인코딩하는 부분
-		// System.out.println("암호화 전 : " + dto.getMember_pw());
-					
+		dto.setMember_sns("kakao" + dto.getMember_sns());
 		dto.setMember_pw(passwordEncoder.encode(dto.getMember_pw()));
 		dto.setMember_pwchk(passwordEncoder.encode(dto.getMember_pwchk()));
-						
-		// System.out.println("암호화 후 : " + dto.getMember_pw());
-		
+
 		int res = biz.resister(dto);
 
 		if (res > 0) {

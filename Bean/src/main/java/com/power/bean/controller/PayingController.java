@@ -40,18 +40,14 @@ public class PayingController {
 	@RequestMapping("/insertPaying.do")
 	@ResponseBody
 	public Map<String, Boolean> insertPaying(String jsonData, PayingDto payingDto){
-		System.out.println(payingDto);
 		
 		Boolean check = true;
-
 		PayingDto insertDto = payingDto;
-		
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
 		
 		// Apache HttpClient기반의 java용 아임포트 REST API클라이언트
 		IamportClient iamportClient = new IamportClient();
 		String apiResponse;
-			
 		ObjectMapper mapper = new ObjectMapper();
 		JsonParser parser = new JsonParser();
 		
@@ -62,14 +58,12 @@ public class PayingController {
 		String realAmount;
 			
 			try {
-				
 				//실제 결제 된 값이 결제 한 값과 같은 지 확인
 				apiResponse = iamportClient.paymentByImpUid(payingDto.getPayment_impuid());
 				Object obj = parser.parse(apiResponse);
 				JsonObject jsonObj = (JsonObject) obj;
 				JsonElement response = jsonObj.get("response");
 				realAmount = response.getAsJsonObject().get("amount").getAsString();
-			
 				
 				//값이 같을 경우 -> 영수증 데이터에 Dto 추가, class에 회원 추가
 				if(realAmount.equals(payingDto.getPayment_price())) {
@@ -78,30 +72,17 @@ public class PayingController {
 					insertDto.setPayment_refund("N");
 					
 					int payingres = payingBiz.insertPaying(insertDto);
-					int classres = classBiz.updateClassStudent(insertDto.getClass_no(), insertDto.getMember_no(), insertDto.getPayment_impuid());
+					int classres = classBiz.updateClassStudent(insertDto.getClass_no(),
+							insertDto.getMember_no(), insertDto.getPayment_impuid());
 					
 					if(payingres<= 0 || classres <= 0) {
-						
-						//TODO : 실패할 경우 rollback 처리 후 실패로 처리
-						
 						check = false;
-						System.out.println(payingres);
-						System.out.println(classres);
-						
-						// TODO : classBiz의 studentRun
 					}
-							
-					
 				}else {
 					
 					insertDto.setPayment_state("N");
 					insertDto.setPayment_refund("Y");
-					
 					int pyaingres = payingBiz.insertPaying(payingDto);
-					
-					// TODO : 환불 코드(payingBiz refundPaying)
-					
-					
 				}
 										
 			} catch (Exception e) {
@@ -109,12 +90,8 @@ public class PayingController {
 			}
 					
 		map.put("check", check);
-	
-	
+		
 		return map;
-		
-		
-
 	}
 
 }
