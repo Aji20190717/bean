@@ -8,9 +8,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-	function chatbotStart(arg1) {
+	function chatbotStart() {
 
-		var url = "chat.do?csname="+arg1;
+		var url = "chat.do";
 		var title = "Bean FAQ chatting";
 		var prop = "top=300px,left=300px,width=800px,height=820px,resizable=no,fullscreen=no,location=no";
 
@@ -31,7 +31,7 @@
 	<br />
 
 
-	<button onclick="chatbotStart('${login.member_name}');">실시간 채팅(팝업)</button>
+	<button onclick="chatbotStart();">실시간 채팅(팝업)</button>
 	<span><input type="button" value="챗봇" onclick=""></span>
 
 	<br />

@@ -1,9 +1,5 @@
 package com.power.bean.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.power.bean.biz.CsBiz;
 import com.power.bean.dto.CsDto;
-import com.power.bean.util.EchoHandler;
 
 @Controller
 public class ChatController {
@@ -20,14 +15,9 @@ public class ChatController {
 	@Autowired
 	private CsBiz ciz;
 
-	private EchoHandler echo;
-
 	// 채팅방 입장
 	@RequestMapping(value = "/chat.do", method = RequestMethod.GET)
-	public String view_chat(HttpServletRequest request, HttpServletResponse response, Model model, CsDto dto)
-			throws Exception {
-
-		System.out.println("controller dto : " + dto.getCsname());
+	public String view_chat() throws Exception {
 
 		return "cs_chat";
 	}

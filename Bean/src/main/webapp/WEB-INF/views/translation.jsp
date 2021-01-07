@@ -18,8 +18,8 @@ textarea{
 	<%@ include file="./header.jsp"%>
 	<h1>번역기</h1>
 	<form action="transres.do" method="post">
+	
 		<section>
-		
 			<article>
 			<h2>번역 전</h2>
 			<select name="source" size="1">
@@ -43,6 +43,7 @@ textarea{
 			<br />	 	
 			</article>
 		</section>
+		
 	</form>
 	
 
