@@ -65,13 +65,18 @@ public class MemberController {
 	@ResponseBody
 	public Map<String, Boolean> displayPhoto (HttpServletResponse response, Model model, HttpSession session) throws Exception {
 
-	    ServletOutputStream bout = response.getOutputStream();
+	    // ServletOutputStream bout = response.getOutputStream();
 	    
 	    LoginDto dto = (LoginDto) session.getAttribute("login");
+		// System.out.println(dto.getMember_no());
+
+		// System.out.println(session.getAttribute("login"));
+
 		String imgpath = dto.getMember_imgpath() + "\\" + dto.getMember_imgname();
 		
 		int index = dto.getMember_imgname().lastIndexOf(".");
 		String file = dto.getMember_imgname().substring(index, dto.getMember_imgname().length());
+		// System.out.println(file);
 		
 		if(file.equals(".jpg")) {
 			response.setContentType("image/jpg");
@@ -84,19 +89,22 @@ public class MemberController {
 		
 	    //파일의 경로
 	    FileInputStream f;
-	    int length;
-	    byte[] buffer = new byte[10];
+	    // int length;
+	    // byte[] buffer = new byte[10];
 		try {
 			f = new FileInputStream(imgpath);
-		    while((length=f.read(buffer)) != -1){
-		    	bout.write(buffer,0,length);
-		    }
+		    // while((length=f.read(buffer)) != -1){
+		    	//bout.write(buffer,0,length);
+		    // }
 		    check = true;
 		    map.put("check", check);
 		} catch (FileNotFoundException e) {
+			// e.printStackTrace();
 			check = false;
 			map.put("check", check);
+			System.out.println("error catch : 파일없음");
 		}
+		// System.out.println(map.get("check"));
 		
 	    return map;
 	}

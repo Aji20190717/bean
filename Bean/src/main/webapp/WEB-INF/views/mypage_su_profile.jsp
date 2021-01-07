@@ -198,7 +198,6 @@ $(document).ready(function(){
 	$.ajax({
 		type : "post",
 		url : "profileimg.do",
-		contentType : "application/json",
 		dataType : "json",
 		success : function(msg){
 			console.log(msg);
@@ -207,8 +206,8 @@ $(document).ready(function(){
 			} else {
 				$("#profileimg").attr("src","resources/images/profile/profile.png");
 			}
-		}, error : function(){
-			alert("통실 실패");
+		}, error : function(request,status,error){
+			alert("code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + error);
 		}
 	});
 
