@@ -26,9 +26,9 @@
   <li>1:1 화상채팅 기능(webRTC) :: 일부기능 추후 구현</li>
 <br/><br/>
 <b>4. DB설계</b>
-  <li>회원 : 회원 번호(PK), 회원 ID, 회원 PW, PW 확인, 회원 이름, 회원 이메일,<br/>
+  <li>회원 : 회원 번호(PK), 회원 ID, 회원 PW, PW 확인, 회원 이름, 회원 이메일, 회원 전화번호,<br/>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  회원 전화번호, 회원 주소, 회원 생년월일, 회원 프로필 사진, 회원 타입, 탈퇴 여부, 가입시 사용한 sns 타입</li>
+  회원 주소, 회원 생년월일, 회원 프로필 사진, 회원 타입, 탈퇴 여부, 가입시 사용한 sns 타입</li>
   <li>수업 : 수업 번호(PK), 회원 번호(FK), 수업 최대 인원, 현재 수강 인원, 시작 날짜, 종료 날짜, <br/>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   수업 이름, 수업 내용, 수강 회원 이름, 수업 삭제 여부</li>
