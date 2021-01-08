@@ -5,9 +5,11 @@
 <br/><br/>
 <b>2. 개발환경</b>
   <li>구현 언어 : Java, HTML, Javascript, CSS, Oracle, Node.js, Express</li>
-  <li>사용 기술 : 로그인 API, 글쓰기 API, 지도 API, 번역 API, 결제 API, 페이징, 파일 업로드, spring security, custom filter,<br/>
+  <li>사용 기술 : 로그인 API, 글쓰기 API, 지도 API, 번역 API, 결제 API, 페이징,<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  aop, webRTC, 음성-문자 번역 API, OCR API, 챗봇 API, 스케줄 관리(Spring Quartz), DataBase, Spring websocket</li>
+  파일 업로드, spring security, custom filter, aop, webRTC, 음성-문자 번역 API, OCR API,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  챗봇 API, 스케줄 관리(Spring Quartz), DataBase, Spring websocket</li>
   <li>사용 도구 : Spring framework, jQuery, Tomcat, 부트스트랩</li>
 <br/><br/>
 <b>3. 구현 기능</b>
@@ -24,14 +26,16 @@
   <li>1:1 화상채팅 기능(webRTC) :: 일부기능 추후 구현</li>
 <br/><br/>
 <b>4. DB설계</b>
-  <li>회원 : 회원 번호(PK), 회원 ID, 회원 PW, PW 확인, 회원 이름, 회원 이메일, 회원 전화번호, 회원 주소, 회원 생년월일,<br/>
+  <li>회원 : 회원 번호(PK), 회원 ID, 회원 PW, PW 확인, 회원 이름, 회원 이메일,<br/>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  회원 프로필 사진, 회원 타입, 탈퇴 여부, 가입시 사용한 sns 타입</li>
-  <li>수업 : 수업 번호(PK), 회원 번호(FK), 수업 최대 인원, 현재 수강 인원, 시작 날짜, 종료 날짜, 수업 이름, 수업 내용,<br/>
+  회원 전화번호, 회원 주소, 회원 생년월일, 회원 프로필 사진, 회원 타입, 탈퇴 여부, 가입시 사용한 sns 타입</li>
+  <li>수업 : 수업 번호(PK), 회원 번호(FK), 수업 최대 인원, 현재 수강 인원, 시작 날짜, 종료 날짜, <br/>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  수강 회원 이름, 수업 삭제 여부</li>
+  수업 이름, 수업 내용, 수강 회원 이름, 수업 삭제 여부</li>
   <li>문의 : 글 번호(PK), 문의 카테고리, 제목, 작성자, 내용, 작성일</li>
-  <li>결제 : 결제 번호(PK), 회원 번호(FK), 수업 번호(FK), 결제 방법, 결제 금액, 결제 상태, 결제일, IMFORT 고유 번호, 횐불 여부</li>
+  <li>결제 : 결제 번호(PK), 회원 번호(FK), 수업 번호(FK), 결제 방법, 결제 금액, 결제 상태,<br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  결제일, IMFORT 고유 번호, 횐불 여부</li>
   <li>질문/작문 : 글 번호(PK), 회원 번호(FK), 작성자, 제목, 내용, 작성일, 읽힌 수, 그룹 안 순서, 그룹 번호, 댓글,<br/>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   댓글의 삭제 여부, 파일 이름, 파일 경로, OCR</li>
