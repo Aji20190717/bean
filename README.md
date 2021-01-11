@@ -40,3 +40,9 @@
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   댓글의 삭제 여부, 파일 이름, 파일 경로, OCR</li>
   <li>리뷰 : 글 번호(PK), 회원 번호(FK), 작성자, 제목, 내용, 작성일, 읽힌 수, 삭제 여부, 수업 이름, 강사 이름, 별점</li>
+<b>5. 시연영상/포트폴리오 및 사이트 링크</b>
+  <li> 시연영상 : https://www.youtube.com/watch?v=Hmf9r7ADKWI </li>
+  <li> 포트폴리오 : https://github.com/Aji20190717/bean/blob/main/%ED%8C%8C%EC%9B%8C%EB%A0%88%EC%9D%B8%EC%A1%B0_%ED%8C%8C%EC%9D%B4%EB%84%90%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8.pdf </li>
+  <li> 배포 url :  http://qclass.iptime.org:8686/Bean/</li>
+  
+  
