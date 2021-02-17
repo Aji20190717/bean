@@ -26,7 +26,6 @@ public class LoginDaoImpl implements LoginDao {
 			e.printStackTrace();
 		}
 
-		System.out.println(res.getMember_id());
 		return res;
 
 	}
@@ -85,7 +84,7 @@ public class LoginDaoImpl implements LoginDao {
 		
 		dto = sqlSession.selectOne(NAMESPACE + "snsChk" , member_sns);
 		
-		// dto가 비어있지 않다면 false(이미 가입), true(가입 가능)
+		// dto媛� 鍮꾩뼱�엳吏� �븡�떎硫� false(�씠誘� 媛��엯), true(媛��엯 媛��뒫)
 		return dto;
 	}
 
