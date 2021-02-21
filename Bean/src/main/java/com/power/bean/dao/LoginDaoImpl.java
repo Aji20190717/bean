@@ -15,9 +15,6 @@ public class LoginDaoImpl implements LoginDao {
 	@Override
 	public LoginDto login(String member_id) {
 		
-		System.out.println("dao.login");
-		System.out.println(member_id);
-		
 		LoginDto res = null;
 
 		try {
@@ -84,7 +81,6 @@ public class LoginDaoImpl implements LoginDao {
 		
 		dto = sqlSession.selectOne(NAMESPACE + "snsChk" , member_sns);
 		
-		// dto媛� 鍮꾩뼱�엳吏� �븡�떎硫� false(�씠誘� 媛��엯), true(媛��엯 媛��뒫)
 		return dto;
 	}
 

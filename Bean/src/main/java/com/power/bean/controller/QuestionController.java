@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -16,16 +15,17 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
@@ -189,8 +189,8 @@ public class QuestionController {
 		String ocr;
 
 		// TODO : 배포 시 url 변경
-		String url = "http://127.0.0.1:5000/";
-		String body = null;
+		String url = "http://127.0.0.1:5002/";
+		//String body = null;
 
 		// file upload
 		fileValidator.validate(dto, result);
@@ -239,32 +239,24 @@ public class QuestionController {
 
 					outputStream.write(b, 0, read);
 				}
-
+				
 				// OCR(Connect flask)
-				Map<String, Object> params = new HashMap<String, Object>();
-				params.put("path", path);
-				params.put("filename", name);
-
-				try {
-					body = objectMapper.writeValueAsString(params);
-				} catch (JsonGenerationException e) {
-					e.printStackTrace();
-				} catch (JsonMappingException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-				if (body != null) {
-
-					HttpHeaders headers = new HttpHeaders();
-					headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-					HttpEntity entity = new HttpEntity(body, headers);
-
-					ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
-					ocr = response.getBody();
-					uploadDto.setQuestionboard_ocr(ocr);
-				}
+				
+				HttpHeaders headers = new HttpHeaders();
+				headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+				
+				MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+				//새 파일 생성 및 전송
+				body.add("imagefile", new FileSystemResource(path));
+				
+				HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+				
+				RestTemplate restTemplate = new RestTemplate();
+				ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
+				
+				System.out.println(response);
+				  
+	
 
 			} catch (IOException e) {
 				e.printStackTrace();
