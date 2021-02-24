@@ -310,6 +310,8 @@ public class QuestionController {
 	//send file to flask
 	private String ocrInFlask(String imagePath, String imageName) {
 		
+		String ocrValue = "";
+		//TODO : Url 배포 주소로 변환 
 		String url = "http://127.0.0.1:5002/";
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -325,12 +327,9 @@ public class QuestionController {
 		
 		ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
 		
-		System.out.println("test " + response);
-		
-		
+		ocrValue = response.getBody();
 			
-		
-		return "";
+		return ocrValue;
 		
 	}
 
