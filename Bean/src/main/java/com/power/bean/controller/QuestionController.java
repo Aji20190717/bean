@@ -189,7 +189,6 @@ public class QuestionController {
 		String ocr;
 
 		// TODO : 배포 시 url 변경
-		String url = "http://127.0.0.1:5002/";
 		//String body = null;
 
 		// file upload
@@ -240,14 +239,16 @@ public class QuestionController {
 					outputStream.write(b, 0, read);
 				}
 				
-				// OCR(Connect flask)
+				ocrInFlask(path, name);
 				
+				// OCR(Connect flask)
+				/*
 				HttpHeaders headers = new HttpHeaders();
 				headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 				
 				MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
 				//새 파일 생성 및 전송
-				body.add("imagefile", new FileSystemResource(path));
+				body.add("imagefile", new FileSystemResource(newFile));
 				
 				HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 				
@@ -255,7 +256,8 @@ public class QuestionController {
 				ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
 				
 				System.out.println(response);
-				  
+				
+				*/
 	
 
 			} catch (IOException e) {
@@ -304,5 +306,33 @@ public class QuestionController {
 
 		return "redirect:questionDetail.do?" + questionboard_no;
 	}
+	
+	//send file to flask
+	private String ocrInFlask(String imagePath, String imageName) {
+		
+		String url = "http://127.0.0.1:5002/";
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+		
+		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+		FileSystemResource resource = new FileSystemResource(imagePath + imageName);
+		body.add("file", resource);
+		
+		HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
+		
+		System.out.println("test " + response);
+		
+		
+			
+		
+		return "";
+		
+	}
 
 }
+
